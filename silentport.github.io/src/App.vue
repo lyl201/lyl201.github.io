@@ -2,29 +2,46 @@
   <div id="app">
     <header>
       <div class="avator">
-         <img src="" alt="" class="avator">
+        icon
       </div>
-      <div class="tab">
-        <div>Latest</div>
-        <div>JavaScript</div>
-        <div>CSS</div>
-        <div>Node.js</div>
-        <div>Database</div>
-        <div>Experiences</div>
-        <div>Others</div>
-      </div>
+      <Tab :item=item />
     </header>
-    <router-view/>
+    <div class="container">
+      <div class="side">
+
+      </div>
+      <div class="main">
+        <router-view/>
+      </div>
+    </div>
+
+    
   </div>
 </template>
 
 <script>
+import Tab from '@/components/Tab'
 export default {
-  name: 'App'
+  name: 'App',
+  data(){
+    return {
+      item: [
+        'Latest',
+        'JavaScript',
+        'Css',
+        'Node.js',
+        'DataBase',
+        'Other'
+      ],
+    }
+  },
+  components: {
+    Tab,
+  }
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -32,26 +49,29 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 30px;
+  margin-left: 30px;
+  font-family: 'time new roman';
 }
 header {
+  // background: #eee;
+  display: flex;
+  .avator {
+    width: 100px;
+    height: 100px;
+    border: 1px solid #000;
+    font-size: 20px;  
+  } 
+}
+.container {
   display: flex;
 }
-.tab {
-  margin-left: 30px;
-  display: flex;
-  flex-wrap: wrap;
-  border-bottom: 1px solid gray;
-  justify-content: space-between;
-  padding: 0 0 20px 0px
+.side {
+  width: 230px;
+  height: 800px;
+  background: #eee;
 }
-.avator {
-  background: #000;
-  width: 100px;
-  height: 100px;
-  border: 1px solid #000;
-  vertical-align: top;
-}
-header > div {
-
+.main {
+  width: calc(100% - 230px);
+  background: #ddd;
 }
 </style>
