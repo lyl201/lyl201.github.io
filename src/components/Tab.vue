@@ -1,38 +1,100 @@
 <template>
     <div class="tab-container">
         <div @click="switchTab(index)" :class="{'high-light': curIndex == index}" v-for="(val, index) in item" :key="index">{{val}}</div>
+        <img :src="url" alt="" class="more" @click="openList">
+        <ul v-show="listshow">
+            <li>Latest</li>
+            <li>JavaScript</li>
+            <li>Css</li>
+            <li>Node.js</li>
+            <li>Database</li>
+            <li>Other</li>
+        </ul>
     </div>  
 </template>
 <script>
+const img = require("../../static/more.png");
 export default {
-    data() {
-        return {
-            curIndex: 0,
-        }
+  data() {
+    return {
+      curIndex: 0,
+      url: img,
+    };
+  },
+  props: {
+    item: Array
+  },
+  methods: {
+    switchTab(index) {
+      this.curIndex = index;
     },
-    props: {
-        item: Array,
-    },
-    methods: {
-        switchTab (index) {
-            this.curIndex = index;
-        }
+    openList() {
+        this.$store.commit("switchStatus")
     }
-
+  },
+  computed: {
+      listshow() {
+          return this.$store.state.listShow;
+      }
+  }
 };
 </script>
 <style lang="scss" scoped>
 .tab-container {
   display: flex;
   flex-wrap: wrap;
-  width: calc(100% - 320px);
-  margin-left: 10px;
-  justify-content: space-around;
+  justify-content: flex-end;
+  padding-right: 20px;
+  box-sizing: border-box;
+  width: calc(100% - 310px);
+  margin-left: 0px;
   font-family: serif;
-  
+  position: relative;
+  .more {
+    display: none;
+    width: 50px;
+    margin-top: 30px;
+    height: 50px * (140/521);
+  }
+  ul {
+      display: none;
+  }
+  @media screen and (max-width: 697px) {
+    .more {
+      display: block;
+      cursor: pointer;
+    }
+    ul {
+        display: block;
+        background: #444;
+        color: #eee;
+        padding: 10px;
+        font-size: 20px;
+        text-align: left;      
+        position: absolute;
+        box-shadow: 5px 5px 5px #777;
+        box-sizing: border-box;
+        height: 200px;
+        top: 60px;
+        li {
+            list-style: none;
+            cursor: pointer;
+            width: 130px;
+        }
+        li:hover {
+            font-weight: bolder;
+            font-size: 30px;
+        }
+    }
+    div {
+        display: none;
+    }
+  }
   div {
-    width: 150px;
-    font-size: 30px;
+    width: auto;
+    box-sizing: border-box;
+    padding: 0 10px;
+    font-size: 35px;
     font-weight: 500;
     height: 70px;
     color: #ddd;
@@ -40,18 +102,17 @@ export default {
     position: relative;
     cursor: pointer;
   }
+
   div:not(.high-light):hover {
-      transition: background 200ms;
-      background: rgba(200,200,200,0.2);
+    transition: background 200ms;
+    background: rgba(200, 200, 200, 0.2);
   }
   .high-light {
-      color: #fff;
-      height: 68px;
-      font-weight:bolder;
-      font-size: 32px;
-      background: rgba(0,0,0,0.4);
-
+    color: #fff;
+    height: 68px;
+    font-weight: bolder;
+    font-size: 32px;
+    background: rgba(0, 0, 0, 0.4);
   }
- 
 }
 </style>

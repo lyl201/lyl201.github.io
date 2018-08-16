@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" @click="handleclick">
     <header>
       <div class="title">
         silentport的博客
@@ -15,10 +15,7 @@
              js新特性
            </div>
            <div class="text">
-             市场高富帅噶大会发化工市场高富帅噶大会发化工市场高富帅噶大会发化工
-             市场高富帅噶大会发化工市场高富帅噶大会发化工市场高富帅噶大会发化工
-             市场高富帅噶大会发化工市场高富帅噶大会发化工市场高富帅噶大会发化工
-             市场高富帅噶大会发化工市场高富帅噶大会发化工市场高富帅噶大会发化工
+             市场高富帅噶大会发化工市场高富帅噶大会发化工市场高富帅噶大会发化工市场高富帅噶大会发化工市场高富帅噶大会发化工市场高富帅噶大会发化工市场高富帅噶大会发化工市场高富帅噶大会发化工市场高富帅噶大会发化工市场高富帅噶大会发化工市场高富帅噶大会发化工市场高富帅噶大会发化工
            </div>
            <div class="underline">
              <div>2015-09-30</div>
@@ -90,11 +87,16 @@ export default {
   data() {
     return {
       item: ["Latest", "JavaScript", "Css", "Node.js", "Database", "Other"],
-      url1: img1,
+      url1: img1
     };
   },
   components: {
     Tab
+  },
+  methods: {
+    handleclick(e) {
+      this.$store.commit("hide", e)
+    }
   }
 };
 </script>
@@ -120,9 +122,9 @@ header {
     width: 300px;
     font-weight: bolder;
     font-family: serif;
-    
   }
 }
+
 .container {
   display: flex;
   // background: #fff;
@@ -159,11 +161,19 @@ header {
       margin-bottom: 10px;
       cursor: pointer;
       box-shadow: 4px 4px 3px #aaa;
-      img{
+      img {
         height: 200px;
+      }
+      @media screen and (max-width: 1060px) { 
+        img {
+          display: none;
+        }
       }
       .desc {
         margin-left: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         .title {
           font-size: 30px;
           font-family: serif;
@@ -171,14 +181,21 @@ header {
           line-height: 50px;
         }
         .text {
-          height: 130px;
+          // height: 130px;
           font-size: 16px;
           color: #444;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 4;
+
+          
         }
         .underline {
           display: flex;
           justify-content: space-around;
-          color:#888;
+          color: #888;
         }
       }
     }
@@ -250,7 +267,7 @@ header {
       box-shadow: 4px 4px 3px #aaa;
 
       ul {
-        li{
+        li {
           cursor: pointer;
           height: 40px;
           font-size: 16px;
@@ -314,5 +331,29 @@ footer {
   top: 39px;
   right: 20px;
   background: #666;
+}
+@media screen and (max-width: 1199px) {
+  .side-title::after,
+  .side-title::before {
+    display: none;
+  }
+}
+@media screen and (max-width: 1053px) {
+  header {
+    background: linear-gradient(#444 48%, #444 52%);
+    margin-bottom: 70px;
+  }
+}
+@media screen and (max-width: 697px) {
+  header {
+    background: linear-gradient(#444 48%, #eee 52%);
+    margin-bottom: 0px;
+  }
+  .side {
+    display: none;
+  }
+  .container .main {
+    width: 100%;
+  }
 }
 </style>
