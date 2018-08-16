@@ -31,7 +31,7 @@ export default {
   font-family: serif;
   
   div {
-    width: 100px;
+    width: 150px;
     font-size: 30px;
     font-weight: 500;
     height: 70px;
