@@ -25,8 +25,8 @@ export default {
 .tab-container {
   display: flex;
   flex-wrap: wrap;
-  width: calc(100% - 580px);
-  margin-left: 100px;
+  width: calc(100% - 320px);
+  margin-left: 10px;
   justify-content: space-around;
   font-family: serif;
   

@@ -116,8 +116,8 @@ header {
     color: #dee;
     font-size: 30px;
     line-height: 70px;
-    margin-left: 30px;
-    width: 400px;
+    margin-left: 10px;
+    width: 300px;
     font-weight: bolder;
     font-family: serif;
     
