@@ -52,9 +52,9 @@ export default {
   position: relative;
   .more {
     display: none;
-    width: 50px;
+    width: 30px;
     margin-top: 30px;
-    height: 50px * (140/521);
+    height: 30px * (140/521);
   }
   ul {
       display: none;
@@ -69,7 +69,7 @@ export default {
         background: #444;
         color: #eee;
         padding: 10px;
-        font-size: 30px;
+        font-size: 25px;
         text-align: left;      
         position: absolute;
         box-shadow: 5px 5px 5px #777;
@@ -79,7 +79,7 @@ export default {
         li {
             list-style: none;
             cursor: pointer;
-            width: 130px;
+            width: 120px;
             margin-bottom: 10px;
         }
         li:hover {

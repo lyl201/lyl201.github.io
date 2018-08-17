@@ -57,7 +57,7 @@ export default {
     Tab,
     Article,
     PartPage,
-    Tag,
+    Tag
   },
   methods: {
     handleclick(e) {
@@ -94,13 +94,13 @@ header {
 
 .container {
   display: flex;
-  height: 980px;
+  // height: 980px;
   margin-bottom: 20px;
   width: 80%;
   margin: -40px auto 20px;
   .main {
     width: 75%;
-    height: 980px;
+    // height: 980px;
     text-align: left;
   }
   .side {
@@ -162,7 +162,7 @@ header {
       span:hover {
         background: #444;
       }
-    }   
+    }
   }
 }
 
@@ -196,10 +196,14 @@ footer {
   header {
     background: linear-gradient(#444 48%, #eee 52%);
     margin-bottom: 0px;
+    .title {
+      font-size: 20px;
+    }
   }
   .side {
     display: none;
   }
+
   .container .main {
     width: 100%;
   }

@@ -25,7 +25,7 @@
 export default {
   methods: {
     openText() {
-      console.log("查看全文");   
+      console.log("查看全文");
     }
   }
 };
@@ -44,11 +44,7 @@ export default {
   img {
     height: 200px;
   }
-  @media screen and (max-width: 1060px) {
-    img {
-      display: none;
-    }
-  }
+
   .desc {
     margin-left: 20px;
     display: flex;
@@ -99,6 +95,26 @@ export default {
         color: #096;
       }
     }
+  }
+}
+@media screen and (max-width: 1060px) {
+  img {
+    display: none;
+  }
+  .clock,
+  .read,
+  .comment,
+  .tag,
+  .like {
+    display: none;
+  }
+
+  .all {
+    width: 100%;
+    margin-left: -20px;
+  }
+  .article {
+    height: 170px;
   }
 }
 </style>
