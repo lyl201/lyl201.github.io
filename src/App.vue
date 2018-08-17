@@ -8,35 +8,8 @@
     </header>
     <div class="container">
      <div class="main">
-       <div class="article" v-for="n in 4" :key="n">
-         <img src="http://www.yangqq.com/skin/850/images/text01.jpg" alt="">
-         <div class="desc">
-           <div class="title">
-             js新特性
-           </div>
-           <div class="text">
-             市场高富帅噶大会发化工市场高富帅噶大会发化工市场高富帅噶大会发化工市场高富帅噶大会发化工市场高富帅噶大会发化工市场高富帅噶大会发化工市场高富帅噶大会发化工市场高富帅噶大会发化工市场高富帅噶大会发化工市场高富帅噶大会发化工市场高富帅噶大会发化工市场高富帅噶大会发化工
-           </div>
-           <div class="underline">
-             <div>2015-09-30</div>
-             <div>赞数：0</div>
-             <div>评论：0</div>
-             <div>查看全文</div>
-           </div>
-
-         </div>
-       </div>
-        <div class="partpage">
-           <div>99</div>
-           <div style="width: 100px">上一页</div>
-           <div>1</div>
-           <div>2</div>
-           <div>3</div>
-           <div>4</div>
-           <div>5</div>
-           <div>6</div>
-           <div style="width: 100px">下一页</div>
-         </div>
+       <Article/>
+       <PartPage/>
      </div>
      <div class="side">
        <div class="intro">
@@ -44,7 +17,7 @@
               About Me
           </div>
           <div class="avator">
-            <img :src="url1" alt="" >
+            <img :src="icon" alt="" >
           </div>   
           <p>
             前端攻城狮、坐标帝都
@@ -53,55 +26,49 @@
        <div class="search">
          <input type="text" placeholder="输入搜索词"><span>搜索</span>
        </div>
-
-       <div class="msg">
-        <div class="side-title">
-          标签
-        </div>
-        <ul>
-          <li>最近一周-[2]</li>
-          <li>JavaScript-[6]</li>
-          <li>Css-[56]</li>
-          <li>Node.js-[7]</li>
-          <li>Database-[9]</li>
-          <li>other-[89]</li>
-          <li>全部-[78]</li>
-        </ul>
-       </div>
+        <Tag/>
+       
      </div>
-
     </div>
       <footer>
-        联系我: 
-        邮箱： <a href="mailto://18201180289@163.com">18201180289@163.com</a>    
+        联系我:&nbsp;&nbsp;&nbsp;&nbsp;
+        邮箱： <a href="mailto:18201180289@163.com">18201180289@163.com</a> 
+        &nbsp;&nbsp;&nbsp;&nbsp;
         github： <a href="https://github.com/silentport">https://github.com/silentport</a>
       </footer>  
   </div>
 </template>
 
 <script>
+const icon = require("../static/icon.jpg");
 import Tab from "@/components/Tab";
-const img1 = require("../static/icon.jpg");
+import Tag from "@/components/Tag";
+import Article from "@/components/Article";
+import PartPage from "@/components/PartPage";
 export default {
   name: "App",
   data() {
     return {
       item: ["Latest", "JavaScript", "Css", "Node.js", "Database", "Other"],
-      url1: img1
+      icon: icon
     };
   },
   components: {
-    Tab
+    Tab,
+    Article,
+    PartPage,
+    Tag,
   },
   methods: {
     handleclick(e) {
-      this.$store.commit("hide", e)
+      this.$store.commit("hide", e);
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+@import url(./components/css/side.css);
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -127,78 +94,14 @@ header {
 
 .container {
   display: flex;
-  // background: #fff;
   height: 980px;
   margin-bottom: 20px;
   width: 80%;
   margin: -40px auto 20px;
   .main {
-    // border: 1px solid #000;
     width: 75%;
     height: 980px;
     text-align: left;
-    .partpage {
-      display: flex;
-      width: 60%;
-      margin: 30px;
-      justify-content: space-between;
-      div {
-        border: 1px solid #666;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 25px;
-        height: 25px;
-        color: #444;
-      }
-    }
-    .article {
-      background: #fff;
-      height: 220px;
-      box-sizing: border-box;
-      padding: 10px;
-      display: flex;
-      margin-bottom: 10px;
-      cursor: pointer;
-      box-shadow: 4px 4px 3px #aaa;
-      img {
-        height: 200px;
-      }
-      @media screen and (max-width: 1060px) { 
-        img {
-          display: none;
-        }
-      }
-      .desc {
-        margin-left: 20px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        .title {
-          font-size: 30px;
-          font-family: serif;
-          height: 50px;
-          line-height: 50px;
-        }
-        .text {
-          // height: 130px;
-          font-size: 16px;
-          color: #444;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          display: -webkit-box;
-          -webkit-box-orient: vertical;
-          -webkit-line-clamp: 4;
-
-          
-        }
-        .underline {
-          display: flex;
-          justify-content: space-around;
-          color: #888;
-        }
-      }
-    }
   }
   .side {
     width: calc(25% - 10px);
@@ -256,25 +159,10 @@ header {
         font-weight: bolder;
         cursor: pointer;
       }
-    }
-    .msg {
-      background: #fff;
-      margin-top: 10px;
-      text-align: left;
-      height: 474px;
-      padding: 7px 5px;
-      box-sizing: border-box;
-      box-shadow: 4px 4px 3px #aaa;
-
-      ul {
-        li {
-          cursor: pointer;
-          height: 40px;
-          font-size: 16px;
-          color: #444;
-        }
+      span:hover {
+        background: #444;
       }
-    }
+    }   
   }
 }
 
@@ -284,8 +172,6 @@ footer {
   padding-top: 30px;
   color: #fff;
   box-sizing: border-box;
-  // position: fixed;
-  // bottom: 0px;
   width: 100%;
   font-family: serif;
   img {
@@ -299,45 +185,7 @@ footer {
     font-size: 16px;
   }
 }
-.side-title {
-  height: 80px;
-  position: relative;
-  box-sizing: border-box;
-  text-align: center;
-  padding-top: 20px;
-  font-weight: bolder;
-  font-size: 30px;
-  color: #666;
-  background: #fff;
-}
-.side-title::before {
-  position: absolute;
-  content: "";
-  display: inline;
-  border-radius: 2px;
-  width: 40px;
-  height: 4px;
-  top: 39px;
-  left: 20px;
-  background: #666;
-}
-.side-title::after {
-  position: absolute;
-  content: "";
-  display: inline;
-  border-radius: 2px;
-  width: 40px;
-  height: 4px;
-  top: 39px;
-  right: 20px;
-  background: #666;
-}
-@media screen and (max-width: 1199px) {
-  .side-title::after,
-  .side-title::before {
-    display: none;
-  }
-}
+
 @media screen and (max-width: 1053px) {
   header {
     background: linear-gradient(#444 48%, #444 52%);

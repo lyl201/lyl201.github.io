@@ -69,21 +69,22 @@ export default {
         background: #444;
         color: #eee;
         padding: 10px;
-        font-size: 20px;
+        font-size: 30px;
         text-align: left;      
         position: absolute;
         box-shadow: 5px 5px 5px #777;
         box-sizing: border-box;
-        height: 200px;
+        // height: 200px;
         top: 60px;
         li {
             list-style: none;
             cursor: pointer;
             width: 130px;
+            margin-bottom: 10px;
         }
         li:hover {
             font-weight: bolder;
-            font-size: 30px;
+            color: #489;
         }
     }
     div {
@@ -94,7 +95,7 @@ export default {
     width: auto;
     box-sizing: border-box;
     padding: 0 10px;
-    font-size: 35px;
+    font-size: 32px;
     font-weight: 500;
     height: 70px;
     color: #ddd;
@@ -108,9 +109,9 @@ export default {
     background: rgba(200, 200, 200, 0.2);
   }
   .high-light {
-    color: #fff;
+    color: #489;
     height: 68px;
-    font-weight: bolder;
+    font-weight:bolder;
     font-size: 32px;
     background: rgba(0, 0, 0, 0.4);
   }
