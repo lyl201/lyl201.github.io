@@ -114,7 +114,7 @@ export default {
     margin-left: -20px;
   }
   .article {
-    height: 170px;
+    height: 160px;
   }
 }
 </style>

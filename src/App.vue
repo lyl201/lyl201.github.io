@@ -9,7 +9,7 @@
     <div class="container">
      <div class="main">
        <Article/>
-       <PartPage/>
+       <PartPage :num="32"/>
      </div>
      <div class="side">
        <div class="intro">
@@ -143,7 +143,7 @@ header {
         vertical-align: top;
         outline: none;
         width: calc(100% - 60px);
-        border: 1px dashed #000;
+        border: none;
         border-right: none;
         font-size: 16px;
       }
