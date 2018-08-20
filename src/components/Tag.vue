@@ -29,8 +29,10 @@ export default {};
   box-shadow: 4px 4px 3px #aaa;
 
   ul {
+    padding-left: 40px;
     li {
       cursor: pointer;
+      list-style: disc;
       height: 40px;
       font-size: 16px;
       color: #444;

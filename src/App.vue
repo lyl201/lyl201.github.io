@@ -42,6 +42,8 @@
 const icon = require("../static/icon.jpg");
 import Tab from "@/components/Tab";
 import Tag from "@/components/Tag";
+require('es6-promise').polyfill();
+require('isomorphic-fetch');
 export default {
   name: "App",
   data() {

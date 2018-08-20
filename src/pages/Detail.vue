@@ -47,11 +47,7 @@ export default {
         margin-bottom: 20px;
     }
     ul {
-        margin: 0px;
-        padding: 0px;
         li {
-            margin: 0px;
-            padding: 0px;
             list-style:none;
             div:first-child {
                 padding-top: 10px;
@@ -63,8 +59,7 @@ export default {
                     margin-right: 20px;
                 }
             }
-            div:last-child {
-               
+            div:last-child {  
                 padding: 10px 0px;
                 padding-left: 50px;
                 display: flex;

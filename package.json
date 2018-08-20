@@ -11,8 +11,11 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "es6-promise": "^4.2.4",
+    "isomorphic-fetch": "^2.2.1",
     "marked": "^0.5.0",
     "mavon-editor": "^2.6.17",
+    "promise-polyfill": "8.1.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
