@@ -26,6 +26,7 @@ export default {
   methods: {
     openText() {
       console.log("查看全文");
+      this.$router.push('/detail')
     }
   }
 };

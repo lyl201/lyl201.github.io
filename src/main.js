@@ -3,10 +3,16 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import Vuex from 'vuex';
-
+import Marked from "marked"; 
+// import mavonEditor from 'mavon-editor'
 
 Vue.config.productionTip = false
+// Vue.use(mavonEditor)
+Vue.use({
+  install(Vue, options) {
+    Vue.prototype.$marked = Marked;
+  }
+})
 
 import store from './store.js';
 /* eslint-disable no-new */

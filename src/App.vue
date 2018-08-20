@@ -8,8 +8,7 @@
     </header>
     <div class="container">
      <div class="main">
-       <Article/>
-       <PartPage :num="32"/>
+       <router-view/>
      </div>
      <div class="side">
        <div class="intro">
@@ -43,8 +42,6 @@
 const icon = require("../static/icon.jpg");
 import Tab from "@/components/Tab";
 import Tag from "@/components/Tag";
-import Article from "@/components/Article";
-import PartPage from "@/components/PartPage";
 export default {
   name: "App",
   data() {
@@ -55,9 +52,7 @@ export default {
   },
   components: {
     Tab,
-    Article,
-    PartPage,
-    Tag
+    Tag,
   },
   methods: {
     handleclick(e) {
