@@ -3,19 +3,27 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 const store = new Vuex.Store({
     state: {
-        listShow: false
+        catagoryShow: false,
+        dialogShow: false
     },
     mutations: {
-        hide(state, e) {
-            if(e.target.className != 'more') {
-                if (state.listShow) {
-                    state.listShow = !state.listShow;
+        hideCatagory(state, e) {
+            if(e.target.className !== 'more') {
+                if (state.catagoryShow) {
+                    state.catagoryShow = !state.catagoryShow;
                 }
             }
         },
         switchStatus(state) {
-            console.log(999)
-            state.listShow = !state.listShow;
+            state.catagoryShow = !state.catagoryShow;
+        },
+        openDialog(state) {
+            state.dialogShow = true;
+        },
+        hideDialog(state, e) {
+            if(e.target.className === 'dialog') {
+                state.dialogShow = false;
+            }
         }
     }
 })

@@ -26,7 +26,12 @@ export default {
   methods: {
     openText() {
       console.log("查看全文");
-      this.$router.push('/detail')
+      // this.$router.push('/detail')
+      fetch("http://192.168.199.146:3000").then(res => {
+        return res.json()
+      }).then(res => {
+        console.log(res.a)
+      })
     }
   }
 };

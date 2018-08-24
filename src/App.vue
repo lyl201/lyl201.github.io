@@ -1,8 +1,8 @@
 <template>
-  <div id="app" @click="handleclick">
+  <div id="app" :class="{'forbid-scroll': dialogShow}" @click="handleclick">
     <header>
       <div class="title">
-        silentport的博客
+        <span @click="register">注册 |</span><span  @click="login"> 登录</span> silentport的博客 
       </div>
       <Tab :item=item />
     </header>
@@ -29,36 +29,62 @@
        
      </div>
     </div>
+
+      <component :is="componentId"></component>
       <footer>
         联系我:&nbsp;&nbsp;&nbsp;&nbsp;
         邮箱： <a href="mailto:18201180289@163.com">18201180289@163.com</a> 
         &nbsp;&nbsp;&nbsp;&nbsp;
         github： <a href="https://github.com/silentport">https://github.com/silentport</a>
       </footer>  
+
+
   </div>
+
+
+
 </template>
 
 <script>
 const icon = require("../static/icon.jpg");
 import Tab from "@/components/Tab";
 import Tag from "@/components/Tag";
-require('es6-promise').polyfill();
-require('isomorphic-fetch');
+import Login from "@/components/Login";
+import Register from "@/components/Register";
+require("es6-promise").polyfill();
+require("isomorphic-fetch");
 export default {
   name: "App",
   data() {
     return {
       item: ["Latest", "JavaScript", "Css", "Node.js", "Database", "Other"],
-      icon: icon
+      icon: icon,
+      componentId: '',
     };
   },
   components: {
     Tab,
     Tag,
+    Login,
+    Register,
   },
   methods: {
     handleclick(e) {
-      this.$store.commit("hide", e);
+      this.$store.commit("hideCatagory", e);
+    },
+    register() {
+      this.$store.commit("openDialog");
+      this.componentId = "Register";
+    },
+    login() {
+      this.$store.commit("openDialog");
+      this.componentId = "Login";
+    },
+    
+  },
+  computed: {
+    dialogShow() {
+      return this.$store.state.dialogShow;
     }
   }
 };
@@ -72,6 +98,12 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   font-family: "time new roman";
+  position: relative;
+  height: 100vh;
+  overflow: scroll;
+}
+.forbid-scroll {
+  overflow: hidden !important;
 }
 header {
   background: linear-gradient(#444 48%, #eee 52%);
@@ -82,10 +114,17 @@ header {
     color: #dee;
     font-size: 30px;
     line-height: 70px;
-    margin-left: 10px;
-    width: 300px;
+    width: 500px;
     font-weight: bolder;
     font-family: serif;
+
+    span {
+      font-size: 15px;
+      color: #eee;
+      cursor: pointer;
+      vertical-align: middle;
+      display: inline-block;
+    }
   }
 }
 
@@ -205,4 +244,6 @@ footer {
     width: 100%;
   }
 }
+
+
 </style>

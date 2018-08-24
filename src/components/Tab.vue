@@ -2,7 +2,7 @@
     <div class="tab-container">
         <div @click="switchTab(index)" :class="{'high-light': curIndex == index}" v-for="(val, index) in item" :key="index">{{val}}</div>
         <img :src="url" alt="" class="more" @click="openList">
-        <ul v-show="listshow">
+        <ul v-show="catagoryShow">
             <li>Latest</li>
             <li>JavaScript</li>
             <li>Css</li>
@@ -33,8 +33,8 @@ export default {
     }
   },
   computed: {
-      listshow() {
-          return this.$store.state.listShow;
+      catagoryShow() {
+          return this.$store.state.catagoryShow;
       }
   }
 };
