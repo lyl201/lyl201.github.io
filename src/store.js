@@ -21,7 +21,7 @@ const store = new Vuex.Store({
             state.dialogShow = true;
         },
         hideDialog(state, e) {
-            if(e.target.className === 'dialog') {
+            if(['dialog', 'close'].includes(e.target.className)) {
                 state.dialogShow = false;
             }
         }

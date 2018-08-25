@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import Marked from "marked"; 
+import {request} from "./utils.js"
 // import mavonEditor from 'mavon-editor'
 
 Vue.config.productionTip = false
@@ -11,8 +12,10 @@ Vue.config.productionTip = false
 Vue.use({
   install(Vue, options) {
     Vue.prototype.$marked = Marked;
+    Vue.prototype.$request = request;
   }
 })
+
 
 import store from './store.js';
 /* eslint-disable no-new */

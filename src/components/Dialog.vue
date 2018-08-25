@@ -2,6 +2,7 @@
      <transition name="dialogFade">
            <div class="dialog" v-show="dialogShow" @click="hideDialog">
               <div class="container">
+                <div class="close" @click="hideDialog">关闭</div>
                 <slot></slot>
               </div>
           </div>
@@ -12,7 +13,8 @@ export default {
   methods: {
     hideDialog(e) {
       this.$store.commit("hideDialog", e);
-    }
+    },
+    
   },
   computed: {
     dialogShow() {
@@ -27,18 +29,23 @@ export default {
   background: rgba(0, 0, 0, 0.8);
   z-index: 999;
   width: 100vw;
-  height: 100vh;
+  height: 120vh;
   display: flex;
   justify-content: center;
   top: 0px;
   .container {
     width: 50vw;
-    height: 300px;
     margin-top: 100px;
-    
     background: #fff;
-    // border-radius: 10px;
+    position: absolute;
     box-shadow: 0px -2px 2px #fff;
+    .close {
+      margin-left: calc(100% - 70px);
+      width: 50px;
+      cursor: pointer;
+      color: #888;
+      padding: 10px;
+    }
   }
   @media screen and (max-width: 697px) {
     .container {
