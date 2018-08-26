@@ -167,7 +167,7 @@ form {
         max-width: 100px;
         max-height: 100px;
         height: auto;
-        border-radius: 50%;
+      
       }
     }
     li:last-child {

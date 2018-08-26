@@ -59,7 +59,7 @@ export default {
 .dialogFade-leave-active {
   transition: opacity 0.3s;
 }
-.dialogFade-enter, .dialogFade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+.dialogFade-enter, .dialogFade-leave-to {
   opacity: 0;
 }
 </style>
