@@ -1,4 +1,4 @@
-const host = "http://192.168.199.146:3000"
+const host = "http://localhost:3000"
 // export const queryString = (data) => {
 //   return Object.keys(data).map(key => {
 //     return `${key}=${encodeURIComponent(data[key])}`
@@ -18,16 +18,25 @@ export const request = (params) => {
     })
   }
   return new Promise((resolve, reject) => {
-    fetch(`${host}/${path}`, {
-        method: method,
-        body: formData,
-      }).then(res => {
+
+    const opt = method === 'POST' ? {
+      method: method,
+      body: formData,
+    } : {
+      method: method,
+    };
+    
+    fetch(`${host}/${path}`, opt).then(res => {
         return res.json();
       })
       .then(res => {
-        resolve(res);
+        if (res.info && res.info.status) {
+          resolve({...res.data, msg: res.info.msg});
+        } else {
+          reject(res.info && res.info.msg)
+        }     
       }).catch(err => {
-        reject(err);
+        reject('请求错误');
       })
   })
  

@@ -2,7 +2,12 @@
   <div id="app" :class="{'forbid-scroll': dialogShow}" @click="handleclick">
     <header>
       <div class="title">
-        <span @click="register">注册 |</span><span  @click="login"> 登录</span> silentport的博客 
+        <div v-if="!isLogin">
+          <span @click="register">注册 |</span><span  @click="login"> 登录</span> silentport的博客 
+        </div>
+        <div v-else>
+          {{username}}
+        </div>
       </div>
       <Tab :item=item />
     </header>
@@ -30,14 +35,13 @@
      </div>
     </div>
 
-      <component :is="componentId"></component>
+      <component :is="componentId" v-if="dialogShow"></component>
       <footer>
         联系我:&nbsp;&nbsp;&nbsp;&nbsp;
         邮箱： <a href="mailto:18201180289@163.com">18201180289@163.com</a> 
         &nbsp;&nbsp;&nbsp;&nbsp;
         github： <a href="https://github.com/silentport">https://github.com/silentport</a>
       </footer>  
-
 
   </div>
 
@@ -58,15 +62,22 @@ export default {
   data() {
     return {
       item: ["Latest", "JavaScript", "Css", "Node.js", "Database", "Other"],
-      icon: icon,
-      componentId: '',
+      icon: icon
     };
   },
   components: {
     Tab,
     Tag,
     Login,
-    Register,
+    Register
+  },
+  mounted() {
+    console.log(9999)
+    this.$request({
+      path: "home",
+      data: {a: 9},
+      method: "GET"
+    });
   },
   methods: {
     handleclick(e) {
@@ -74,17 +85,25 @@ export default {
     },
     register() {
       this.$store.commit("openDialog");
-      this.componentId = "Register";
+      this.$store.commit("componentName", "Register");
     },
     login() {
       this.$store.commit("openDialog");
-      this.componentId = "Login";
-    },
-    
+      this.$store.commit("componentName", "Login");
+    }
   },
   computed: {
     dialogShow() {
       return this.$store.state.dialogShow;
+    },
+    isLogin() {
+      return this.$store.state.isLogin;
+    },
+    componentId() {
+      return this.$store.state.componentId;
+    },
+    username() {
+      return this.$store.state.username;
     }
   }
 };
@@ -244,6 +263,4 @@ footer {
     width: 100%;
   }
 }
-
-
 </style>

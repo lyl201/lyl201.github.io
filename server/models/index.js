@@ -1,5 +1,5 @@
 module.exports = function (instance) {
     return {
-        User: require('./register')(instance)
+        User: require('./User')(instance)
     }
 }

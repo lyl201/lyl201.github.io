@@ -4,12 +4,23 @@
               <div class="container">
                 <div class="close" @click="hideDialog">关闭</div>
                 <slot></slot>
+                <div class="bottom">
+                  {{tip}} 
+                  <loading v-if="isLoading"/>
+                </div>
               </div>
           </div>
         </transition>
 </template>
 <script>
+import Loading from "@/components/Loading";
 export default {
+  components: {
+     Loading,
+  },
+  props: {
+    tip:String
+  },
   methods: {
     hideDialog(e) {
       this.$store.commit("hideDialog", e);
@@ -19,6 +30,9 @@ export default {
   computed: {
     dialogShow() {
       return this.$store.state.dialogShow;
+    },
+    isLoading(){
+      return this.$store.state.isLoading;
     }
   }
 };
@@ -34,11 +48,28 @@ export default {
   justify-content: center;
   top: 0px;
   .container {
-    width: 50vw;
+    width: 300px;
+    height: 360px;
     margin-top: 100px;
-    background: #fff;
+    background: #E1E1E1;
+    border-radius: 10px;
     position: absolute;
-    box-shadow: 0px -2px 2px #fff;
+    // box-shadow: 0px -2px 2px #fff;
+     .bottom{
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #e15748;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px; 
+      color: #ddd;
+      font-size: 13px;
+      font-family: serif;
+      
+      box-sizing: border-box;
+      padding: 0px 5px;
+    }
     .close {
       margin-left: calc(100% - 70px);
       width: 50px;
@@ -46,12 +77,7 @@ export default {
       color: #888;
       padding: 10px;
     }
-  }
-  @media screen and (max-width: 697px) {
-    .container {
-      width: 90vw;
-      height: 200px;
-    }
+    
   }
 }
 

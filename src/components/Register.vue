@@ -1,34 +1,27 @@
 <template>
-  <Dialog>
+  <Dialog :tip="helpTxt">
     <h2>注册</h2>
     <form @submit.prevent="submit">
       <ul>
         <li> 
-          <label for="name">
-              用户名
-          </label>
-          <input type="text" name="username" id="name" v-model="userInfo.username">
-          <div class="tip">{{helpTxt1}}</div>
+          <input type="text" name="username" id="name" v-model="userInfo.username" placeholder="用户名">
         </li>
         <li>
-          <label for="password">
-              密&nbsp;&nbsp;&nbsp;&nbsp;码
-          </label>
-          <input type="text" name="password" id="password" v-model="userInfo.password">
-          <div class="tip">{{helpTxt2}}</div>
+          <input type="password" name="password" id="password" v-model="userInfo.password" placeholder="密码">
         </li>
-        <li pic>
+        <!-- <li pic>
           <label for="pic">
               头像上传
           </label>
           <input type="file" name="avator" id="pic" @change="getFiles">
           <img :src="userInfo.avator" v-show="userInfo.avator" alt="">
-        </li>
+        </li> -->
         <li>
-          <input type="submit" value="确定">
-          <input type="button" value="取消" @click="cancelRegister">
+          <input type="submit" :value="btnTxt">
         </li>
+        
       </ul>
+      
     </form>
   </Dialog>
 </template>
@@ -43,77 +36,104 @@ export default {
     return {
       userInfo: {
         username: "",
-        password: "",
-        avator: ""
+        password: ""
       },
-      helpTxt1: "",
-      helpTxt2: ""
+      helpTxt: "",
+      btnTxt: "确定"
     };
   },
   methods: {
     submit(e) {
+      if (!this.checkData()) {
+        return;
+      }
 
-      this.checkData() &&
-      (async () => {
-        try {
-          const res = await this.$request({
-            path: "register",
-            data: this.userInfo,
-            method: "POST"
-          });
-          console.log(res);
-        } catch (err) {
-          console.log(err);
-        }
-      })();
-    },
-    cancelRegister(e) {
+      if (this.btnTxt === "确定") {
+        this.goRegister();
+      }
 
-      this.userInfo.password = "";
-      this.userInfo.username = "";
+      if (this.btnTxt === "登录") {
+        this.goLogin();
+      }
     },
-    getFiles(e) {
+    async goRegister() {
+      try {
+        this.$store.commit("switchLoading");
+        const res = await this.$request({
+          path: "register",
+          data: this.userInfo,
+          method: "POST"
+        });
+        this.helpTxt = res.msg + "，点击上方按钮可直接登录";
+        this.btnTxt = "登录";
+      } catch (msg) {
+        this.helpTxt = msg;
+      }
+      this.$store.commit("switchLoading");
+    },
+    async goLogin() {
+      try {
+        this.$store.commit("switchLoading");
+        const res = await this.$request({
+          path: "login",
+          data: this.userInfo,
+          method: "POST"
+        });
+        this.helpTxt = res.msg;
+        this.$store.commit("login");
+        console.log(res)
+        this.$store.commit("getUsername", res.username);
+        this.$store.commit("hideDialog", "isLogin");
+      } catch (msg) {
+        this.helpTxt = msg;
+      }
+      this.$store.commit("switchLoading");
+    },
 
-      (async () => {
-        try {
-          const res = await this.$request({
-            path: "upload",
-            data: {
-              avator: e.target.files[0]
-            },
-            method: "POST"
-          });
-          this.userInfo.avator = res.avator;
-        } catch (err) {
-          console.log(err);
-        }
-      })();
-    },
+    // getFiles(e) {
+    //   (async () => {
+    //     try {
+    //       const res = await this.$request({
+    //         path: "upload",
+    //         data: {
+    //           avator: e.target.files[0]
+    //         },
+    //         method: "POST"
+    //       });
+    //       this.userInfo.avator = res.avator;
+    //     } catch (err) {
+    //       console.log(err);
+    //     }
+    //   })();
+    // },
     checkData() {
-      if (!/^[a-zA-z0-9_]{3,8}$/.test(this.userInfo.username)) {
-        this.helpTxt1 = "用户名为3-8位，只能包含下划线、字母、数字";
+      if (!/^[a-zA-z_][a-zA-Z_0-9]{2,8}$/.test(this.userInfo.username)) {
+        this.helpTxt =
+          "用户名为3-9位，只能包含下划线、字母和数字，且不能以数字开头";
+        return false;
       } else {
-        this.helpTxt1 = "";
+        this.helpTxt = "";
       }
 
       if (!/^[a-zA-z0-9_@.-]{6,14}$/.test(this.userInfo.password)) {
-        this.helpTxt2 =
-          "密码为6-14位，只能包含下划线、字母、数字、减号、@、.、";
+        this.helpTxt = "密码为6-14位，只能包含下划线、字母、数字、减号、@和.";
+        return false;
       } else {
-        this.helpTxt2 = "";
+        this.helpTxt = "";
       }
 
-      if (this.helpTxt2 === "" && this.helpTxt1 === "") {
-        return true;
-      }
-      return false;
+      return true;
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+h2 {
+  color: #f45b4b !important;
+}
 form {
+  background: #e1e1e1;
   ul {
     li {
       height: 50px;
@@ -142,20 +162,16 @@ form {
         cursor: pointer;
         color: #fff;
       }
-      input[type="text"] {
-        width: 200px;
+      input[type="text"],
+      input[type="password"] {
+        width: 60%;
+        height: 40px;
+        border-radius: 20px;
         outline: none;
         border: none;
-        padding: 0px;
-        border-bottom: 1px solid #976;
-      }
-      .tip {
-        position: absolute;
-        top: 52px;
-        width: 200px;
-        font-size: 14px;
-        color: #888;
-        left: calc(50% - 60px);
+        padding: 20px;
+        box-sizing: border-box;
+        background: #cacaca;
       }
       input[type="file"] {
         display: none;
@@ -167,35 +183,36 @@ form {
         max-width: 100px;
         max-height: 100px;
         height: auto;
-      
       }
     }
     li:last-child {
-      margin-top: 50px;
-      input[type="button"],
+      margin-top: -10px;
+      display: flex;
+      margin: 0 auto;
+      width: 60%;
+      justify-content: flex-end;
       input[type="submit"] {
         display: inline-block;
+        -webkit-appearance: none;
+        -moz-appearance: none;
         appearance: none;
         -webkit-apperaence: none;
         -webkit-box-sizing: border-box;
+        color: #ddd;
+        font-size: 17px;
+        font-weight: 400;
+        width: 80px;
         box-sizing: border-box;
-        font-size: 20px;
-        letter-spacing: 10px;
-        padding: 0px;
-        padding-left: 10px;
-        width: 100px;
-        height: 40px;
-        margin-right: 30px;
-        margin-left: 30px;
+        border-radius: 19px;
+        display: inline-block;
+        cursor: pointer;
         outline: none;
         border: none;
-        color: #fff;
-        cursor: pointer;
-        background: #009a61;
+        height: 40px;
+        background: #e15748;
       }
-      input[type="button"]:hover,
-      input[type="submit"]:hover {
-        background: #006741;
+      input[type="submit"]:active {
+        background: #818181;
       }
     }
   }

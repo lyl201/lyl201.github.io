@@ -4,7 +4,11 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
     state: {
         catagoryShow: false,
-        dialogShow: false
+        dialogShow: false,
+        isLoading: false,
+        isLogin: false,
+        componentId: '',
+        username: ''
     },
     mutations: {
         hideCatagory(state, e) {
@@ -14,6 +18,7 @@ const store = new Vuex.Store({
                 }
             }
         },
+        
         switchStatus(state) {
             state.catagoryShow = !state.catagoryShow;
         },
@@ -21,9 +26,23 @@ const store = new Vuex.Store({
             state.dialogShow = true;
         },
         hideDialog(state, e) {
-            if(['dialog', 'close'].includes(e.target.className)) {
+            if(e === 'isLogin' || ['dialog', 'close'].includes(e.target.className)) {
                 state.dialogShow = false;
             }
+        },
+        switchLoading(state) {
+            state.isLoading = !state.isLoading
+        },
+        login(state){
+            state.isLogin = true;
+        },
+        getUsername(state, name){
+            state.username = name;
+        },
+        componentName(state, name) {
+            console.log(name);
+            state.componentId = name;
+
         }
     }
 })
