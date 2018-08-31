@@ -1,6 +1,7 @@
 module.exports = formatResponse = (app) => {
     return (ctx, next) => {
         ctx.type = "application/json; charset=UTF-8";
+        ctx.set("Access-Control-Allow-Credentials","true");
         ctx.body = {
             info: {
                 msg: ctx.state.msg,
@@ -10,7 +11,7 @@ module.exports = formatResponse = (app) => {
                 msg: ctx.message,
                 code: ctx.status,
             },
-            data: ctx.body || null,
+            data: ctx.body || {},
         }
     }
 }

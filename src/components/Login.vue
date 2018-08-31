@@ -38,8 +38,7 @@ export default {
     async submit(e) {
       if (!this.checkData()) {
         return;
-      }
-
+      }   
       try {
         this.$store.commit("switchLoading");
         const res = await this.$request({
@@ -50,8 +49,9 @@ export default {
         this.helpTxt = res.msg;
         this.$store.commit("login");
         console.log(res);
-        // this.$store.commit("getUsername", res.username);
-        // this.$store.commit("hideDialog", "isLogin");
+        this.$store.commit("getUsername", res.username);
+        this.$store.commit("getAvator", res.avator);
+        this.$store.commit("hideDialog", "isLogin");
       } catch (msg) {
         this.helpTxt = msg;
       }

@@ -7,7 +7,7 @@ module.exports = async (ctx, next) => {
     if (res.length === 0) {
       const user = new ctx.models.User({ 
         ...ctx.request.body,
-        avator: 'default.png'
+        avator: ''
       });
       const msg = await user.mySave();
       console.log(msg)

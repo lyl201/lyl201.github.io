@@ -1,11 +1,17 @@
 <template>
   <div id="app" :class="{'forbid-scroll': dialogShow}" @click="handleclick">
-    <header>
+    <header v-if="headShow">
       <div class="title">
         <div v-if="!isLogin">
           <span @click="register">注册 |</span><span  @click="login"> 登录</span> silentport的博客 
         </div>
-        <div v-else>
+        <div user v-else>
+            
+        <label for="pic">
+              <span v-if="!avatorUrl">设置头像 </span>
+              <img v-if="avatorUrl" :src="avatorUrl" alt="" title="点击可更换头像"> 
+        </label>
+        <input type="file" id="pic" name="avator"  @change="getPicture">
           {{username}}
         </div>
       </div>
@@ -44,9 +50,6 @@
       </footer>  
 
   </div>
-
-
-
 </template>
 
 <script>
@@ -62,7 +65,8 @@ export default {
   data() {
     return {
       item: ["Latest", "JavaScript", "Css", "Node.js", "Database", "Other"],
-      icon: icon
+      icon: icon,
+      headShow: false,
     };
   },
   components: {
@@ -71,13 +75,19 @@ export default {
     Login,
     Register
   },
-  mounted() {
-    console.log(9999)
-    this.$request({
+  async created() {
+    const res = await this.$request({
       path: "home",
-      data: {a: 9},
+      data: {},
       method: "GET"
     });
+    if (res.hasUser) {
+      this.$store.commit("login");
+      this.$store.commit("getUsername", res.username);
+      this.$store.commit("getAvator", res.avator);
+      this.$store.commit("hideDialog", "isLogin");
+    }
+    this.headShow = true;
   },
   methods: {
     handleclick(e) {
@@ -90,6 +100,22 @@ export default {
     login() {
       this.$store.commit("openDialog");
       this.$store.commit("componentName", "Login");
+    },
+    async getPicture(e) {
+      try {
+        const res = await this.$request({
+          path: "upload",
+          data: {
+            avator: e.target.files[0],
+            username: this.$store.state.username,
+          },
+          method: "POST"
+        });
+        this.avator = res.avator;
+        this.$store.commit("getAvator", res.avator);
+      } catch (err) {
+        console.log(err);
+      }
     }
   },
   computed: {
@@ -104,7 +130,10 @@ export default {
     },
     username() {
       return this.$store.state.username;
-    }
+    },
+    avatorUrl() {
+      return this.$store.state.avator;
+    },
   }
 };
 </script>
@@ -136,13 +165,38 @@ header {
     width: 500px;
     font-weight: bolder;
     font-family: serif;
+    label[for="pic"] {
+      color: #689;
+      display: inline;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+    input[type="file"] {
+      display: none;
+    }
 
-    span {
+    & > span {
       font-size: 15px;
       color: #eee;
       cursor: pointer;
       vertical-align: middle;
       display: inline-block;
+    }
+    div[user] {
+      box-sizing: border-box;
+      height: inherit;
+      text-align: left;
+      padding-left: 20px;
+      font-family: arial;
+      font-weight: normal;
+      font-size: 14px;
+      img {
+        height: 40px;
+        width: 40px;
+        vertical-align: middle;
+        margin-right: 10px;
+        border-radius: 50%;
+      }
     }
   }
 }

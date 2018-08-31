@@ -8,7 +8,8 @@ const store = new Vuex.Store({
         isLoading: false,
         isLogin: false,
         componentId: '',
-        username: ''
+        username: '',
+        avator: '',
     },
     mutations: {
         hideCatagory(state, e) {
@@ -38,6 +39,9 @@ const store = new Vuex.Store({
         },
         getUsername(state, name){
             state.username = name;
+        },
+        getAvator(state, url) {
+            state.avator = url;
         },
         componentName(state, name) {
             console.log(name);

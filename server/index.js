@@ -29,6 +29,7 @@ con.once('open', () => {
 
   // 支持跨域
   app.use(cors());
+  // 保持登录
   app.use(session({
     key: 'SESSION',
   }));

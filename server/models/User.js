@@ -10,7 +10,7 @@ module.exports = function (mongoose) {
     },
     avator: {
       type: String
-    }
+    },
   });
   schema.methods.mySave = function () {
     
@@ -24,12 +24,13 @@ module.exports = function (mongoose) {
       })
     })
   }
+
   
   const User = mongoose.model('User', schema);
 
-  User.myFind = (args) => {
+  User.myFind = (query) => {
     return new Promise((resolve, reject) => {
-      User.find(args, (err, docs) => {
+      User.find(query, (err, docs) => {
         if (!err) {
           resolve(docs)
         } else {
@@ -38,5 +39,17 @@ module.exports = function (mongoose) {
       })
     })
   }
+
+  User.myUpdate = (query, replace) => {
+    return new Promise((resolve, reject) => {
+      User.update(query, replace, (err, res) => {
+        if (!err) {
+          resolve(res && res.ok > 0 && "更新成功")
+        } else {
+          reject('更新失败')
+        }
+      })
+    })
+  } 
   return User//第一个变量是数据库表名，第二个是使用的模板
 }
