@@ -22,7 +22,8 @@ const createLintingRule = () => ({
 module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
-    app:  ["babel-polyfill", "./src/main.js"]
+    client:  ["babel-polyfill", "./src/Client/main.js"],
+    manager: ["babel-polyfill", "./src/Manager/main.js"],
   },
   output: {
     path: config.build.assetsRoot,
@@ -35,7 +36,7 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      '@': resolve('src'),
+      '@': resolve('src/Client'),
     }
   },
   module: {

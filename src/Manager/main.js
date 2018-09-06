@@ -2,27 +2,31 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import router from './router'
-import Marked from "marked"; 
-import {request} from "./utils.js"
-// import mavonEditor from 'mavon-editor'
+import router from './router' 
+import VueMoment from 'vue-moment'
+import {request} from "../utils.js"
+import 'iview/dist/styles/iview.css'
+import {Message} from 'iview'
+Vue.prototype.$Message = Message
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
 
 Vue.config.productionTip = false
-// Vue.use(mavonEditor)
+Vue.use(mavonEditor)
 Vue.use({
   install(Vue, options) {
-    Vue.prototype.$marked = Marked;
     Vue.prototype.$request = request;
   }
 })
+Vue.use(VueMoment)
 
 
-import store from './store.js';
+// import store from './store.js';
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
-  store,
+  // store,
   components: { App },
   template: '<App/>'
 })

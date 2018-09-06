@@ -48,7 +48,6 @@ export default {
   box-sizing: border-box;
   width: calc(100% - 310px);
   margin-left: 0px;
-  font-family: serif;
   position: relative;
   .more {
     display: none;
@@ -111,7 +110,6 @@ export default {
   .high-light {
     color: #489;
     height: 68px;
-    font-weight:bolder;
     font-size: 32px;
     background: rgba(0, 0, 0, 0.4);
   }

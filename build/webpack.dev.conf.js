@@ -25,7 +25,8 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     clientLogLevel: 'warning',
     historyApiFallback: {
       rewrites: [
-        { from: /.*/, to: path.posix.join(config.dev.assetsPublicPath, 'index.html') },
+        { from: /client/, to: path.posix.join(config.dev.assetsPublicPath, 'client.html') },
+        { from: /admin\/*/, to: path.posix.join(config.dev.assetsPublicPath, 'manager.html') },
       ],
     },
     hot: true,
@@ -53,9 +54,16 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     new webpack.NoEmitOnErrorsPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
-      filename: 'index.html',
+      filename: 'client.html',
       template: './tpl/index.html',
-      inject: true
+      inject: true,
+      chunks: ['client'],
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'manager.html',
+      template: './tpl/index.html',
+      inject: true,
+      chunks: ['manager'],
     }),
     // copy custom static assets
     new CopyWebpackPlugin([

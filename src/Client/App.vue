@@ -1,7 +1,7 @@
 <template>
   <div id="app" :class="{'forbid-scroll': dialogShow}" @click="handleclick">
-    <header v-if="headShow">
-      <div class="title">
+    <header>
+      <div class="title" v-if="headShow">
         <div v-if="!isLogin">
           <span @click="register">注册 |</span><span  @click="login"> 登录</span> silentport的博客 
         </div>
@@ -15,7 +15,7 @@
           {{username}}
         </div>
       </div>
-      <Tab :item=item />
+      <Tab :item=item v-if="headShow" />
     </header>
     <div class="container">
      <div class="main">
@@ -104,7 +104,7 @@ export default {
     async getPicture(e) {
       try {
         const res = await this.$request({
-          path: "upload",
+          path: "upload/avator",
           data: {
             avator: e.target.files[0],
             username: this.$store.state.username,
@@ -141,11 +141,9 @@ export default {
 <style lang="scss" scoped>
 @import url(./components/css/side.css);
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  font-family: "time new roman";
   position: relative;
   height: 100vh;
   overflow: scroll;
@@ -164,7 +162,6 @@ header {
     line-height: 70px;
     width: 500px;
     font-weight: bolder;
-    font-family: serif;
     label[for="pic"] {
       color: #689;
       display: inline;
@@ -187,7 +184,6 @@ header {
       height: inherit;
       text-align: left;
       padding-left: 20px;
-      font-family: arial;
       font-weight: normal;
       font-size: 14px;
       img {
@@ -216,7 +212,6 @@ header {
     width: calc(25% - 10px);
     margin-left: 10px;
     background: #eee;
-    font-family: serif;
     .intro {
       box-shadow: 4px 4px 3px #aaa;
       .avator {
@@ -282,7 +277,7 @@ footer {
   color: #fff;
   box-sizing: border-box;
   width: 100%;
-  font-family: serif;
+
   img {
     width: 25px;
     vertical-align: middle;
