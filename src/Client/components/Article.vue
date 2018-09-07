@@ -58,7 +58,6 @@ export default {
     justify-content: space-between;
     .title {
       font-size: 30px;
-      font-family: serif;
       height: 50px;
       line-height: 50px;
     }

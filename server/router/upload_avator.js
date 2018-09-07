@@ -1,6 +1,6 @@
 module.exports = async (ctx, next) => {
   ctx.state.status = true;
-  ctx.body = ctx.uploadpath;
+  
   if (ctx.uploadpath && ctx.uploadpath.avator) {
 
     try {
@@ -9,7 +9,7 @@ module.exports = async (ctx, next) => {
       }, {
         avator: ctx.uploadpath.avator
       })
-      console.log(res);
+      ctx.body = { avator } = ctx.uploadpath;
 
     } catch (err) {
         ctx.throw(500, err)

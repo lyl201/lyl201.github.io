@@ -65,7 +65,6 @@ export default {
       border-bottom-right-radius: 10px; 
       color: #ddd;
       font-size: 13px;
-      font-family: serif;
       
       box-sizing: border-box;
       padding: 0px 5px;

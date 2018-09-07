@@ -1,6 +1,6 @@
 <template>
   <Dialog :tip="helpTxt">
-    <h2>登录</h2>
+    <h2>注册</h2>
     <form @submit.prevent="submit">
       <ul>
         <li> 
@@ -9,8 +9,15 @@
         <li>
           <input type="password" name="password" id="password" v-model="userInfo.password" placeholder="密码">
         </li>
+        <!-- <li pic>
+          <label for="pic">
+              头像上传
+          </label>
+          <input type="file" name="avator" id="pic" @change="getFiles">
+          <img :src="userInfo.avator" v-show="userInfo.avator" alt="">
+        </li> -->
         <li>
-          <input type="submit" value="确定">
+          <input type="submit" :value="btnTxt">
         </li>
         
       </ul>
@@ -31,14 +38,40 @@ export default {
         username: "",
         password: ""
       },
-      helpTxt: ""
+      helpTxt: "",
+      btnTxt: "确定"
     };
   },
   methods: {
-    async submit(e) {
+    submit(e) {
       if (!this.checkData()) {
         return;
-      }   
+      }
+
+      if (this.btnTxt === "确定") {
+        this.goRegister();
+      }
+
+      if (this.btnTxt === "登录") {
+        this.goLogin();
+      }
+    },
+    async goRegister() {
+      try {
+        this.$store.commit("switchLoading");
+        const res = await this.$request({
+          path: "register",
+          data: this.userInfo,
+          method: "POST"
+        });
+        this.helpTxt = res.msg + "，点击上方按钮可直接登录";
+        this.btnTxt = "登录";
+      } catch (msg) {
+        this.helpTxt = msg;
+      }
+      this.$store.commit("switchLoading");
+    },
+    async goLogin() {
       try {
         this.$store.commit("switchLoading");
         const res = await this.$request({
@@ -48,9 +81,8 @@ export default {
         });
         this.helpTxt = res.msg;
         this.$store.commit("login");
-        console.log(res);
+        console.log(res)
         this.$store.commit("getUsername", res.username);
-        this.$store.commit("getAvator", res.avator);
         this.$store.commit("hideDialog", "isLogin");
       } catch (msg) {
         this.helpTxt = msg;
@@ -58,6 +90,22 @@ export default {
       this.$store.commit("switchLoading");
     },
 
+    // getFiles(e) {
+    //   (async () => {
+    //     try {
+    //       const res = await this.$request({
+    //         path: "upload",
+    //         data: {
+    //           avator: e.target.files[0]
+    //         },
+    //         method: "POST"
+    //       });
+    //       this.userInfo.avator = res.avator;
+    //     } catch (err) {
+    //       console.log(err);
+    //     }
+    //   })();
+    // },
     checkData() {
       if (!/^[a-zA-z_][a-zA-Z_0-9]{2,8}$/.test(this.userInfo.username)) {
         this.helpTxt =
@@ -99,7 +147,6 @@ form {
         display: inline-flex;
         margin-right: 20px;
         align-items: flex-end;
-        font-family: serif;
         vertical-align: bottom;
       }
       label[for="pic"] {
@@ -153,7 +200,7 @@ form {
         color: #ddd;
         font-size: 17px;
         font-weight: 400;
-        width: 30%;
+        width: 80px;
         box-sizing: border-box;
         border-radius: 19px;
         display: inline-block;

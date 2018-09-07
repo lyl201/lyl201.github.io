@@ -1,33 +1,13 @@
 const host = "http://localhost:3000"
-// export const queryString = (data) => {
-//   return Object.keys(data).map(key => {
-//     return `${key}=${encodeURIComponent(data[key])}`
-//   }).join('&')
-// }
+
 export const request = (params) => {
-  const {
-    path,
-    data,
-    method
-  } = params
+  const { path, data, method } = params
   const formData = new FormData();
-
-  // if (path.startsWith('upload')) {
-  //   // 处理文件上传
-  //   const type = Object.keys(data)[0]
-  //   formData.append(type, data[type])
-  // } else {
-  //   Object.keys(data).forEach(key => {
-  //     formData.append(key, data[key])
-  //   })
-  // }
-
   Object.keys(data).forEach(key => {
     formData.append(key, data[key])
   })
   return new Promise((resolve, reject) => {
-
-    const opt = method === 'POST' ? {
+    const option = method === 'POST' ? {
       credentials: 'include',
       method: method,
       body: formData,
@@ -36,7 +16,7 @@ export const request = (params) => {
       method: method,
     };
 
-    fetch(`${host}/${path}`, opt).then(res => {
+    fetch(`${host}/${path}`, option).then(res => {
         return res.json();
       })
       .then(res => {
@@ -51,6 +31,4 @@ export const request = (params) => {
         reject('请求错误');
       })
   })
-
-
 }
