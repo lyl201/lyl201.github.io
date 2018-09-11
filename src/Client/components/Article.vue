@@ -1,21 +1,21 @@
 <template>
 <div>
-    <div class="article" v-for="n in 4" :key="n">
-         <img src="http://www.yangqq.com/skin/850/images/text01.jpg" alt="">
+    <div class="article" v-for="(item, n) in articleList" :key="n">
+         <img :src="item.image" alt="">
          <div class="desc">
            <div class="title">
-             js新特性
+             {{item.title}}
            </div>
            <div class="text">
-             市场高富帅噶大会发化工市场高富帅噶大会发化工市场高富帅噶大会发化工市场高富帅噶大会发化工市场高富帅噶大会发化工市场高富帅噶大会发化工市场高富帅噶大会发化工市场高富帅噶大会发化工市场高富帅噶大会发化工市场高富帅噶大会发化工市场高富帅噶大会发化工市场高富帅噶大会发化工
+             {{item.summary}}
            </div>
            <div class="underline">
-             <div class="tag">JavaScript</div>
-             <div class="clock">2015-09-30</div>
-             <div class="comment">0</div>
-             <div class="read">8</div>
-             <div class="like">0</div>
-             <div @click="openText" class="all">查看全文</div>
+             <div class="tag">{{item.tag}}</div>
+             <div class="clock">{{getDate(item.date)}}</div>
+             <div class="comment">{{item.commentCount}}</div>
+             <div class="read">{{item.readCount}}</div>
+             <div class="like">{{item.likeCount}}</div>
+             <div @click="openText(item)" class="all">查看全文</div>
            </div>
          </div>
        </div>
@@ -23,15 +23,45 @@
 </template>
 <script>
 export default {
+  data() {
+    return {
+      articleList: [],
+    }
+  },
+  async mounted() {
+    try {
+      const res = await this.$request({
+        path: "article",
+        data: {},
+        method: "GET"
+      });
+
+      Object.keys(res).forEach(key => {
+        if (typeof res[key] === "object") {
+          this.articleList.push(res[key]);
+        }
+      });
+    } catch (msg) {
+      this.$Message.info(msg);
+    }
+  },
   methods: {
-    openText() {
-      console.log("查看全文");
-      // this.$router.push('/detail')
-      fetch("http://192.168.199.146:3000").then(res => {
-        return res.json()
-      }).then(res => {
-        console.log(res.a)
-      })
+    openText(data) {
+      console.log("查看全文", data);
+      this.$router.push({
+        path: `/detail/${data._id}`,
+      });
+      fetch("http://192.168.199.146:3000")
+        .then(res => {
+          return res.json();
+        })
+        .then(res => {
+          console.log(res.a);
+        });
+    },
+    getDate(date) {
+
+      return this.$moment(Number(date)).format("YYYY-MM-DD");
     }
   }
 };

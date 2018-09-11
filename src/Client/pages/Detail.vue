@@ -1,7 +1,8 @@
 <template>
     <div class="detail-container">
         &nbsp;
-        <div v-html="mark"></div>
+        <h1>{{title}}</h1>
+        <div v-html="mark" v-highlight></div>
         <div class="comment">
             <div class="title">12条评论:</div>
             <ul>
@@ -18,8 +19,22 @@
 export default {
     data() {
         return {
-            article: '#### 666',
+            article: "",
+            title: "",
         }
+    },
+    async created() {
+        const res = await this.$request({
+            path: `article/${this.$route.params.id}`,
+            data: {},
+            method: 'GET',
+        })
+        this.article = res.content;
+        this.title = res.title;
+
+    },
+    mounted(){
+       
     },
     methods: {
         
@@ -32,6 +47,11 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+h1{
+    border-bottom: 1px solid #2db7f5;
+    padding-bottom: 10px;
+     
+ }
 .detail-container {
     background: #fff;
     // height: 1500px;

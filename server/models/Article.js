@@ -3,7 +3,7 @@ module.exports = function (mongoose) {
     title: {
       type: String, //指定字段类型
       required: true, //判断数据是否必须（如果存在一条数据）
-      unique: true //是否为不可重复
+      unique: false //是否为不可重复
     },
     summary: {
       type: String, //指定字段类型
@@ -27,27 +27,27 @@ module.exports = function (mongoose) {
     },
 
     date: {
-      type: Number, //指定字段类型
+      type: String, //指定字段类型
       required: true, //判断数据是否必须（如果存在一条数据）
       unique: false,
     },
     likeCount: {
-      type: Number, //指定字段类型
+      type: String, //指定字段类型
       required: true, //判断数据是否必须（如果存在一条数据）
       unique: false,
     },
     readCount: {
-      type: Number, //指定字段类型
+      type: String, //指定字段类型
       required: true, //判断数据是否必须（如果存在一条数据）
       unique: false,
     },
     commentCount: {
-      type: Number, //指定字段类型
+      type: String, //指定字段类型
       required: true, //判断数据是否必须（如果存在一条数据）
       unique: false
     },
     comments: {
-      type: Number, //指定字段类型
+      type: Object, //指定字段类型
       required: false, //判断数据是否必须（如果存在一条数据）
       unique: false
     }
@@ -60,7 +60,7 @@ module.exports = function (mongoose) {
         if (!err) {
           resolve('该类别已存入数据库')
         } else {
-          reject('保存失败')
+          reject(err)
         }
       })
     })
@@ -92,6 +92,17 @@ module.exports = function (mongoose) {
       })
     })
   }
+  Article.myUpdate = (query, replace) => {
+    return new Promise((resolve, reject) => {
+      Article.update(query, replace, (err, res) => {
+        if (!err) {
+          resolve(res && res.ok > 0 && "更新成功")
+        } else {
+          reject('更新失败')
+        }
+      })
+    })
+  } 
 
   return Article //第一个变量是数据库表名，第二个是使用的模板
 }

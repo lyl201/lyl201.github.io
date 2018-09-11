@@ -1,7 +1,8 @@
 <template>
     <div class="detail-container">
-        <Tabs value="name1" @on-click="changeTab">
-            <TabPane label="新增" name="add">
+        <Tabs v-model="name" @on-click="changeTab">
+            <TabPane label="编辑" name="addOrEdit">
+                <Button type="primary" style="margin-bottom: 20px" @click="add">新增</Button>
                 <Input
                     style="margin-bottom: 30px"
                     v-model="data.title"
@@ -32,7 +33,7 @@
                         :autosize="true"
                         placeholder="请输入缩略图url"/>
                     <Select
-                        v-model="model"
+                        v-model="data.tag"
                         style="width:200px"
                         @on-change="changeCatagory"
                         placeholder="请选择一个标签类别">
@@ -43,11 +44,12 @@
                 </div>
 
             </TabPane>
-            <TabPane label="编辑" name="list">
+            <TabPane label="列表" name="list">
                 <Card
                     :bordered="true"
                     style="margin-bottom: 20px; cursor: pointer"
                     v-for="(item, n) in articleList"
+                    @click.native="edit(item)"
                     :key="n">
                     <p slot="title">{{item.title}}</p>
                     <p>
@@ -80,9 +82,22 @@
         },
         data() {
             return {
-                model: "",
+                name: 'addOrEdit',
                 selectData: [],
                 articleList: [],
+                default: {
+                     tag: "",
+                    date: "",
+                    title: "",
+                    summary: "",
+                    image: "",
+                    content: "",
+                    readCount: 0,
+                    likeCount: 0,
+                    commentCount: 0,
+                    comments: [],
+                    _id: '',
+                },
                 data: {
                     tag: "",
                     date: "",
@@ -93,7 +108,8 @@
                     readCount: 0,
                     likeCount: 0,
                     commentCount: 0,
-                    comments: []
+                    comments: [],
+                    _id: '',
                 }
             };
         },
@@ -132,6 +148,11 @@
                         .info(msg);
                 }
             },
+            add () {
+                Object.keys(this.default).forEach(key => {
+                    this.data[key] = this.default[key];
+                })
+            },
             imgDel() {},
             async save() {
                 if (!this.checkData()) {
@@ -143,7 +164,8 @@
                     const res = await this.$request({path: "article", method: "POST", data: this.data});
                     this
                         .$Message
-                        .success("保存成功");
+                        .success(res.msg);
+                        this.data._id = res._id;
                 } catch (msg) {
                     this
                         .$Message
@@ -166,7 +188,13 @@
                     this.getList();
                 }
             },
+            edit (item) {
+                console.log(item);
+                this.data = item;
+                this.name = 'addOrEdit';
+            },
             async getList() {
+                this.articleList.length = 0;
                 try {
                     const res = await this.$request({
                         path: "article",
