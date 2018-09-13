@@ -74,11 +74,7 @@ export default {
           data: {},
           method: "GET"
         });
-        Object.keys(res).forEach(key => {
-          if (typeof res[key] === "object") {
-            this.data.push(res[key]);
-          }
-        });
+        this.data = res.data;
       } catch (msg) {
         this.$Message.info(msg);
       }

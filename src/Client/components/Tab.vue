@@ -1,41 +1,56 @@
 <template>
     <div class="tab-container">
-        <div @click="switchTab(index)" :class="{'high-light': curIndex == index}" v-for="(val, index) in item" :key="index">{{val}}</div>
+        <div @click="switchTab(index, item)" :class="{'high-light': curIndex == index}" v-for="(item, index) in list" :key="index">{{item.name}}</div>
         <img :src="url" alt="" class="more" @click="openList">
         <ul v-show="catagoryShow">
-            <li>Latest</li>
-            <li>JavaScript</li>
-            <li>Css</li>
-            <li>Node.js</li>
-            <li>Database</li>
-            <li>Other</li>
+            <li @click="switchTab(index, item)" v-for="(item, index) in list" :key="index">{{item.name}}</li>
         </ul>
     </div>  
 </template>
 <script>
+import { mapActions } from 'vuex'
 const img = require("../../static/more.png");
 export default {
   data() {
     return {
       curIndex: 0,
       url: img,
+      list: [{name: 'Latest'}]
     };
   },
   props: {
     item: Array
   },
+  async created() {
+    try {
+      const res = await this.$request({
+        path: "Catagory",
+        data: {},
+        method: "GET"
+      });
+      this.list = this.list.concat(res.data);
+    } catch (error) {}
+  },
   methods: {
-    switchTab(index) {
+    async switchTab(index, item) {
       this.curIndex = index;
+      this.$store.commit("changeTag", item.name);
+      this.$router.push({path: '/empty'})
+      this.$nextTick(() => {
+         this.$router.replace({path: '/'})
+      })  
     },
     openList() {
-        this.$store.commit("switchStatus")
-    }
+      this.$store.commit("switchStatus");
+    },
+    ...mapActions([
+      'getArticle'
+    ]),
   },
   computed: {
-      catagoryShow() {
-          return this.$store.state.catagoryShow;
-      }
+    catagoryShow() {
+      return this.$store.state.catagoryShow;
+    }
   }
 };
 </script>
@@ -56,7 +71,7 @@ export default {
     height: 30px * (140/521);
   }
   ul {
-      display: none;
+    display: none;
   }
   @media screen and (max-width: 697px) {
     .more {
@@ -64,30 +79,30 @@ export default {
       cursor: pointer;
     }
     ul {
-        display: block;
-        background: #444;
-        color: #eee;
-        padding: 10px;
-        font-size: 25px;
-        text-align: left;      
-        position: absolute;
-        box-shadow: 5px 5px 5px #777;
-        box-sizing: border-box;
-        // height: 200px;
-        top: 60px;
-        li {
-            list-style: none;
-            cursor: pointer;
-            width: 120px;
-            margin-bottom: 10px;
-        }
-        li:hover {
-            font-weight: bolder;
-            color: #489;
-        }
+      display: block;
+      background: #444;
+      color: #eee;
+      padding: 10px;
+      font-size: 25px;
+      text-align: left;
+      position: absolute;
+      box-shadow: 5px 5px 5px #777;
+      box-sizing: border-box;
+      // height: 200px;
+      top: 60px;
+      li {
+        list-style: none;
+        cursor: pointer;
+        width: 120px;
+        margin-bottom: 10px;
+      }
+      li:hover {
+        font-weight: bolder;
+        color: #489;
+      }
     }
     div {
-        display: none;
+      display: none;
     }
   }
   div {

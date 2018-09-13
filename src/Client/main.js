@@ -21,6 +21,7 @@ Vue.use(VueMoment);
 
 import hljs from 'highlight.js'
 import 'highlight.js/styles/agate.css' //样式文件
+
 Vue.directive('highlight',function (el) {
   let blocks = el.querySelectorAll('pre code');
   blocks.forEach((block)=>{

@@ -115,15 +115,7 @@
         },
         async created() {
             const res = await this.$request({path: "catagory", data: {}, method: "GET"});
-            Object
-                .keys(res)
-                .forEach(key => {
-                    if (typeof res[key] === "object") {
-                        this
-                            .selectData
-                            .push(res[key]);
-                    }
-                });
+            this.selectData = res.data;
         },
         methods : {
             changeCatagory(name) {
@@ -223,7 +215,7 @@
 </script>
 <style lang="scss" scoped>
     .select {
-        height: 300px;
+        height: 500px;
         margin-top: 30px;
     }
     .detail-container {

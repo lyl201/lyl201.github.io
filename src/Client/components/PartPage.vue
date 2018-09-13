@@ -1,5 +1,5 @@
 <template>
-    <div class="partpage">
+    <div class="partpage" v-show="num > 1">
         <div>{{num}}</div>
         <div class="exp" @click="goPrev" v-show="prev">上一页</div>
         <div v-for="n in getCurPages" :style="{'color': n === cur ? 'red' : '#444'}" @click="goThis(n)" :key="n">{{n}}</div>
@@ -8,28 +8,25 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
       cur: 1,
       gap: 5,
       k: 0,
-      curPages: [],
       prev: false,
       next: true
     };
   },
-  created() {
-    for (let i = 1; i <= this.num; i++) {
-      this.curPages.push(i);
-    }
-  },
-  props: {
-    num: Number
+  created() {},
+  async mounted() {
+    this.$store.commit("switchLoading");
+    await this.getArticle({ vm: this, page: 1, tag: this.$store.state.tag });
+    this.$store.commit("switchLoading");
   },
   methods: {
     goThis(n) {
-      console.log(n);
       this.cur = n;
     },
     goPrev() {
@@ -45,19 +42,31 @@ export default {
         this.k++;
       }
       this.cur++;
-    }
+    },
+    ...mapActions(["getArticle"])
   },
   computed: {
     getCurPages() {
-      return this.curPages.slice(
-        this.k * this.gap,
-        this.k * this.gap + this.gap
-      );
+      let curPages = [];
+      for (let i = 1; i <= this.num; i++) {
+        curPages.push(i);
+      }
+      return curPages.slice(this.k * this.gap, this.k * this.gap + this.gap);
+    },
+    num() {
+      return this.$store.state.pageCount;
     }
   },
   watch: {
-    cur: function(v1, v2) {
-      console.log(v1, v2);
+    cur: async function(v1, v2) {
+      console.log(v1);
+      this.$store.commit("switchLoading");
+      await this.getArticle({
+        page: v1,
+        tag: this.$store.state.tag,
+        vm: this
+      });
+      this.$store.commit("switchLoading");
       if (v1 > 1) {
         this.prev = true;
       } else {
@@ -113,7 +122,7 @@ export default {
       height: 15px;
     }
     div:not(:first-child):hover {
-        background: none;
+      background: none;
     }
   }
 }

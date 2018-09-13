@@ -9,13 +9,6 @@
         <li>
           <input type="password" name="password" id="password" v-model="userInfo.password" placeholder="密码">
         </li>
-        <!-- <li pic>
-          <label for="pic">
-              头像上传
-          </label>
-          <input type="file" name="avator" id="pic" @change="getFiles">
-          <img :src="userInfo.avator" v-show="userInfo.avator" alt="">
-        </li> -->
         <li>
           <input type="submit" :value="btnTxt">
         </li>
@@ -90,22 +83,6 @@ export default {
       this.$store.commit("switchLoading");
     },
 
-    // getFiles(e) {
-    //   (async () => {
-    //     try {
-    //       const res = await this.$request({
-    //         path: "upload",
-    //         data: {
-    //           avator: e.target.files[0]
-    //         },
-    //         method: "POST"
-    //       });
-    //       this.userInfo.avator = res.avator;
-    //     } catch (err) {
-    //       console.log(err);
-    //     }
-    //   })();
-    // },
     checkData() {
       if (!/^[a-zA-z_][a-zA-Z_0-9]{2,8}$/.test(this.userInfo.username)) {
         this.helpTxt =
