@@ -1,4 +1,4 @@
 module.exports = {
-    host: 'http://10.232.52.190:3000',
-    db: 'mongodb://localhost:27017/blog',
+    host: 'localhost:3000',
+    db: 'mongodb://admin:352352@127.0.0.1:27017/blog',
 }
