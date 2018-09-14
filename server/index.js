@@ -37,6 +37,6 @@ con.once('open', () => {
 
 con.on('error', console.error.bind(console, '连接数据库失败'));
 
-app.listen(3000, () => {
+app.listen(3000, '0.0.0.0', () => {
     console.log("服务器已启动");
 });
