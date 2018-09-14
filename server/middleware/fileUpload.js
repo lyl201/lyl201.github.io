@@ -24,7 +24,7 @@ module.exports = filUpload = (app) => {
                 app.context.uploadpath = app.context.uploadpath
                     ? app.context.uploadpath
                     : {};
-                app.context.uploadpath[name] = `${host}/${name}/${fileName}.${ext}`;
+                app.context.uploadpath[name] = `${host}/upload/${name}/${fileName}.${ext}`;
             }
         }
     })

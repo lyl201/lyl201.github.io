@@ -27,7 +27,7 @@ con.once('open', () => {
     // 支持二进制文件上传
     app.use(fileUpload(app))
     // 支持处理静态文件
-    app.use(Static(path.join(__dirname, 'public/upload')))
+    app.use(Static(path.join(__dirname, 'public')));
     // 支持路由
     app.use(router.routes());
     app.use(router.allowedMethods());
