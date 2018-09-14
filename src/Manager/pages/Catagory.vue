@@ -31,7 +31,7 @@ export default {
           key: "date",
           render: (h, params) => {
             return h("span", [
-              h("span", {}, this.$moment(params.row.date).format("YYYY-MM-DD"))
+              h("span", {}, moment(params.row.date).format("YYYY-MM-DD"))
             ]);
           }
         },

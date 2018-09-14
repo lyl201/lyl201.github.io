@@ -1,16 +1,19 @@
 import Vue from 'vue'
-import Router from 'vue-router'
-import Home from '@/pages/Home'
-import Detail from '@/pages/Detail'
+import VueRouter from 'vue-router'
+// import Home from '@/pages/Home'
+// import Detail from '@/pages/Detail'
+
+const Home = () => import('@/pages/Home');
+const Detail = () => import('@/pages/Detail');
 
 import Promise from 'promise-polyfill'
 if (!window.Promise) {
   window.Promise = Promise;
 }
 
-Vue.use(Router)
+Vue.use(VueRouter)
 
-export default new Router({
+export default new VueRouter({
 
   routes: [
     {

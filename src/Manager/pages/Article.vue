@@ -70,6 +70,7 @@
         TabPane,
         Card
     } from "iview";
+    
     export default {
         components : {
             Select,
@@ -78,7 +79,7 @@
             Input,
             Tabs,
             TabPane,
-            Card
+            Card,
         },
         data() {
             return {
@@ -114,6 +115,7 @@
             };
         },
         async created() {
+            
             const res = await this.$request({path: "catagory", data: {}, method: "GET"});
             this.selectData = res.data;
         },
@@ -214,6 +216,7 @@
     };
 </script>
 <style lang="scss" scoped>
+
     .select {
         height: 500px;
         margin-top: 30px;

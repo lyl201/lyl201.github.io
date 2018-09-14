@@ -39,7 +39,7 @@
             });
           },
           getDate(date) {
-            return this.$moment(Number(date)).format("YYYY-MM-DD");
+            return moment(Number(date)).format("YYYY-MM-DD");
           }
         },
         computed: {
