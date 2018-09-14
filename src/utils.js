@@ -1,4 +1,4 @@
-const host = "http://116.62.63.230:3000"
+const host = "http://116.62.63.230"
 
 export const request = (params) => {
   const { path, data, method } = params
