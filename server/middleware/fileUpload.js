@@ -6,24 +6,26 @@ const {getUploadFileExt} = require('../utils')
 const uploadDir = path.resolve(__dirname, '../') + '/public/upload/';
 
 module.exports = filUpload = (app) => {
-  return koaBody({
-    multipart: true, // 支持文件上传
-    encoding: 'gzip',
-    formidable: {
-      uploadDir: uploadDir, // 设置文件上传目录
-      keepExtensions: true, // 保持文件的后缀
-      maxFieldsSize: 2 * 1024 * 1024, // 文件上传大小
-      onFileBegin: (name, file) => { // 文件上传前的设置
-        const ext = getUploadFileExt(file.name);
-        const dir = `${uploadDir}/${name}`;
-        if (!fs.existsSync(dir)) {
-          fs.mkdirSync(dir)
+    return koaBody({
+        multipart: true, // 支持文件上传
+        encoding: 'gzip',
+        formidable: {
+            uploadDir: uploadDir, // 设置文件上传目录
+            keepExtensions: true, // 保持文件的后缀
+            maxFieldsSize: 2 * 1024 * 1024, // 文件上传大小
+            onFileBegin: (name, file) => { // 文件上传前的设置
+                const ext = getUploadFileExt(file.name);
+                const dir = `${uploadDir}/${name}`;
+                if (!fs.existsSync(dir)) {
+                    fs.mkdirSync(dir)
+                }
+                const fileName = new Date().getTime()
+                file.path = `${dir}/${fileName}.${ext}`
+                app.context.uploadpath = app.context.uploadpath
+                    ? app.context.uploadpath
+                    : {};
+                app.context.uploadpath[name] = `${host}/upload/${name}/${fileName}.${ext}`;
+            }
         }
-        const fileName = new Date().getTime()
-        file.path = `${dir}/${fileName}.${ext}`
-        app.context.uploadpath = app.context.uploadpath ? app.context.uploadpath : {};
-        app.context.uploadpath[name] = `${host}/${name}/${fileName}.${ext}`;
-      },
-    }
-  })
+    })
 }

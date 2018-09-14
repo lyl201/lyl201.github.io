@@ -18,6 +18,8 @@ router.delete(/\/catagory\/.+/, require('./catagory_del'));
 
 router.post("/article", require('./article'));
 
+router.get(/\/article(\/.)*/, require('./article_list'));
+
 router.post("/upload/avator", require('./upload_avator'));
 
 router.post("/upload/article", require('./upload_article'));

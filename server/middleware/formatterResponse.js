@@ -7,9 +7,9 @@ module.exports = formatResponse = (app) => {
             },
             head: {
                 msg: ctx.message,
-                code: ctx.status,
+                code: ctx.status
             },
-            data: ctx.body || {},
+            data: ctx.body || {}
         }
     }
 }

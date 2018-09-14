@@ -3,10 +3,9 @@
     <header>
       <div class="title" v-if="headShow">
         <div v-if="!isLogin">
-          <span @click="register">注册 |</span><span  @click="login"> 登录</span> silentport的博客 
+          <span @click="register">注册 |&nbsp;</span><span  @click="login"> 登录</span> silentport的博客 
         </div>
-        <div user v-else>
-            
+        <div user v-else>         
         <label for="pic">
               <span v-if="!avatorUrl">设置头像 </span>
               <img v-if="avatorUrl" :src="avatorUrl" alt="" title="点击可更换头像"> 
@@ -40,7 +39,6 @@
        
      </div>
     </div>
-
       <component :is="componentId" v-if="dialogShow"></component>
       <footer>
         联系我:&nbsp;&nbsp;&nbsp;&nbsp;
@@ -48,7 +46,6 @@
         &nbsp;&nbsp;&nbsp;&nbsp;
         github： <a href="https://github.com/silentport">https://github.com/silentport</a>
       </footer>  
-
   </div>
 </template>
 
@@ -90,6 +87,7 @@ export default {
     this.headShow = true;
   },
   methods: {
+
     handleclick(e) {
       this.$store.commit("hideCatagory", e);
     },
@@ -107,7 +105,7 @@ export default {
           path: "upload/avator",
           data: {
             avator: e.target.files[0],
-            username: this.$store.state.username,
+            username: this.$store.state.username
           },
           method: "POST"
         });
@@ -133,7 +131,7 @@ export default {
     },
     avatorUrl() {
       return this.$store.state.avator;
-    },
+    }
   }
 };
 </script>
@@ -172,8 +170,8 @@ header {
       display: none;
     }
 
-    & > span {
-      font-size: 15px;
+    & > div > span {
+      font-size: 16px;
       color: #eee;
       cursor: pointer;
       vertical-align: middle;
@@ -303,6 +301,13 @@ footer {
     .title {
       font-size: 20px;
     }
+  }
+  .container{
+    margin-top: -70px;
+    width:99%;
+  }
+  .main {
+    width: 100%;
   }
   .side {
     display: none;

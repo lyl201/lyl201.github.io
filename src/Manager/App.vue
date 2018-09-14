@@ -7,7 +7,7 @@
                         <Icon type="ios-navigate"></Icon>
                         {{item.name}}
                     </template>
-                    <MenuItem :name="index + 1 + '-' + n + 1" v-for="(it, n ) in item.sub" :key="n" @click.native="go(item, it)">{{it.name}}</MenuItem>
+                    <MenuItem :name="index + 1 + '-' + n + 1" v-for="(it, n) in item.sub" :key="n" @click.native="go(item, it)">{{it.name}}</MenuItem>
                     
                 </Submenu>
             </Menu>
@@ -18,7 +18,6 @@
                 <Breadcrumb :style="{margin: '16px 0'}">
                     <BreadcrumbItem>{{menuName}}</BreadcrumbItem>
                     <BreadcrumbItem>{{subMenuName}}</BreadcrumbItem>
-                    <!-- <BreadcrumbItem>Layout</BreadcrumbItem> -->
                 </Breadcrumb>
                 <Card>
                     <div style="height: 100vh">
@@ -105,6 +104,9 @@ export default {
   position: relative;
   border-radius: 4px;
   overflow: hidden;
+}
+.ivu-layout-header {
+  height: 0px !important;
 }
 .layout-header-bar {
   background: #fff;

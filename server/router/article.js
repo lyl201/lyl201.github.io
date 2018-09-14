@@ -1,23 +1,42 @@
-module.exports = async (ctx, next) => {
-  try {
-    const res = await ctx.models.Article.myFind({
-      title: ctx.request.body.title
-    });
-    console.log(res)
-    if (res.length > 0) {
-      ctx.state.msg = "该标题已经存在";
-      ctx.state.status = false;
-    } else {
-      const article = new ctx.models.Article(ctx.request.body);
-      const msg = await article.mySave();
-      ctx.state.status = true;
-      ctx.state.msg = "^_^";
-    }
-    ctx.body = {};
-    
-  } catch (err) {
-    ctx.throw(500, err)
-  }
+module.exports = async(ctx, next) => {
+    try {
+        let article = null;
+        if (ctx.request.body._id) {
+            const res = await ctx
+                .models
+                .Article
+                .find({_id: ctx.request.body._id});
 
-  next();
+            if (res.length > 0) {
+                await ctx
+                    .models
+                    .Article
+                    .update({
+                        _id: ctx.request.body._id
+                    }, {
+                        ...ctx.request.body
+                    })
+                ctx.state.msg = "更新成功";
+                ctx.body = {
+                    _id: ctx.request.body._id
+                };
+            }
+        } else {
+            delete(ctx.request.body._id);
+            article = new ctx
+                .models
+                .Article(ctx.request.body);
+            await article.mySave();
+            ctx.state.msg = "新增成功";
+            ctx.body = {
+                _id: article._id
+            };
+        }
+        ctx.state.status = true;
+
+    } catch (err) {
+        ctx.throw(500, err)
+    }
+
+    next();
 }

@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Catagory from '../pages/Catagory'
-import Avator from '../pages/Avator'
-import Article from '../pages/Article'
-import Comment from '../pages/Comment'
-import Detail from '../pages/Detail'
+const Catagory = () => import('../pages/Catagory');
+const Avator = () => import('../pages/Avator')
+const Comment = () => import('../pages/Comment')
+const Detail = () => import('../pages/Detail')
+const Article = () => import('../pages/Article')
 
 import Promise from 'promise-polyfill'
 if (!window.Promise) {

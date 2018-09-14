@@ -1,7 +1,7 @@
 <template>
   <div>
     <Article/>
-    <PartPage :num="32"/>
+    <PartPage/>
   </div>
 </template>
 
@@ -15,7 +15,7 @@ export default {
   components: {
     Article,
     PartPage,
-  }
+  },
 };
 </script>
 

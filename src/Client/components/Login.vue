@@ -11,10 +11,8 @@
         </li>
         <li>
           <input type="submit" value="确定">
-        </li>
-        
-      </ul>
-      
+        </li>      
+      </ul>   
     </form>
   </Dialog>
 </template>

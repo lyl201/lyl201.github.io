@@ -31,7 +31,7 @@ export default {
           key: "date",
           render: (h, params) => {
             return h("span", [
-              h("span", {}, this.$moment(params.row.date).format("YYYY-MM-DD"))
+              h("span", {}, moment(params.row.date).format("YYYY-MM-DD"))
             ]);
           }
         },
@@ -74,11 +74,7 @@ export default {
           data: {},
           method: "GET"
         });
-        Object.keys(res).forEach(key => {
-          if (typeof res[key] === "object") {
-            this.data.push(res[key]);
-          }
-        });
+        this.data = res.data;
       } catch (msg) {
         this.$Message.info(msg);
       }
