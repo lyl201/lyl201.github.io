@@ -14,7 +14,6 @@ module.exports = function (mongoose) {
         content: {
             type: String,
             required: true,
-            unique: false
         },
         image: {
             type: String, 
