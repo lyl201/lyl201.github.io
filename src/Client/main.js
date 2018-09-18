@@ -14,7 +14,7 @@ Vue.use({
     Vue.prototype.$request = request;
   }
 })
-
+import '../../static/reset.css'
 import 'highlight.js/styles/agate.css' //样式文件
 
 Vue.directive('highlight',function (el) {
