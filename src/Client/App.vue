@@ -186,6 +186,9 @@ header {
       font-size: 14px;
       img {
         height: 40px;
+        min-width: 40px;
+        min-height: 4opx;
+        background: #eee;
         width: 40px;
         vertical-align: middle;
         margin-right: 10px;
@@ -217,6 +220,9 @@ header {
         padding-bottom: 20px;
         img {
           width: 120px;
+          min-height: 120px;
+          min-width: 120px;
+          background: #eee;
           height: 120px;
           border-radius: 50%;
         }

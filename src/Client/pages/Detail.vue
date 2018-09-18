@@ -72,6 +72,9 @@ h1 {
   // height: 1500px;
   padding: 0px 20px;
   min-height: 800px;
+  div[article] {
+    word-break: break-all;
+  }
 }
 .comment {
   // border-top: 2px solid #976;
