@@ -19,7 +19,7 @@ module.exports = async(ctx, next) => {
 
             if (page && tag) {
                 // 分页查找
-                const pageNum = 3;
+                const pageNum = 5;
                 let query = tag === 'Latest'
                     ? {}
                     : {

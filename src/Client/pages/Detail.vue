@@ -2,6 +2,10 @@
     <div class="detail-container">
         &nbsp;
         <h1 v-if="!isLoading">{{title}}</h1>
+        <div style="font-size: 14px; color: #969696; padding-bottom: 10px;border-bottom: 1px solid #f0f0f0">
+          <div class="tag">标签：{{tag}}</div>
+          <div class="date">时间：{{date}}</div>
+        </div>
         <div v-if="!isLoading" v-html="mark" v-highlight article></div>
         <div class="comment">
             <!-- <div class="title">12条评论:</div>
@@ -24,7 +28,9 @@ export default {
   data() {
     return {
       article: "",
-      title: ""
+      title: "",
+      date: "",
+      tag: "",
     };
   },
   components: {
@@ -40,6 +46,8 @@ export default {
       });
       this.article = res.content;
       this.title = res.title;
+      this.date = moment(Number(res.date)).format("YYYY-MM-DD");
+      this.tag = res.tag;
       this.$store.commit("switchLoading");
     } catch (err) {
 
@@ -59,8 +67,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 h1 {
-  border-bottom: 2px solid #ddd;
-  padding-bottom: 10px;
+  // border-bottom: 2px solid #ddd;
+  // padding-bottom: 10px;
   word-break: break-all;
 }
 .loading {

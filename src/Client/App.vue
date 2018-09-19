@@ -206,7 +206,8 @@ header {
   margin: -40px auto 20px;
   .main {
     width: 75%;
-    // height: 980px;
+    min-height: 50px;
+    background: #fff;
     text-align: left;
   }
   .side {
