@@ -1,9 +1,12 @@
 <template>
   <div class="partpage-container">
+
+    <!-- <div class="more">加载更多</div> -->
+
     <div class="partpage" v-show="num > 1">
           <div>{{num}}页</div>
           <div class="exp" @click="goPrev" :class="{no: !prev}">上一页</div>
-          <div v-for="n in getCurPages" :style="{'color': n === cur ? 'red' : '#444'}" @click="goThis(n)" :key="n">第{{n}}页</div>
+          <div v-for="n in getCurPages" :style="{'color': n === cur ? '#697' : '#444'}" @click="goThis(n)" :key="n">第{{n}}页</div>
           <div class="exp"  @click="goNext" :class="{no: !next}">下一页</div>
       </div>
   </div>
@@ -93,10 +96,24 @@ export default {
   background: #fff;
   margin-top: -20px;
   padding: 20px 0px;
+
+  .more {
+    background: #a5a5a5;
+    height: 50px;
+    border-radius: 25px;
+    text-align: center;
+    width: 100%;
+    line-height: 50px;
+    color:#fff;
+        font-size: 15px;
+        cursor: pointer;
+  }
+  .more:hover, .more:active{
+    background: #9b9b9b;
+  }
 }
 .partpage {
   display: flex;
-  width: 60%;
   // margin: 30px;
   .exp {
     width: 100px;
@@ -113,10 +130,11 @@ export default {
     -moz-user-select: none;
     -khtml-user-select: none;
     user-select: none;
+
   }
-  div:not(:first-child):not(.no):hover{
-    color: #697 !important;
-  }
+  // div:not(:first-child):not(.no):hover{
+  //   color: #697 !important;
+  // }
 }
 .no {
   color:rgba(0,0,0,0.2) !important;
@@ -131,7 +149,6 @@ export default {
     div {
       margin-left: 10px;
       border: none;
-      width: 15px;
       height: 15px;
     }
     div:not(:first-child):hover {

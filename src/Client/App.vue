@@ -3,7 +3,8 @@
     <header>
       <div class="title" v-if="headShow">
         <div v-if="!isLogin">
-          <span @click="register">注册 |&nbsp;</span><span  @click="login"> 登录</span> silentport的博客 
+          <span @click="register">注册 - &nbsp;</span><span  @click="login"> 登录</span> 
+          
         </div>
         <div user v-else>         
         <label for="pic">
@@ -28,9 +29,12 @@
           <div class="avator">
             <img :src="icon" alt="" >
           </div>   
-          <p>
-            前端攻城狮、坐标帝都
-          </p>
+
+          <ul class="right">
+            <li>职  业：前端攻城狮、坐标帝都</li>
+          <li>邮   箱：<a href="mailto:18201180289@163.com">18201180289@163.com</a></li>
+          <li>github: <a href="https://github.com/silentport">https://github.com/silentport</a></li>
+        </ul>
        </div>
        <div class="search">
          <input type="text" placeholder="输入搜索词"><span>搜索</span>
@@ -41,10 +45,7 @@
     </div>
       <component :is="componentId" v-if="dialogShow"></component>
       <footer>
-        联系我:&nbsp;&nbsp;&nbsp;&nbsp;
-        邮箱： <a href="mailto:18201180289@163.com">18201180289@163.com</a> 
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        github： <a href="https://github.com/silentport">https://github.com/silentport</a>
+       
       </footer>  
   </div>
 </template>
@@ -63,7 +64,7 @@ export default {
     return {
       item: ["Latest", "JavaScript", "Css", "Node.js", "Database", "Other"],
       icon: icon,
-      headShow: false,
+      headShow: false
     };
   },
   components: {
@@ -87,7 +88,6 @@ export default {
     this.headShow = true;
   },
   methods: {
-
     handleclick(e) {
       this.$store.commit("hideCatagory", e);
     },
@@ -143,6 +143,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   position: relative;
+  background: #fff;
   height: 100vh;
   overflow: scroll;
 }
@@ -150,10 +151,14 @@ export default {
   overflow: hidden !important;
 }
 header {
-  background: linear-gradient(#444 48%, #eee 52%);
+  background: #fff;
+  border-bottom: 1px solid #f0f0f0;
   width: 100%;
   display: flex;
-  height: 140px;
+  height: 70px;
+  position: fixed;
+  z-index: 999;
+  top: 0px;
   .title {
     color: #dee;
     font-size: 30px;
@@ -169,10 +174,13 @@ header {
     input[type="file"] {
       display: none;
     }
-
+    & > div {
+      display: flex;
+      padding-left: 30px;
+    }
     & > div > span {
       font-size: 16px;
-      color: #eee;
+      color: #969696;
       cursor: pointer;
       vertical-align: middle;
       display: inline-block;
@@ -183,7 +191,8 @@ header {
       text-align: left;
       padding-left: 20px;
       font-weight: normal;
-      font-size: 14px;
+      font-size: 18px;
+      color: #666;
       img {
         height: 40px;
         min-width: 40px;
@@ -202,51 +211,65 @@ header {
   display: flex;
   // height: 980px;
   margin-bottom: 20px;
-  width: 80%;
-  margin: -40px auto 20px;
+  width: 60%;
+  margin: 90px auto 20px;
   .main {
-    width: 75%;
+    width: 70%;
     min-height: 50px;
     background: #fff;
     text-align: left;
   }
   .side {
-    width: calc(25% - 10px);
+    width: calc(30% - 10px);
     margin-left: 10px;
-    background: #eee;
     .intro {
-      box-shadow: 4px 4px 3px #aaa;
+      // box-shadow: 4px 4px 3px #aaa;
+      border-radius: 10px;
+      padding-bottom: 20px;
+      background: rgb(249, 249, 249);
       .avator {
-        background: #fff;
         padding-bottom: 20px;
         img {
           width: 120px;
           min-height: 120px;
           min-width: 120px;
-          background: #eee;
+          background: rgb(249, 249, 249);
           height: 120px;
           border-radius: 50%;
         }
       }
-      p {
+      ul {
+        text-align: left;
         color: #666;
-        background: #fff;
-        margin: 0px;
-        padding-bottom: 10px;
+        & > li {
+          // height: 30px;
+          line-height: 30px;
+          width: 70%;
+          word-break: break-all;
+          margin: 0 auto;
+        }
+        & > li > a {
+          font-size: 14px;
+          text-decoration: none;
+          word-break: break-all;
+          color: #666;
+        }
       }
     }
 
     .search {
-      background: #fff;
+      background: rgb(249, 249, 249);
+      border-radius: 10px;
       margin-top: 10px;
       text-align: left;
       height: 50px;
-      padding: 7px 5px;
+      padding: 7px 15px;
       box-sizing: border-box;
-      box-shadow: 4px 4px 3px #aaa;
+      // box-shadow: 4px 4px 3px #aaa;
 
       input {
         height: 35px;
+        background: rgb(249, 249, 249);
         box-sizing: border-box;
         margin-left: 0px;
         vertical-align: top;
@@ -258,60 +281,38 @@ header {
       }
       span {
         display: inline-block;
+        border-radius: 10px;
         width: 60px;
         height: 35px;
-        background: #666;
+        background: #ea6f5a;
         text-align: center;
         line-height: 35px;
         color: #eee;
         letter-spacing: 5px;
-        font-weight: bolder;
+        font-weight: 700;
         cursor: pointer;
       }
       span:hover {
-        background: #444;
+        background: #ea6f20;
       }
     }
   }
 }
 
 footer {
-  height: 80px;
-  background: #444;
-  padding-top: 30px;
-  color: #fff;
-  box-sizing: border-box;
-  width: 100%;
-
-  img {
-    width: 25px;
-    vertical-align: middle;
-  }
-  a {
-    text-decoration: none;
-    color: #fff;
-    display: inline-block;
-    font-size: 16px;
-  }
 }
 
-@media screen and (max-width: 1053px) {
+@media screen and (max-width: 1000px) {
   header {
-    background: linear-gradient(#444 48%, #444 52%);
-    margin-bottom: 70px;
-  }
-}
-@media screen and (max-width: 697px) {
-  header {
-    background: linear-gradient(#444 48%, #eee 52%);
-    margin-bottom: 0px;
     .title {
       font-size: 20px;
     }
   }
-  .container{
-    margin-top: -70px;
-    width:99%;
+  .tab-container {
+    padding-right: 40px !important;
+  }
+  .container {
+    width: 99%;
   }
   .main {
     width: 100%;

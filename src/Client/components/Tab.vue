@@ -2,9 +2,11 @@
     <div class="tab-container">
         <div @click="switchTab(index, item)" :class="{'high-light': curIndex == index}" v-for="(item, index) in list" :key="index">{{item.name}}</div>
         <img :src="url" alt="" class="more" @click="openList">
-        <ul v-show="catagoryShow">
-            <li @click="switchTab(index, item)" v-for="(item, index) in list" :key="index">{{item.name}}</li>
-        </ul>
+        <transition name="listFade">
+          <ul v-show="catagoryShow">
+              <li @click="switchTab(index, item)" v-for="(item, index) in list" :key="index">{{item.name}}</li>
+          </ul>
+         </transition>
     </div>  
 </template>
 <script>
@@ -59,7 +61,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
-  padding-right: 20px;
+  padding-right: 200px;
   box-sizing: border-box;
   width: calc(100% - 310px);
   margin-left: 0px;
@@ -73,21 +75,40 @@ export default {
   ul {
     display: none;
   }
-  @media screen and (max-width: 697px) {
+
+.listFade-enter-active,
+.listFade-leave-active {
+  transition: height 0.08s;
+}
+.listFade-enter-to {
+  height: 200px;
+}
+.listFade-leave {
+  height: 200px;
+}
+.listFade-enter, .listFade-leave-to {
+  height: 0px;
+}
+  @media screen and (max-width: 1000px) {
+ 
     .more {
       display: block;
       cursor: pointer;
+      transform: scale(0.8);
     }
+    
     ul {
       display: block;
-      background: #444;
-      color: #eee;
+      background: #eee;
+      color: #666;
       padding: 10px;
       font-size: 25px;
       text-align: left;
+      margin-top: 10px;
       position: absolute;
-      box-shadow: 5px 5px 5px #777;
       box-sizing: border-box;
+      border-radius: 10px;
+      overflow: hidden;
       // height: 200px;
       top: 60px;
       li {
@@ -104,6 +125,8 @@ export default {
     div {
       display: none;
     }
+    
+
   }
   div {
     width: auto;
@@ -112,7 +135,7 @@ export default {
     font-size: 32px;
     font-weight: 500;
     height: 70px;
-    color: #ddd;
+    color: #969696;
     line-height: 60px;
     position: relative;
     cursor: pointer;
@@ -123,10 +146,9 @@ export default {
     background: rgba(200, 200, 200, 0.2);
   }
   .high-light {
-    color: #489;
-    height: 68px;
+    height: 70px;
     font-size: 32px;
-    background: rgba(0, 0, 0, 0.4);
+    border-bottom: 3px solid #ea6f5a;
   }
 }
 </style>

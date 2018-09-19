@@ -26,7 +26,7 @@
       </div>
 
     </div>
-    <div class="article" v-if="articleList.length===0&&!isLoading" style="display:flex; justify-content: center; align-items: center; color: #808695"> 没有内容 </div>
+    <div v-if="articleList.length===0&&!isLoading" style="display:flex; justify-content: center; align-items: center; color: #808695"> 没有内容 </div>
     <div class="loading" v-show="isLoading">
       <Loading/>
     </div>
@@ -69,6 +69,9 @@ export default {
   min-height: 700px;
   background: #fff;
   padding: 20px 10px;
+  & > .article:not(:last-child) {
+    border-bottom: 1px solid #f0f0f0;
+  }
 }
 
 .loading {
@@ -82,7 +85,6 @@ export default {
   padding: 10px;
   margin-bottom: 10px;
   cursor: pointer;
-  border-bottom: 1px solid #f0f0f0;
 
   .title {
     word-break: break-all;
@@ -109,32 +111,32 @@ export default {
     display: flex;
     margin-top: 10px;
 
-    & > div{
+    & > div {
       margin-right: 20px;
       padding: 0px 20px;
       color: #b4b4b4;
       font-size: 14px;
     }
     .read {
-        background-image: url(../../static/read.png);
-        background-repeat: no-repeat;
-        background-position: 0 1px;
-      }
-      .like {
-        background-image: url(../../static/like.jpg);
-        background-repeat: no-repeat;
-        background-position: 0 1px;
-      }
-      .tag {
-        background-image: url(../../static/tag.png);
-        background-repeat: no-repeat;
-        background-position: 0 2px;
-      }
-      .comment {
-        background-image: url(../../static/comment.png);
-        background-repeat: no-repeat;
-        background-position: 0 1px;
-      }
+      background-image: url(../../static/read.png);
+      background-repeat: no-repeat;
+      background-position: 0 1px;
+    }
+    .like {
+      background-image: url(../../static/like.jpg);
+      background-repeat: no-repeat;
+      background-position: 0 1px;
+    }
+    .tag {
+      background-image: url(../../static/tag.png);
+      background-repeat: no-repeat;
+      background-position: 0 2px;
+    }
+    .comment {
+      background-image: url(../../static/comment.png);
+      background-repeat: no-repeat;
+      background-position: 0 1px;
+    }
   }
   & img {
     height: 200px;
@@ -160,7 +162,7 @@ export default {
       .clock {
         background-image: url(../../static/clock.png);
       }
-      
+
       .all {
         color: #096;
       }

@@ -20,13 +20,14 @@ export default {};
 <style lang="scss" scoped>
 @import url(./css/side.css);
 .msg {
-  background: #fff;
+   background: rgb(249, 249, 249);
+   border-radius: 10px;
   margin-top: 10px;
   text-align: left;
-  height: 474px;
+  height: 400px;
   padding: 7px 5px;
   box-sizing: border-box;
-  box-shadow: 4px 4px 3px #aaa;
+  // box-shadow: 4px 4px 3px #aaa;
 
   ul {
     padding-left: 40px;
