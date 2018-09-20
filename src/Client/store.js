@@ -55,7 +55,7 @@ const store = new Vuex.Store({
     },
     getArticle(state, data) {
 
-      if (data.length === 0) {
+      if (data.arr.length === 0) {
         state.noArticle = true;
         state.curPage --;
         setTimeout(() => {
