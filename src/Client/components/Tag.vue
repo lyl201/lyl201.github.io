@@ -1,7 +1,7 @@
 <template>
     <div class="msg">
         <div class="side-title">
-          常用
+          标签
         </div>
         <ul>
           <li v-for="(item, index) in data" :key="index">
@@ -30,7 +30,6 @@ export default {
           method: "GET"
         });
         this.data = res.data;
-        console.log(this.data);
       } catch (msg) {
         this.$Message.info(msg);
       }
@@ -41,7 +40,7 @@ export default {
 <style lang="scss" scoped>
 @import url(./css/side.css);
 .msg {
-   background: rgb(249, 249, 249);
+   background: #f9f9f9;
    border-radius: 10px;
   margin-top: 10px;
   text-align: left;

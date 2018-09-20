@@ -20,9 +20,6 @@ export default {
       list: [{name: 'Latest'}]
     };
   },
-  props: {
-    item: Array
-  },
   async created() {
     try {
       const res = await this.$request({

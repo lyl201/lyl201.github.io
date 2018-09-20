@@ -62,8 +62,12 @@ const store = new Vuex.Store({
           state.noArticle = false;
         }, 1000)
       }
-
-      state.articleList = state.articleList.concat(data);
+      if (!data.key) {
+        state.articleList = state.articleList.concat(data.arr);
+      } else {
+        state.articleList = data.arr;
+      }
+      
     },
     getPageCount(state, count){
         state.pageCount = count;
@@ -85,16 +89,22 @@ const store = new Vuex.Store({
       const vm = option.vm;
       try {
         const res = await vm.$request({
-          path: `article?page=${option.page}&tag=${state.tag}`,
+          path: `article?page=${option.page}&tag=${state.tag}&keyWord=${option.keyWord || ""}`,
           data: {},
           method: "GET"
         });
-        commit('getArticle', res.data);
+        commit('getArticle', {
+          arr: res.data,
+          key: option.keyWord
+        });
         commit('getPageCount', res.count)
       } catch (msg) {
         console.log(msg);
         commit('getPageCount', 0);
-        commit('getArticle', []);
+        commit('getArticle', {
+          arr: [],
+          key: option.keyWord
+        });
       }
     },
   }

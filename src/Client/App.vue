@@ -15,7 +15,7 @@
           {{username}}
         </div>
       </div>
-      <Tab :item=item v-if="headShow" />
+      <Tab v-if="headShow" />
     </header>
     <div class="container">
      <div class="main">
@@ -37,7 +37,10 @@
         </ul>
        </div>
        <div class="search">
-         <input type="text" placeholder="输入搜索词"><span>搜索</span>
+         <input v-model="keyWord" type="text" placeholder="输入搜索词">
+         <div @click="goSearch">
+           搜索
+          </div>
        </div>
         <Tag/>
        
@@ -63,10 +66,10 @@ export default {
   name: "App",
   data() {
     return {
-      item: ["Latest", "JavaScript", "Css", "Node.js", "Database", "Other"],
       icon: icon,
       headShow: false,
-      beforeScrollTop: 0
+      beforeScrollTop: 0,
+      keyWord: ""
     };
   },
   components: {
@@ -99,7 +102,10 @@ export default {
     this.$store.commit("switchLoading");
 
     this.beforeScrollTop = app.scrollTop;
-    app.addEventListener("scroll", this.debounce(this.scrollHandler, 300, 1000));
+    app.addEventListener(
+      "scroll",
+      this.debounce(this.scrollHandler, 300, 1000)
+    );
   },
   methods: {
     handleclick(e) {
@@ -145,9 +151,9 @@ export default {
       };
     },
     async scrollHandler() {
-      if (this.$route.path.includes('detail')) {
-        return ;
-      };
+      if (this.$route.path.includes("detail")) {
+        return;
+      }
       if (this.$store.state.isLoading) {
         console.log(77);
         return;
@@ -175,6 +181,19 @@ export default {
       }
       this.beforeScrollTop = afterScrollTop;
     },
+    async goSearch() {
+      if (!this.keyWord) {
+        return;
+      }
+      await this.getArticle({
+        vm: this,
+        page: this.$store.state.curPage,
+        tag: this.$store.state.tag,
+        keyWord: this.keyWord,
+      });
+      // this.$store.commit("changeTag", "Latest");
+
+    },
     ...mapActions(["getArticle"])
   },
   computed: {
@@ -192,6 +211,9 @@ export default {
     },
     avatorUrl() {
       return this.$store.state.avator;
+    },
+    isLoading() {
+      return this.$store.state.isLoading;
     }
   }
 };
@@ -210,6 +232,10 @@ export default {
 }
 .forbid-scroll {
   overflow: hidden !important;
+}
+.loading {
+  position: absolute;
+  left: 40%;
 }
 header {
   background: #fff;
@@ -326,6 +352,8 @@ header {
       height: 50px;
       padding: 7px 15px;
       box-sizing: border-box;
+      display: flex;
+      // position: relative;
       // box-shadow: 4px 4px 3px #aaa;
 
       input {
@@ -340,7 +368,7 @@ header {
         border-right: none;
         font-size: 16px;
       }
-      span {
+      div {
         display: inline-block;
         border-radius: 10px;
         width: 60px;
@@ -353,7 +381,7 @@ header {
         font-weight: 700;
         cursor: pointer;
       }
-      span:hover {
+      div:hover {
         background: #ea6f20;
       }
     }
