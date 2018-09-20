@@ -13,6 +13,8 @@ const store = new Vuex.Store({
     tag: 'Latest',
     pageCount: null,
     articleList: [],
+    curPage: 1,
+    noArticle: false,
   },
   mutations: {
     hideCatagory(state, e) {
@@ -52,13 +54,27 @@ const store = new Vuex.Store({
 
     },
     getArticle(state, data) {
-      state.articleList = data;
+
+      if (data.length === 0) {
+        state.noArticle = true;
+        state.curPage --;
+        setTimeout(() => {
+          state.noArticle = false;
+        }, 1000)
+      }
+
+      state.articleList = state.articleList.concat(data);
     },
     getPageCount(state, count){
         state.pageCount = count;
     },
     changeTag(state, tag) {
+        state.articleList = [];
         state.tag = tag;
+        state.curPage = 1;
+    },
+    nextPage(state){
+      state.curPage ++;
     }
   },
   actions: {

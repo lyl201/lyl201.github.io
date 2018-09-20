@@ -8,9 +8,17 @@ export default {
       config: {
         color: "#896",
         width: "40px"
+        
       }
     };
   }
 };
 </script>
+<style scoped>
+img {
+  width: 30px;
+  height: 30px;
+}
+</style>
+
 

@@ -8,7 +8,6 @@ module.exports = function (mongoose) {
         },
         summary: {
             type: String, 
-            required: true, 
             unique: false
         },
         content: {
@@ -17,7 +16,6 @@ module.exports = function (mongoose) {
         },
         image: {
             type: String, 
-            required: true,
             unique: false
         },
         tag: {

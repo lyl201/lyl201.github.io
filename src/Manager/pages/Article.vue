@@ -152,6 +152,8 @@
                 if (!this.checkData()) {
                     return;
                 }
+                this.data.summary = this.data.summary || "";
+                this.data.image = this.data.image  || "";
                 this.data.date = Date.parse(new Date());
 
                 try {
@@ -169,7 +171,7 @@
             },
             checkData() {
                 const {content, title, tag, image, summary} = this.data;
-                if (!content || !title || !tag || !image || !summary) {
+                if (!content || !title || !tag ) {
                     this
                         .$Message
                         .info("有未填信息不能提交");

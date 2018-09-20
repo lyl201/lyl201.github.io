@@ -52,6 +52,7 @@
 
 <script>
 const icon = require("../static/icon.jpg");
+import { mapActions } from "vuex";
 import Tab from "@/components/Tab";
 import Tag from "@/components/Tag";
 import Login from "@/components/Login";
@@ -64,7 +65,8 @@ export default {
     return {
       item: ["Latest", "JavaScript", "Css", "Node.js", "Database", "Other"],
       icon: icon,
-      headShow: false
+      headShow: false,
+      beforeScrollTop: 0
     };
   },
   components: {
@@ -86,6 +88,18 @@ export default {
       this.$store.commit("hideDialog", "isLogin");
     }
     this.headShow = true;
+  },
+  async mounted() {
+    this.$store.commit("switchLoading");
+    await this.getArticle({
+      vm: this,
+      page: this.$store.state.curPage,
+      tag: this.$store.state.tag
+    });
+    this.$store.commit("switchLoading");
+
+    this.beforeScrollTop = app.scrollTop;
+    app.addEventListener("scroll", this.debounce(this.scrollHandler, 300, 1000));
   },
   methods: {
     handleclick(e) {
@@ -114,7 +128,54 @@ export default {
       } catch (err) {
         console.log(err);
       }
-    }
+    },
+    debounce(fn, wait, maxTimelong) {
+      var timeout = null,
+        startTime = Date.parse(new Date());
+
+      return function() {
+        if (timeout !== null) clearTimeout(timeout);
+        var curTime = Date.parse(new Date());
+        if (curTime - startTime >= maxTimelong) {
+          fn();
+          startTime = curTime;
+        } else {
+          timeout = setTimeout(fn, wait);
+        }
+      };
+    },
+    async scrollHandler() {
+      if (this.$route.path.includes('detail')) {
+        return ;
+      };
+      if (this.$store.state.isLoading) {
+        console.log(77);
+        return;
+      }
+      function isReachedBottom() {
+        // 手机浏览器会有1px误差
+        return app.scrollHeight - app.clientHeight - app.scrollTop < 2;
+      }
+      let afterScrollTop = app.scrollTop;
+      // 向上滚
+      if (afterScrollTop - this.beforeScrollTop < 0) {
+        this.beforeScrollTop = afterScrollTop;
+        console.log("up");
+        return;
+      }
+      if (isReachedBottom()) {
+        this.$store.commit("switchLoading");
+        this.$store.commit("nextPage");
+        await this.getArticle({
+          vm: this,
+          page: this.$store.state.curPage,
+          tag: this.$store.state.tag
+        });
+        this.$store.commit("switchLoading");
+      }
+      this.beforeScrollTop = afterScrollTop;
+    },
+    ...mapActions(["getArticle"])
   },
   computed: {
     dialogShow() {

@@ -37,10 +37,13 @@ export default {
     async switchTab(index, item) {
       this.curIndex = index;
       this.$store.commit("changeTag", item.name);
-      this.$router.push({path: '/empty'})
-      this.$nextTick(() => {
+      app.scrollTo(0,0);
+      this.$nextTick(async () => {
          this.$router.replace({path: '/'})
-      })  
+         this.$store.commit("switchLoading");
+         await this.getArticle({vm: this, page: this.$store.state.curPage})
+        this.$store.commit("switchLoading");
+     })  
     },
     openList() {
       this.$store.commit("switchStatus");

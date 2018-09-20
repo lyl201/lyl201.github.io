@@ -10,6 +10,11 @@ module.exports = function (mongoose) {
             type: Number, 
             required: true, 
             unique: true
+        },
+        count: {
+            type: Number, 
+            required: true, 
+            unique: true
         }
     })
 

@@ -25,7 +25,14 @@ Vue.directive('highlight',function (el) {
 })
 
 import store from './store.js';
-/* eslint-disable no-new */
+
+
+router.afterEach((to,from,next) => {
+  console.log(99);
+  app.scrollTo(0,0);
+})
+
+
 new Vue({
   el: '#app',
   router,

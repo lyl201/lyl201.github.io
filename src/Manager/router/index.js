@@ -14,6 +14,7 @@ if (!window.Promise) {
 Vue.use(Router)
 
 export default new Router({
+  mode: 'hash',
   routes: [{
       path: '/catagory',
       name: 'Catagory',

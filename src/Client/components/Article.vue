@@ -1,19 +1,7 @@
 <template>
+<div class="outer">
   <div class="article-container">
-    <div class="article" v-for="(item, n) in articleList" :key="n" v-show="!isLoading">
-      <!-- <div class="sum"> <img :src="item.image" alt=""> </div>
-      <div class="desc">
-        <div class="title"> {{item.title}} </div>
-        <div class="text">  </div>
-        <div class="underline">
-          <div class="tag">{{item.tag}}</div>
-          <div class="clock">{{getDate(item.date)}}</div>
-          <div class="comment">{{item.commentCount}}</div>
-          <div class="read">{{item.readCount}}</div>
-          <div class="like">{{item.likeCount}}</div>
-          <div @click="openText(item)" class="all">查看全文</div>
-        </div>
-      </div> -->
+    <div class="article" v-for="(item, n) in articleList" :key="n">
       <div class="title" @click="openText(item)">{{item.title}}</div>
       <div class="summary">
         {{item.summary}}
@@ -26,11 +14,20 @@
       </div>
 
     </div>
-    <div v-if="articleList.length===0&&!isLoading" style="display:flex; justify-content: center; align-items: center; color: #808695"> 没有内容 </div>
-    <div class="loading" v-show="isLoading">
+      
+  </div>
+  <div v-if="articleList.length===0&&!isLoading" style="display:flex; justify-content: center; align-items: center; color: #808695"> 没有内容 </div>
+  <div class="loading" v-show="isLoading">
       <Loading/>
     </div>
-  </div>
+
+    <div class="no-article" >
+        <transition name="noArticleFade">
+          <span v-show="noArticle && articleList.length!==0">没有内容了</span>
+      </transition>
+      </div>
+    
+    </div>
 </template>
 
 <script>
@@ -59,31 +56,45 @@ export default {
     },
     isLoading() {
       return this.$store.state.isLoading;
+    },
+    noArticle(){
+      return this.$store.state.noArticle;
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+.outer {
+  min-height: 105vh;
+}
 .article-container {
-  min-height: 700px;
-  background: #fff;
   padding: 20px 10px;
-  & > .article:not(:last-child) {
+  & > .article:not(:last-of-type) {
     border-bottom: 1px solid #f0f0f0;
   }
 }
 
 .loading {
   display: flex;
+  height: 100px;
   justify-content: center;
+  margin-top: -80px;
+  padding-top: 20px;
 }
-
+.no-article {
+  text-align: center;
+  color: #999;
+  font-size: 14px;
+  margin-top: -80px;
+  height: 30px;
+}
 .article {
   background: #fff;
   box-sizing: border-box;
   padding: 10px;
   margin-bottom: 10px;
+  height: 200px;
   cursor: pointer;
 
   .title {
@@ -100,12 +111,13 @@ export default {
     word-break: break-all;
     font-size: 13px;
     line-height: 24px;
+    // height: 100px;
     color: #999;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
   }
   .bottom {
     display: flex;
@@ -169,16 +181,17 @@ export default {
     }
   }
 }
+.noArticleFade-enter-active,
+.noArticleFade-leave-active {
+  transition: opacity 0.3s;
+}
+.noArticleFade-enter, .noArticleFade-leave-to {
+  opacity: 0;
+}
 
 @media screen and (max-width: 1060px) {
-  img {
-    display: none;
-  }
-  .clock,
   .read,
   .comment,
-  .tag,
-  .like,
   .text {
     display: none !important;
   }
@@ -191,6 +204,13 @@ export default {
     line-height: 23px !important;
   }
   .article {
+    height: 150px;
+  }
+  .loading {
+    margin-top: -60px;
+  }
+  .no-article{
+    margin-top: -30px;
   }
 }
 </style>

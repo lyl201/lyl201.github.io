@@ -1,21 +1,42 @@
 <template>
     <div class="msg">
         <div class="side-title">
-          标签
+          常用
         </div>
         <ul>
-          <li>最近一周-[2]</li>
-          <li>JavaScript-[6]</li>
-          <li>Css-[56]</li>
-          <li>Node.js-[7]</li>
-          <li>Database-[9]</li>
-          <li>other-[89]</li>
-          <li>全部-[78]</li>
+          <li v-for="(item, index) in data" :key="index">
+            {{item.name}} - {{ '[' + item.count + ']'}}
+          </li>
         </ul>
     </div>
 </template>
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      data: [],
+    }
+  },
+  mounted() {
+    this.getList();
+  },
+  methods: {
+    async getList() {
+      try {
+        this.data = [];
+        const res = await this.$request({
+          path: "catagory",
+          data: {},
+          method: "GET"
+        });
+        this.data = res.data;
+        console.log(this.data);
+      } catch (msg) {
+        this.$Message.info(msg);
+      }
+    },
+  }
+};
 </script>
 <style lang="scss" scoped>
 @import url(./css/side.css);
