@@ -111,12 +111,13 @@ export default {
     word-break: break-all;
     font-size: 13px;
     line-height: 24px;
-    // height: 100px;
     color: #999;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
+    /* autoprefixer: off */
     -webkit-box-orient: vertical;
+    /* autoprefixer: on */
     -webkit-line-clamp: 2;
   }
   .bottom {
