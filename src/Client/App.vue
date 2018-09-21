@@ -175,9 +175,8 @@ export default {
         console.log("up");
         return;
       }
-      if (isReachedBottom()) {
-        this.debounce(this.getNextPage, 80, 1000)();
-        // this.getNextPage();
+      if (isReachedBottom()) {   
+        this.getNextPage();
       }
       this.beforeScrollTop = afterScrollTop;
     },

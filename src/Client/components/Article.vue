@@ -77,7 +77,6 @@ export default {
 
 .loading {
   display: flex;
-  height: 100px;
   justify-content: center;
   margin-top: -80px;
   padding-top: 20px;
@@ -109,9 +108,9 @@ export default {
   .summary {
     margin-top: 10px;
     word-break: break-all;
-    font-size: 13px;
+    font-size: 14px;
     line-height: 24px;
-    color: #999;
+    color: #888;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
