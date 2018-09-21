@@ -1,5 +1,5 @@
 <template>
-  <div id="app" :class="{'forbid-scroll': dialogShow}" @click="handleclick">
+  <div id="app">
     <header>
       <div class="title" v-if="headShow">
         <div v-if="!isLogin">
@@ -18,7 +18,12 @@
       <Tab v-if="headShow" />
     </header>
     <div class="container">
+
+      
      <div class="main">
+       <div class="mobile-tag">
+         <MobileTag/>
+       </div>
        <router-view/>
      </div>
      <div class="side">
@@ -59,6 +64,7 @@ import { mapActions } from "vuex";
 import Tab from "@/components/Tab";
 import Tag from "@/components/Tag";
 import Login from "@/components/Login";
+import MobileTag from "@/components/MobileTag";
 import Register from "@/components/Register";
 require("es6-promise").polyfill();
 require("isomorphic-fetch");
@@ -76,7 +82,8 @@ export default {
     Tab,
     Tag,
     Login,
-    Register
+    Register,
+    MobileTag
   },
   async created() {
     const res = await this.$request({
@@ -108,9 +115,7 @@ export default {
     );
   },
   methods: {
-    handleclick(e) {
-      this.$store.commit("hideCatagory", e);
-    },
+
     register() {
       this.$store.commit("openDialog");
       this.$store.commit("componentName", "Register");
@@ -230,9 +235,6 @@ export default {
   height: 100vh;
   overflow: scroll;
 }
-.forbid-scroll {
-  overflow: hidden !important;
-}
 .loading {
   position: absolute;
   left: 40%;
@@ -300,6 +302,9 @@ header {
   margin-bottom: 20px;
   width: 60%;
   margin: 90px auto 20px;
+  .mobile-tag{
+    display: none;
+  }
   .main {
     width: 70%;
     min-height: 50px;
@@ -393,15 +398,37 @@ footer {
 
 @media screen and (max-width: 1000px) {
   header {
+    height: 47px;
+   
+    box-shadow: 0 1px 1px #f0f0f0;
     .title {
-      font-size: 20px;
+      display: none;
     }
+  }
+  header::before{
+    width: 100px;
+    height: 47px;
+    font-size: 20px;
+    display: block;
+    margin-left:20px;
+    line-height: 47px;
+    content: "技术博客";
+    font-weight: 700;
+    color:#ea6f20;
   }
   .tab-container {
     padding-right: 40px !important;
   }
   .container {
     width: 99%;
+  }
+  .mobile-tag {
+    display: block !important;
+    width: 100%;
+    margin-bottom: 10px;
+    height: 110px;
+    box-shadow: 0 1px 1px #f0f0f0;
+
   }
   .main {
     width: 100%;

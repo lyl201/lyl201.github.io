@@ -1,22 +1,15 @@
 <template>
     <div class="tab-container">
         <div @click="switchTab(index, item)" :class="{'high-light': curIndex == index}" v-for="(item, index) in list" :key="index">{{item.name}}</div>
-        <img :src="url" alt="" class="more" @click="openList">
-        <transition name="listFade">
-          <ul v-show="catagoryShow">
-              <li @click="switchTab(index, item)" v-for="(item, index) in list" :key="index">{{item.name}}</li>
-          </ul>
-         </transition>
+        
     </div>  
 </template>
 <script>
 import { mapActions } from 'vuex'
-const img = require("../../static/more.png");
 export default {
   data() {
     return {
       curIndex: 0,
-      url: img,
       list: [{name: 'Latest'}]
     };
   },
@@ -42,17 +35,12 @@ export default {
         this.$store.commit("switchLoading");
      })  
     },
-    openList() {
-      this.$store.commit("switchStatus");
-    },
     ...mapActions([
       'getArticle'
     ]),
   },
   computed: {
-    catagoryShow() {
-      return this.$store.state.catagoryShow;
-    }
+
   }
 };
 </script>
@@ -76,19 +64,7 @@ export default {
     display: none;
   }
 
-.listFade-enter-active,
-.listFade-leave-active {
-  transition: height 0.08s;
-}
-.listFade-enter-to {
-  height: 200px;
-}
-.listFade-leave {
-  height: 200px;
-}
-.listFade-enter, .listFade-leave-to {
-  height: 0px;
-}
+
   @media screen and (max-width: 1000px) {
  
     .more {

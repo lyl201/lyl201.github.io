@@ -131,24 +131,28 @@ export default {
       font-size: 14px;
     }
     .read {
-      background-image: url(../../static/read.png);
+      background-image: url(../../static/read.svg);
       background-repeat: no-repeat;
-      background-position: 0 1px;
+      background-position: 0 0px;
+      background-size: contain;
     }
     .like {
-      background-image: url(../../static/like.jpg);
+      background-image: url(../../static/like.svg);
       background-repeat: no-repeat;
-      background-position: 0 1px;
+      background-position: 0 0px;
+      background-size: contain;
     }
     .tag {
-      background-image: url(../../static/tag.png);
+      background-image: url(../../static/tag.svg);
       background-repeat: no-repeat;
-      background-position: 0 2px;
+      background-position: 0 0px;
+      background-size: contain;
     }
     .comment {
       background-image: url(../../static/comment.png);
       background-repeat: no-repeat;
       background-position: 0 1px;
+      background-size: contain;
     }
   }
   & img {
