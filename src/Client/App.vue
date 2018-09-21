@@ -160,13 +160,13 @@ export default {
       if (this.$route.path.includes("detail")) {
         return;
       }
-      if (this.$store.state.isLoading) {
+      if (this.$store.state.isLoading && this.$store.state.noArticle) {
         console.log(77);
         return;
       }
       function isReachedBottom() {
         // 手机浏览器会有1px误差
-        return app.scrollHeight - app.clientHeight - app.scrollTop < 2;
+        return app.scrollHeight - app.clientHeight - app.scrollTop < 3;
       }
       let afterScrollTop = app.scrollTop;
       // 向上滚
