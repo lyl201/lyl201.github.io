@@ -45,11 +45,11 @@ module.exports = {
 
   build: {
     // Template for index.html
-    index: path.resolve(__dirname, '../dist/index.html'),
-    admin: path.resolve(__dirname, '../dist/admin.html'),
+    index: path.resolve(__dirname, '../server/public/index.html'),
+    admin: path.resolve(__dirname, '../server/public/admin.html'),
 
     // Paths
-    assetsRoot: path.resolve(__dirname, '../dist'),
+    assetsRoot: path.resolve(__dirname, '../server/public'),
     assetsSubDirectory: 'static',
     assetsPublicPath: './',
 
@@ -57,7 +57,7 @@ module.exports = {
      * Source Maps
      */
 
-    productionSourceMap: true,
+    productionSourceMap: false,
     // https://webpack.js.org/configuration/devtool/#production
     devtool: '#cheap-module-source-map',
 
@@ -65,7 +65,7 @@ module.exports = {
     // Surge or Netlify already gzip all static assets for you.
     // Before setting to `true`, make sure to:
     // npm install --save-dev compression-webpack-plugin
-    productionGzip: false,
+    productionGzip: true,
     productionGzipExtensions: ['js', 'css'],
 
     // Run the build command with an extra argument to

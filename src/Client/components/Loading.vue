@@ -1,16 +1,24 @@
 <template>
-    <svg width="40px"  height="40px"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-reload" style="background: none;"><g transform="rotate(293.83 50 50)"><path d="M50 15A35 35 0 1 0 74.787 25.213" fill="none" :ng-attr-stroke="config.color" :ng-attr-stroke-width="config.width" stroke="#896" stroke-width="12"></path><path :ng-attr-d="config.darrow" :ng-attr-fill="config.color" d="M49 3L49 27L61 15L49 3" fill="#896"></path><animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 50;360 50 50" keyTimes="0;1" dur="1s" begin="0s" repeatCount="indefinite"></animateTransform></g></svg>
+  <img src="./loading.gif" alt="" srcset="">
 </template>
 <script>
 export default {
-    data() {
-      return {
-          config: {
-              color: '#896',
-              width:'40px',
-          }
+  data() {
+    return {
+      config: {
+        color: "#896",
+        width: "40px"
+        
       }
+    };
   }
-}
+};
 </script>
+<style scoped>
+img {
+  width: 30px;
+  height: 30px;
+}
+</style>
+
 

@@ -3,6 +3,7 @@ const path = require('path');
 const cors = require('koa2-cors');
 const router = require('./router');
 const Static = require('koa-static');
+const compress = require('koa-compress')
 const mongoose = require('mongoose');
 const session = require('koa-session2');
 const fileUpload = require('./middleware/fileUpload');
@@ -20,6 +21,13 @@ con.once('open', () => {
     app.context.models = models;
     // 请求预处理
     app.use(preHandler())
+    app.use(compress({
+        filter: function (content_type) {
+            return /text/i.test(content_type)
+        },
+        threshold: 2048,
+        flush: require('zlib').Z_SYNC_FLUSH
+      }))
     // 支持跨域
     app.use(cors());
     // 保持登录

@@ -1,10 +1,16 @@
 <template>
+  <div class="partpage-container">
+
+    <!-- <div class="more">加载更多</div> -->
+
     <div class="partpage" v-show="num > 1">
-        <div>{{num}}</div>
-        <div class="exp" @click="goPrev" v-show="prev">上一页</div>
-        <div v-for="n in getCurPages" :style="{'color': n === cur ? 'red' : '#444'}" @click="goThis(n)" :key="n">{{n}}</div>
-        <div class="exp"  @click="goNext" v-show="next">下一页</div>
-    </div>
+          <div>{{num}}页</div>
+          <div class="exp" @click="goPrev" :class="{no: !prev}">上一页</div>
+          <div v-for="n in getCurPages" :style="{'color': n === cur ? '#697' : '#444'}" @click="goThis(n)" :key="n">第{{n}}页</div>
+          <div class="exp"  @click="goNext" :class="{no: !next}">下一页</div>
+      </div>
+  </div>
+   
 </template>
 
 <script>
@@ -30,14 +36,18 @@ export default {
       this.cur = n;
     },
     goPrev() {
-      console.log("prev");
+      if (!this.prev) {
+        return ;
+      }
       if (this.cur % this.gap === 1) {
         this.k--;
       }
       this.cur--;
     },
     goNext() {
-      console.log("Next");
+      if (!this.next) {
+        return ;
+      }
       if (this.cur % this.gap === 0) {
         this.k++;
       }
@@ -82,31 +92,52 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.partpage-container {
+  background: #fff;
+  margin-top: -20px;
+  padding: 20px 0px;
+
+  .more {
+    background: #a5a5a5;
+    height: 50px;
+    border-radius: 25px;
+    text-align: center;
+    width: 100%;
+    line-height: 50px;
+    color:#fff;
+        font-size: 15px;
+        cursor: pointer;
+  }
+  .more:hover, .more:active{
+    background: #9b9b9b;
+  }
+}
 .partpage {
   display: flex;
-  width: 60%;
-  margin: 30px;
+  // margin: 30px;
   .exp {
     width: 100px;
   }
   div {
-    border: 1px solid#B3B3B3;
     display: flex;
     margin-left: 20px;
     justify-content: center;
     align-items: center;
-    width: 25px;
+    width: 50px;
     height: 25px;
     color: #444;
     cursor: pointer;
     -moz-user-select: none;
     -khtml-user-select: none;
     user-select: none;
+
   }
-  div:not(:first-child):hover {
-    color: #697 !important;
-    background-color: #b3b3b3;
-  }
+  // div:not(:first-child):not(.no):hover{
+  //   color: #697 !important;
+  // }
+}
+.no {
+  color:rgba(0,0,0,0.2) !important;
 }
 @media screen and (max-width: 697px) {
   .partpage {
@@ -118,7 +149,6 @@ export default {
     div {
       margin-left: 10px;
       border: none;
-      width: 15px;
       height: 15px;
     }
     div:not(:first-child):hover {

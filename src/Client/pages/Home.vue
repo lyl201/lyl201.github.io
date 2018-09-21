@@ -1,20 +1,20 @@
 <template>
   <div>
     <Article/>
-    <PartPage/>
+    <!-- <PartPage/> -->
   </div>
 </template>
 
 <script>
 import Article from "@/components/Article";
-import PartPage from "@/components/PartPage";
+// import PartPage from "@/components/PartPage";
 export default {
   data() {
     return {};
   },
   components: {
     Article,
-    PartPage,
+    // PartPage,
   },
 };
 </script>

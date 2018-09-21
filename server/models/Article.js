@@ -8,17 +8,14 @@ module.exports = function (mongoose) {
         },
         summary: {
             type: String, 
-            required: true, 
             unique: false
         },
         content: {
             type: String,
             required: true,
-            unique: false
         },
         image: {
             type: String, 
-            required: true,
             unique: false
         },
         tag: {

@@ -14,7 +14,7 @@ Vue.use({
     Vue.prototype.$request = request;
   }
 })
-
+import '../../static/reset.css'
 import 'highlight.js/styles/agate.css' //样式文件
 
 Vue.directive('highlight',function (el) {
@@ -25,7 +25,13 @@ Vue.directive('highlight',function (el) {
 })
 
 import store from './store.js';
-/* eslint-disable no-new */
+
+
+router.afterEach((to,from,next) => {
+  app.scrollTo(0,0);
+})
+
+
 new Vue({
   el: '#app',
   router,

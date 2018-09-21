@@ -14,7 +14,6 @@ if (!window.Promise) {
 Vue.use(VueRouter)
 
 export default new VueRouter({
-
   routes: [
     {
       path: '/',

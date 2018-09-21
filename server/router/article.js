@@ -28,6 +28,17 @@ module.exports = async(ctx, next) => {
                 .Article(ctx.request.body);
             await article.mySave();
             ctx.state.msg = "新增成功";
+            const res = await ctx
+                .models
+                .Catagory
+                .update({
+                    name: ctx.request.body.tag
+                }, {
+                    $inc: {
+                        count: 1
+                    }
+                })
+            console.log(res)
             ctx.body = {
                 _id: article._id
             };

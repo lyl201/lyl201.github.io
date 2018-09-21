@@ -1,55 +1,39 @@
 <template>
     <div class="tab-container">
-        <div @click="switchTab(index, item)" :class="{'high-light': curIndex == index}" v-for="(item, index) in list" :key="index">{{item.name}}</div>
-        <img :src="url" alt="" class="more" @click="openList">
-        <ul v-show="catagoryShow">
-            <li @click="switchTab(index, item)" v-for="(item, index) in list" :key="index">{{item.name}}</li>
-        </ul>
+        <div @click="switchTab(index, item)" :class="{'high-light': curIndex == index}" v-for="(item, index) in catagoryList" :key="index">{{item.name}}</div>
+        
     </div>  
 </template>
 <script>
 import { mapActions } from 'vuex'
-const img = require("../../static/more.png");
 export default {
   data() {
     return {
       curIndex: 0,
-      url: img,
-      list: [{name: 'Latest'}]
     };
   },
-  props: {
-    item: Array
-  },
   async created() {
-    try {
-      const res = await this.$request({
-        path: "Catagory",
-        data: {},
-        method: "GET"
-      });
-      this.list = this.list.concat(res.data);
-    } catch (error) {}
+   
   },
   methods: {
     async switchTab(index, item) {
       this.curIndex = index;
       this.$store.commit("changeTag", item.name);
-      this.$router.push({path: '/empty'})
-      this.$nextTick(() => {
+      app.scrollTo(0,0);
+      this.$nextTick(async () => {
          this.$router.replace({path: '/'})
-      })  
-    },
-    openList() {
-      this.$store.commit("switchStatus");
+         this.$store.commit("switchLoading");
+         await this.getArticle({vm: this, page: this.$store.state.curPage})
+        this.$store.commit("switchLoading");
+     })  
     },
     ...mapActions([
       'getArticle'
     ]),
   },
   computed: {
-    catagoryShow() {
-      return this.$store.state.catagoryShow;
+    catagoryList(){
+      return this.$store.state.catagoryList;
     }
   }
 };
@@ -59,7 +43,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
-  padding-right: 20px;
+  padding-right: 200px;
   box-sizing: border-box;
   width: calc(100% - 310px);
   margin-left: 0px;
@@ -73,21 +57,28 @@ export default {
   ul {
     display: none;
   }
-  @media screen and (max-width: 697px) {
+
+
+  @media screen and (max-width: 1000px) {
+ 
     .more {
       display: block;
       cursor: pointer;
+      transform: scale(0.8);
     }
+    
     ul {
       display: block;
-      background: #444;
-      color: #eee;
+      background: #eee;
+      color: #666;
       padding: 10px;
       font-size: 25px;
       text-align: left;
+      margin-top: 10px;
       position: absolute;
-      box-shadow: 5px 5px 5px #777;
       box-sizing: border-box;
+      border-radius: 10px;
+      overflow: hidden;
       // height: 200px;
       top: 60px;
       li {
@@ -104,6 +95,8 @@ export default {
     div {
       display: none;
     }
+    
+
   }
   div {
     width: auto;
@@ -112,7 +105,7 @@ export default {
     font-size: 32px;
     font-weight: 500;
     height: 70px;
-    color: #ddd;
+    color: #969696;
     line-height: 60px;
     position: relative;
     cursor: pointer;
@@ -123,10 +116,9 @@ export default {
     background: rgba(200, 200, 200, 0.2);
   }
   .high-light {
-    color: #489;
-    height: 68px;
+    height: 70px;
     font-size: 32px;
-    background: rgba(0, 0, 0, 0.4);
+    border-bottom: 3px solid #ea6f5a;
   }
 }
 </style>

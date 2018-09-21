@@ -39,11 +39,11 @@ export default {
 </script>
 <style lang="scss" scoped>
 .dialog {
-  position: absolute;
+  position: fixed;
   background: rgba(0, 0, 0, 0.8);
-  z-index: 999;
+  z-index: 1000;
   width: 100vw;
-  height: 120vh;
+  height: 100vh;
   display: flex;
   justify-content: center;
   top: 0px;

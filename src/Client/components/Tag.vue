@@ -4,29 +4,43 @@
           标签
         </div>
         <ul>
-          <li>最近一周-[2]</li>
-          <li>JavaScript-[6]</li>
-          <li>Css-[56]</li>
-          <li>Node.js-[7]</li>
-          <li>Database-[9]</li>
-          <li>other-[89]</li>
-          <li>全部-[78]</li>
+          <li v-for="(item, index) in catagoryList" :key="index">
+            {{item.name}} - {{ '[' + item.count + ']'}}
+          </li>
         </ul>
     </div>
 </template>
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      data: [],
+    }
+  },
+  mounted() {
+    
+  },
+  methods: {
+    
+  },
+  computed:{
+    catagoryList(){
+      return this.$store.state.catagoryList.slice(1);
+    }
+  }
+};
 </script>
 <style lang="scss" scoped>
 @import url(./css/side.css);
 .msg {
-  background: #fff;
+   background: #f9f9f9;
+   border-radius: 10px;
   margin-top: 10px;
   text-align: left;
-  height: 474px;
+  height: 400px;
   padding: 7px 5px;
   box-sizing: border-box;
-  box-shadow: 4px 4px 3px #aaa;
+  // box-shadow: 4px 4px 3px #aaa;
 
   ul {
     padding-left: 40px;

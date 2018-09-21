@@ -36,6 +36,15 @@ export default {
           }
         },
         {
+          title: "数量",
+          key: "count",
+          render: (h, params) => {
+            return h("span", [
+              h("span", {}, params.row.count)
+            ]);
+          }
+        },
+        {
           title: "操作",
           key: "action",
           render: (h, params) => {
@@ -88,7 +97,7 @@ export default {
       try {
         const res = await this.$request({
           path: "catagory",
-          data: { name: this.value, date: Date.parse(new Date()) },
+          data: { name: this.value, date: Date.parse(new Date()), count: 0 },
           method: "POST"
         });
         if (res && res.name) {

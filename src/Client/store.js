@@ -13,6 +13,11 @@ const store = new Vuex.Store({
     tag: 'Latest',
     pageCount: null,
     articleList: [],
+    curPage: 1,
+    noArticle: false,
+    catagoryList: [{
+      name: 'Latest'
+    }]
   },
   mutations: {
     hideCatagory(state, e) {
@@ -22,7 +27,6 @@ const store = new Vuex.Store({
         }
       }
     },
-
     switchStatus(state) {
       state.catagoryShow = !state.catagoryShow;
     },
@@ -52,13 +56,34 @@ const store = new Vuex.Store({
 
     },
     getArticle(state, data) {
-      state.articleList = data;
+
+      if (data.arr.length === 0) {
+        state.noArticle = true;
+        state.curPage--;
+        setTimeout(() => {
+          state.noArticle = false;
+        }, 1000)
+      }
+      if (!data.key) {
+        state.articleList = state.articleList.concat(data.arr);
+      } else {
+        state.articleList = data.arr;
+      }
+
     },
-    getPageCount(state, count){
-        state.pageCount = count;
+    getCatagory(state, data){
+      state.catagoryList = state.catagoryList.concat(data);
+    },
+    getPageCount(state, count) {
+      state.pageCount = count;
     },
     changeTag(state, tag) {
-        state.tag = tag;
+      state.articleList = [];
+      state.tag = tag;
+      state.curPage = 1;
+    },
+    nextPage(state) {
+      state.curPage++;
     }
   },
   actions: {
@@ -69,16 +94,39 @@ const store = new Vuex.Store({
       const vm = option.vm;
       try {
         const res = await vm.$request({
-          path: `article?page=${option.page}&tag=${state.tag}`,
+          path: `article?page=${option.page}&tag=${state.tag}&keyWord=${option.keyWord || ""}`,
           data: {},
           method: "GET"
         });
-        commit('getArticle', res.data);
+        commit('getArticle', {
+          arr: res.data,
+          key: option.keyWord
+        });
         commit('getPageCount', res.count)
       } catch (msg) {
         console.log(msg);
         commit('getPageCount', 0);
-        commit('getArticle', []);
+        commit('getArticle', {
+          arr: [],
+          key: option.keyWord
+        });
+      }
+    },
+    async getCatagory({
+      commit,
+      state
+    }, option) {
+      try {
+        const vm = option.vm;
+        const res = await vm.$request({
+          path: "catagory",
+          data: {},
+          method: "GET"
+        });
+        commit('getCatagory', res.data);
+        commit('switchStatus')
+      } catch (msg) {
+        
       }
     },
   }

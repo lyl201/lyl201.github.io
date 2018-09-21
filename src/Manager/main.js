@@ -9,6 +9,7 @@ import 'iview/dist/styles/iview.css'
 import {Message} from 'iview'
 Vue.prototype.$Message = Message
 
+import '../../static/reset.css'
 import 'mavon-editor/dist/css/index.css'
 import mavonEditor from 'mavon-editor'
 
