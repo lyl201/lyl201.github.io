@@ -15,6 +15,9 @@ const store = new Vuex.Store({
     articleList: [],
     curPage: 1,
     noArticle: false,
+    catagoryList: [{
+      name: 'Latest'
+    }]
   },
   mutations: {
     hideCatagory(state, e) {
@@ -24,7 +27,6 @@ const store = new Vuex.Store({
         }
       }
     },
-
     switchStatus(state) {
       state.catagoryShow = !state.catagoryShow;
     },
@@ -57,7 +59,7 @@ const store = new Vuex.Store({
 
       if (data.arr.length === 0) {
         state.noArticle = true;
-        state.curPage --;
+        state.curPage--;
         setTimeout(() => {
           state.noArticle = false;
         }, 1000)
@@ -67,18 +69,21 @@ const store = new Vuex.Store({
       } else {
         state.articleList = data.arr;
       }
-      
+
     },
-    getPageCount(state, count){
-        state.pageCount = count;
+    getCatagory(state, data){
+      state.catagoryList = state.catagoryList.concat(data);
+    },
+    getPageCount(state, count) {
+      state.pageCount = count;
     },
     changeTag(state, tag) {
-        state.articleList = [];
-        state.tag = tag;
-        state.curPage = 1;
+      state.articleList = [];
+      state.tag = tag;
+      state.curPage = 1;
     },
-    nextPage(state){
-      state.curPage ++;
+    nextPage(state) {
+      state.curPage++;
     }
   },
   actions: {
@@ -107,8 +112,23 @@ const store = new Vuex.Store({
         });
       }
     },
+    async getCatagory({
+      commit,
+      state
+    }, option) {
+      try {
+        const vm = option.vm;
+        const res = await vm.$request({
+          path: "catagory",
+          data: {},
+          method: "GET"
+        });
+        commit('getCatagory', res.data);
+        commit('switchStatus')
+      } catch (msg) {
+        
+      }
+    },
   }
 })
 export default store;
-
-

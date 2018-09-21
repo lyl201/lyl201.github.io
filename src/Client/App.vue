@@ -42,7 +42,7 @@
         </ul>
        </div>
        <div class="search">
-         <input v-model="keyWord" type="text" placeholder="输入搜索词">
+         <input v-model="keyWord" type="text" placeholder="输入搜索词" @keyup.enter="goSearch">
          <div @click="goSearch">
            搜索
           </div>
@@ -101,6 +101,7 @@ export default {
   },
   async mounted() {
     this.$store.commit("switchLoading");
+    this.getCatagory({vm: this});
     await this.getArticle({
       vm: this,
       page: this.$store.state.curPage,
@@ -175,7 +176,13 @@ export default {
         return;
       }
       if (isReachedBottom()) {
-        this.$store.commit("switchLoading");
+        this.debounce(this.getNextPage, 80, 1000)();
+        // this.getNextPage();
+      }
+      this.beforeScrollTop = afterScrollTop;
+    },
+    async getNextPage() {
+      this.$store.commit("switchLoading");
         this.$store.commit("nextPage");
         await this.getArticle({
           vm: this,
@@ -183,8 +190,6 @@ export default {
           tag: this.$store.state.tag
         });
         this.$store.commit("switchLoading");
-      }
-      this.beforeScrollTop = afterScrollTop;
     },
     async goSearch() {
       if (!this.keyWord) {
@@ -196,10 +201,9 @@ export default {
         tag: this.$store.state.tag,
         keyWord: this.keyWord,
       });
-      // this.$store.commit("changeTag", "Latest");
 
     },
-    ...mapActions(["getArticle"])
+    ...mapActions(["getArticle", "getCatagory"])
   },
   computed: {
     dialogShow() {

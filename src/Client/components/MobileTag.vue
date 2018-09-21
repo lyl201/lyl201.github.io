@@ -3,7 +3,7 @@
         <span class="tag">标签：</span>
          <transition name="listFade">
            <ul v-if="catagoryShow">
-              <li :class="{'high-light': curIndex == index}" @click="switchTab(index, item)" v-for="(item, index) in list" :key="index">{{item.name}}</li>
+              <li :class="{'high-light': curIndex == index}" @click="switchTab(index, item)" v-for="(item, index) in catagoryList" :key="index">{{item.name}}</li>
           </ul>
          </transition>
         
@@ -15,23 +15,10 @@ export default {
   data() {
     return {
       curIndex: 0,
-      list: [{ name: "Latest" }]
     };
   },
   async created() {
-    try {
-      const res = await this.$request({
-        path: "Catagory",
-        data: {},
-        method: "GET"
-      });
-      this.list = this.list.concat(res.data);
-      console.log(this.list);
-      this.$store.commit("switchStatus")
-      console.log(this.catagoryShow)
-    } catch (error) {
-        
-    }
+    
   },
   methods: {
 
@@ -53,6 +40,9 @@ export default {
   computed: {
     catagoryShow() {
       return this.$store.state.catagoryShow;
+    },
+    catagoryList(){
+      return this.$store.state.catagoryList;
     }
   }
 };

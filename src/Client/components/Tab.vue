@@ -1,6 +1,6 @@
 <template>
     <div class="tab-container">
-        <div @click="switchTab(index, item)" :class="{'high-light': curIndex == index}" v-for="(item, index) in list" :key="index">{{item.name}}</div>
+        <div @click="switchTab(index, item)" :class="{'high-light': curIndex == index}" v-for="(item, index) in catagoryList" :key="index">{{item.name}}</div>
         
     </div>  
 </template>
@@ -10,18 +10,10 @@ export default {
   data() {
     return {
       curIndex: 0,
-      list: [{name: 'Latest'}]
     };
   },
   async created() {
-    try {
-      const res = await this.$request({
-        path: "Catagory",
-        data: {},
-        method: "GET"
-      });
-      this.list = this.list.concat(res.data);
-    } catch (error) {}
+   
   },
   methods: {
     async switchTab(index, item) {
@@ -40,7 +32,9 @@ export default {
     ]),
   },
   computed: {
-
+    catagoryList(){
+      return this.$store.state.catagoryList;
+    }
   }
 };
 </script>

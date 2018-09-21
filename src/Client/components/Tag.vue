@@ -4,7 +4,7 @@
           标签
         </div>
         <ul>
-          <li v-for="(item, index) in data" :key="index">
+          <li v-for="(item, index) in catagoryList" :key="index">
             {{item.name}} - {{ '[' + item.count + ']'}}
           </li>
         </ul>
@@ -18,22 +18,15 @@ export default {
     }
   },
   mounted() {
-    this.getList();
+    
   },
   methods: {
-    async getList() {
-      try {
-        this.data = [];
-        const res = await this.$request({
-          path: "catagory",
-          data: {},
-          method: "GET"
-        });
-        this.data = res.data;
-      } catch (msg) {
-        this.$Message.info(msg);
-      }
-    },
+    
+  },
+  computed:{
+    catagoryList(){
+      return this.$store.state.catagoryList.slice(1);
+    }
   }
 };
 </script>
