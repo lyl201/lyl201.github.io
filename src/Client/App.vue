@@ -4,7 +4,7 @@
       <div class="title" v-if="headShow">
         <div v-if="!isLogin">
           <span @click="register">注册 - &nbsp;</span><span  @click="login"> 登录</span> 
-          
+          <span class="name">技术博客</span>
         </div>
         <div user v-else>         
         <label for="pic">
@@ -254,6 +254,15 @@ header {
     line-height: 70px;
     width: 500px;
     font-weight: bolder;
+    .name {
+      width: 200px;
+    font-size: 30px;
+    display: block;
+    margin-left:40px;
+    content: "技术博客";
+    font-weight: 700;
+    color:#ea6f20;
+    }
     label[for="pic"] {
       color: #689;
       display: inline;
