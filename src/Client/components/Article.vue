@@ -17,7 +17,7 @@
       
   </div>
   <div v-if="articleList.length===0&&!isLoading" style="display:flex; justify-content: center; align-items: center; color: #808695"> 没有内容 </div>
-  <div class="loading" v-show="isLoading">
+  <div class="loading" v-show="isLoading" style="position: absolute; left: 50%; transform: translate(-50%,0%);">
       <Loading/>
     </div>
 
@@ -67,6 +67,7 @@ export default {
 <style lang="scss" scoped>
 .outer {
   min-height: 105vh;
+  position: relative;
 }
 .article-container {
   padding: 20px 10px;
@@ -86,6 +87,9 @@ export default {
   color: #999;
   font-size: 14px;
   margin-top: -80px;
+  position: absolute;
+  left:50%;
+  transform: translate(-50%,50%);
   height: 30px;
 }
 .article {
