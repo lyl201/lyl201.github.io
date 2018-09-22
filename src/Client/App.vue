@@ -271,7 +271,7 @@
       width: 500px;
       font-weight: bolder;
       .name {
-        width: 200px;
+        // width: 200px;
         font-size: 30px;
         display: block;
         margin-left: 40px;
@@ -423,7 +423,6 @@
       }
     }
     header::before {
-      width: 100px;
       height: 47px;
       font-size: 20px;
       display: block;
