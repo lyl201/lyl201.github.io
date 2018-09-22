@@ -17,6 +17,11 @@
                 </div>
             </TabPane>
             <TabPane label="列表" name="list">
+                <div style="margin-bottom: 20px">
+                    <Input v-model="keyWord" @keyup.native.enter="goSearch" placeholder="输入关键词，点击搜索按钮或enter键搜索" style="width: 300px" />
+                    <Button type="primary" @click="goSearch">搜索</Button>
+                </div>
+
                 <Card :bordered="true" style="margin-bottom: 20px; cursor: pointer" v-for="(item, n) in articleList" @click.native="edit(item)" :key="n">
                     <p slot="title">{{item.title}}</p>
                     <p>
@@ -38,6 +43,7 @@
         TabPane,
         Card
     } from "iview";
+import { CLIENT_RENEG_LIMIT } from 'tls';
     
     export default {
         components: {
@@ -54,6 +60,7 @@
                 name: 'addOrEdit',
                 selectData: [],
                 articleList: [],
+                keyWord: '',
                 default: {
                     tag: "",
                     date: "",
@@ -173,7 +180,7 @@
                 this.name = 'addOrEdit';
             },
             async getList() {
-                this.articleList.length = 0;
+                // this.articleList.length = 0;
                 try {
                     const res = await this.$request({
                         path: "article",
@@ -190,10 +197,27 @@
                                     .push(res[key]);
                             }
                         });
+                    
                 } catch (msg) {
                     this
                         .$Message
                         .info(msg);
+                }
+            },
+            async goSearch() {
+                try {
+                    const res = await this.$request({
+                    path: `article?keyWord=${this.keyWord || ""}`,
+                    data: {},
+                    method: "GET"
+                    });
+                  this.articleList = res.data;  
+
+                  if (res.data.length === 0) {
+                      this.$Message.info("没有包含该词条的文章");
+                  }
+                } catch (msg) {
+                    this.$Message.info(msg);
                 }
             }
         },
