@@ -3,54 +3,21 @@
         <Tabs v-model="name" @on-click="changeTab">
             <TabPane label="编辑" name="addOrEdit">
                 <Button type="primary" style="margin-bottom: 20px" @click="add">新增</Button>
-                <Input
-                    style="margin-bottom: 30px"
-                    v-model="data.title"
-                    type="textarea"
-                    :autosize="true"
-                    placeholder="请输入文章标题"/>
-
+                <Input style="margin-bottom: 30px" v-model="data.title" type="textarea" :autosize="true" placeholder="请输入文章标题" />
                 <div style="width: calc(100% - 20px);height: 500px">
-                    <mavon-editor
-                        style="height:100%; margin-left: 10px"
-                        :ishljs="true"
-                        @imgAdd="imgAdd"
-                        @imgDel="imgDel"
-                        v-model="data.content"></mavon-editor>
+                    <mavon-editor style="height:100%; margin-left: 10px" :ishljs="true" @imgAdd="imgAdd" @imgDel="imgDel" v-model="data.content"></mavon-editor>
                 </div>
-
                 <div class="select">
-                    <Input
-                        style="margin-bottom: 30px"
-                        v-model="data.summary"
-                        type="textarea"
-                        :autosize="true"
-                        placeholder="请输入文章摘要"/>
-                    <Input
-                        style="margin-bottom: 30px"
-                        v-model="data.image"
-                        type="textarea"
-                        :autosize="true"
-                        placeholder="请输入缩略图url"/>
-                    <Select
-                        v-model="data.tag"
-                        style="width:200px"
-                        @on-change="changeCatagory"
-                        placeholder="请选择一个标签类别">
-                        <Option v-for="(item, index) in selectData" :value="item.name" :key="index">{{ item.name }}</Option>
-
+                    <Input style="margin-bottom: 30px" v-model="data.summary" type="textarea" :autosize="true" placeholder="请输入文章摘要" />
+                    <Input style="margin-bottom: 30px" v-model="data.image" type="textarea" :autosize="true" placeholder="请输入缩略图url" />
+                    <Select v-model="data.tag" style="width:200px" @on-change="changeCatagory" placeholder="请选择一个标签类别">
+                       <Option v-for="(item, index) in selectData" :value="item.name" :key="index">{{ item.name }}</Option>
                     </Select>
                     <Button type="primary" @click="save">确定</Button>
                 </div>
-
             </TabPane>
             <TabPane label="列表" name="list">
-                <Card
-                    :bordered="true"
-                    style="margin-bottom: 20px; cursor: pointer"
-                    v-for="(item, n) in articleList"
-                    @click.native="edit(item)"
-                    :key="n">
+                <Card :bordered="true" style="margin-bottom: 20px; cursor: pointer" v-for="(item, n) in articleList" @click.native="edit(item)" :key="n">
                     <p slot="title">{{item.title}}</p>
                     <p>
                         {{item.summary}}
@@ -60,6 +27,7 @@
         </Tabs>
     </div>
 </template>
+
 <script>
     import {
         Select,
@@ -72,7 +40,7 @@
     } from "iview";
     
     export default {
-        components : {
+        components: {
             Select,
             Option,
             Button,
@@ -87,7 +55,7 @@
                 selectData: [],
                 articleList: [],
                 default: {
-                     tag: "",
+                    tag: "",
                     date: "",
                     title: "",
                     summary: "",
@@ -114,12 +82,17 @@
                 }
             };
         },
+        computed: {},
         async created() {
-            
-            const res = await this.$request({path: "catagory", data: {}, method: "GET"});
+    
+            const res = await this.$request({
+                path: "catagory",
+                data: {},
+                method: "GET"
+            });
             this.selectData = res.data;
         },
-        methods : {
+        methods: {
             changeCatagory(name) {
                 this.data.tag = name;
             },
@@ -142,7 +115,7 @@
                         .info(msg);
                 }
             },
-            add () {
+            add() {
                 Object.keys(this.default).forEach(key => {
                     this.data[key] = this.default[key];
                 })
@@ -153,15 +126,19 @@
                     return;
                 }
                 this.data.summary = this.data.summary || "";
-                this.data.image = this.data.image  || "";
+                this.data.image = this.data.image || "";
                 this.data.date = Date.parse(new Date());
-
+    
                 try {
-                    const res = await this.$request({path: "article", method: "POST", data: this.data});
+                    const res = await this.$request({
+                        path: "article",
+                        method: "POST",
+                        data: this.data
+                    });
                     this
                         .$Message
                         .success(res.msg);
-                        this.data._id = res._id;
+                    this.data._id = res._id;
                 } catch (msg) {
                     this
                         .$Message
@@ -170,8 +147,14 @@
                 console.log(this.data);
             },
             checkData() {
-                const {content, title, tag, image, summary} = this.data;
-                if (!content || !title || !tag ) {
+                const {
+                    content,
+                    title,
+                    tag,
+                    image,
+                    summary
+                } = this.data;
+                if (!content || !title || !tag) {
                     this
                         .$Message
                         .info("有未填信息不能提交");
@@ -184,7 +167,7 @@
                     this.getList();
                 }
             },
-            edit (item) {
+            edit(item) {
                 console.log(item);
                 this.data = item;
                 this.name = 'addOrEdit';
@@ -197,8 +180,8 @@
                         data: {},
                         method: "GET"
                     });
-
-                   Object
+    
+                    Object
                         .keys(res)
                         .forEach(key => {
                             if (typeof res[key] === "object") {
@@ -214,19 +197,18 @@
                 }
             }
         },
-        computed : {}
     };
 </script>
-<style lang="scss" scoped>
 
+<style lang="scss" scoped>
     .select {
         height: 500px;
         margin-top: 30px;
     }
+    
     .detail-container {
         overflow-y: scroll;
         padding-bottom: 150px;
         height: 1000px;
     }
-
 </style>

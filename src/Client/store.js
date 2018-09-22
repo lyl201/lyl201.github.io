@@ -56,7 +56,6 @@ const store = new Vuex.Store({
 
     },
     getArticle(state, data) {
-
       if (data.arr.length === 0) {
         state.noArticle = true;
         state.curPage--;
@@ -69,9 +68,8 @@ const store = new Vuex.Store({
       } else {
         state.articleList = data.arr;
       }
-
     },
-    getCatagory(state, data){
+    getCatagory(state, data) {
       state.catagoryList = state.catagoryList.concat(data);
     },
     getPageCount(state, count) {
@@ -126,7 +124,7 @@ const store = new Vuex.Store({
         commit('getCatagory', res.data);
         commit('switchStatus')
       } catch (msg) {
-        
+
       }
     },
   }

@@ -16,6 +16,12 @@
 <script>
 import { Button, Modal, Input, Table } from "iview";
 export default {
+  components: {
+    Button,
+    Modal,
+    Input,
+    Table
+  },
   data() {
     return {
       modal: false,
@@ -133,13 +139,6 @@ export default {
       return this.value !== "";
     }
   },
-  computed: {},
-  components: {
-    Button,
-    Modal,
-    Input,
-    Table
-  }
 };
 </script>
 <style lang="scss" scoped>

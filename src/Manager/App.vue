@@ -44,6 +44,19 @@ import {
   BreadcrumbItem
 } from "iview";
 export default {
+  components: {
+    Icon,
+    Submenu,
+    Layout,
+    Sider,
+    Menu,
+    MenuItem,
+    Header,
+    Content,
+    Breadcrumb,
+    BreadcrumbItem,
+    Card
+  },
   data() {
     return {
       menus: [
@@ -62,9 +75,6 @@ export default {
       subMenuName: "文章管理"
     };
   },
-  mounted() {
-      this.$router.push(`/article`);
-  },
   computed: {
     rotateIcon() {
       return ["menu-icon", this.isCollapsed ? "rotate-icon" : ""];
@@ -73,6 +83,9 @@ export default {
       return ["menu-item", this.isCollapsed ? "collapsed-menu" : ""];
     }
   },
+  mounted() {
+      this.$router.push(`/article`);
+  },
   methods: {
     go(item, it) {
       this.menuName = item.name;
@@ -80,19 +93,6 @@ export default {
       this.$router.push(`/${it.path}`);
     }
   },
-  components: {
-    Icon,
-    Submenu,
-    Layout,
-    Sider,
-    Menu,
-    MenuItem,
-    Header,
-    Content,
-    Breadcrumb,
-    BreadcrumbItem,
-    Card
-  }
 };
 </script>
 

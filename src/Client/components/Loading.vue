@@ -5,11 +5,7 @@
 export default {
   data() {
     return {
-      config: {
-        color: "#896",
-        width: "40px"
-        
-      }
+      
     };
   }
 };

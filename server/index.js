@@ -3,9 +3,9 @@ const path = require('path');
 const cors = require('koa2-cors');
 const router = require('./router');
 const Static = require('koa-static');
-const compress = require('koa-compress')
 const mongoose = require('mongoose');
 const session = require('koa-session2');
+const compress = require('koa-compress')
 const fileUpload = require('./middleware/fileUpload');
 const preHandler = require('./middleware/preHandler');
 const formatterResponse = require('./middleware/formatterResponse');
@@ -21,6 +21,7 @@ con.once('open', () => {
     app.context.models = models;
     // 请求预处理
     app.use(preHandler())
+    // 开启gzip
     app.use(compress({
         filter: function (content_type) {
             return /text/i.test(content_type)

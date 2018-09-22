@@ -10,12 +10,13 @@ export default {
            
         }
     },
+    computed: {
+       
+    },
     methods: {
         
     },
-    computed: {
-       
-    }
+    
 }
 </script>
 <style lang="scss" scoped>
