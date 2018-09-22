@@ -4,7 +4,7 @@
       <div class="title" v-if="headShow">
         <div v-if="!isLogin">
           <span @click="register">注册 - &nbsp;</span><span @click="login"> 登录</span>
-          <span class="name">技术博客</span>
+          <span class="name">liyonglong的技术博客</span>
         </div>
         <div user v-else>
           <label for="pic">
@@ -275,7 +275,7 @@
         font-size: 30px;
         display: block;
         margin-left: 40px;
-        content: "技术博客";
+        content: "liyonglong的技术博客";
         font-weight: 700;
         color: #ea6f20;
       }
@@ -429,7 +429,7 @@
       display: block;
       margin-left: 20px;
       line-height: 47px;
-      content: "技术博客";
+      content: "liyonglong的技术博客";
       font-weight: 700;
       color: #ea6f20;
     }
