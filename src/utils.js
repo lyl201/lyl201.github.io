@@ -1,5 +1,4 @@
-const host = "http://116.62.63.230";
-// const host = "http://localhost:3000";
+import { host } from './config';
 
 export const request = (params) => {
   const { path, data, method } = params

@@ -15,6 +15,7 @@ const store = new Vuex.Store({
     articleList: [],
     curPage: 1,
     noArticle: false,
+    admin: false,
     catagoryList: [{
       name: 'Latest'
     }]
@@ -26,6 +27,9 @@ const store = new Vuex.Store({
           state.catagoryShow = !state.catagoryShow;
         }
       }
+    },
+    getAdmin(state){
+      state.admin = true;
     },
     switchStatus(state) {
       state.catagoryShow = !state.catagoryShow;

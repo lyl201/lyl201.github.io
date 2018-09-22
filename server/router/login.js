@@ -12,6 +12,7 @@ module.exports = async(ctx, next) => {
             : '登录失败:用户名或密码错误';
         ctx.state.status = res.length !== 0;
         ctx.body = {
+            admin: res && res[0] && res[0].admin,
             avator: res && res[0] && res[0].avator,
             username: ctx.request.body.username
         };

@@ -28,7 +28,7 @@
           <div class="side-title">
             About Me
           </div>
-          <div class="avator">
+          <div class="avator" @click="goToMange" :style="{cursor: admin ? 'pointer' : '' }">
             <img :src="icon" alt="">
           </div>
           <ul class="right">
@@ -54,6 +54,7 @@
 
 <script>
   const icon = require("../static/icon.jpg");
+  import {host} from "../config";
   import {
     mapActions
   } from "vuex";
@@ -99,6 +100,9 @@
       },
       isLoading() {
         return this.$store.state.isLoading;
+      },
+      admin() {
+        return this.$store.state.admin;
       }
     },
     async created() {
@@ -108,6 +112,9 @@
         method: "GET"
       });
       if (res.hasUser) {
+        if (res.admin) {
+          this.$store.commit("getAdmin");
+        }
         this.$store.commit("login");
         this.$store.commit("getUsername", res.username);
         this.$store.commit("getAvator", res.avator);
@@ -220,6 +227,11 @@
           keyWord: this.keyWord,
         });
   
+      },
+      goToMange () {
+        if (this.admin) {
+           location.href = `${host}/admin`;
+        }
       },
       ...mapActions(["getArticle", "getCatagory"])
     },

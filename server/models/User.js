@@ -9,6 +9,9 @@ module.exports = function (mongoose) {
         password: {
             type: String
         },
+        admin: {
+            type: Boolean,
+        },
         avator: {
             type: String
         }

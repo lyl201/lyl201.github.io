@@ -73,6 +73,9 @@
           this.helpTxt = res.msg;
           this.$store.commit("login");
           console.log(res)
+          if (res.admin) {
+            this.$store.commit("getAdmin");
+          }
           this.$store.commit("getUsername", res.username);
           this.$store.commit("hideDialog", "isLogin");
         } catch (msg) {

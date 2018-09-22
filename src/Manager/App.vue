@@ -1,5 +1,5 @@
 <template>
- <div class="layout">
+ <div class="layout" v-if="admin">
         <Sider :style="{position: 'fixed', height: '100vh', left: 0, overflow: 'auto'}">
             <Menu active-name="1-2" theme="dark" width="auto" :open-names="['1']">
                 <Submenu :name="index + 1" v-for="(item, index) in menus" :key="index">
@@ -26,6 +26,9 @@
                 </Card>
             </Content>
         </Layout>
+    </div>
+    <div v-else style="text-align: center;padding-top:30px;color:#666">
+      您没有权限访问该页面！
     </div>
 </template>
 
@@ -57,8 +60,19 @@ export default {
     BreadcrumbItem,
     Card
   },
+  async created(){
+    const res = await this.$request({
+        path: "home",
+        data: {},
+        method: "GET"
+      });
+      if (res.hasUser) {
+        this.admin = res.admin;
+      }
+  },
   data() {
     return {
+      admin:false,
       menus: [
         {
           name: "后台管理",

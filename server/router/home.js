@@ -11,7 +11,8 @@ module.exports = async(ctx, next) => {
         ctx.body = {
             hasUser: Boolean(ctx.session.user),
             username: ctx.session.user,
-            avator: res[0].avator
+            avator: res[0].avator,
+            admin: res[0].admin,
         };
         ctx.state.msg = "用户已登录";
     } else {
