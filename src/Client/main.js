@@ -28,7 +28,9 @@ import store from './store.js';
 
 
 router.afterEach((to,from,next) => {
-  app.scrollTo(0,0);
+  if (app && app.scrollTo) {
+      app.scrollTo(0, 0);
+  }
 })
 
 

@@ -35,7 +35,9 @@
       async switchTab(index, item) {
         this.curIndex = index;
         this.$store.commit("changeTag", item.name);
-        app.scrollTo(0, 0);
+        if (app && app.scrollTo) {
+          app.scrollTo(0, 0);
+        }
         this.$nextTick(async() => {
           this.$router.replace({
             path: '/'
