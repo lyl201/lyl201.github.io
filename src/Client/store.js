@@ -48,6 +48,9 @@ const store = new Vuex.Store({
     login(state) {
       state.isLogin = true;
     },
+    logout(state) {
+      state.isLogin = false;
+    },
     getUsername(state, name) {
       state.username = name;
     },

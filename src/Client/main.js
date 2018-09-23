@@ -15,7 +15,7 @@ Vue.use({
   }
 })
 import '../../static/reset.css'
-import 'highlight.js/styles/agate.css' //样式文件
+import 'highlight.js/styles/rainbow.css' //样式文件
 
 Vue.directive('highlight',function (el) {
   let blocks = el.querySelectorAll('pre code');

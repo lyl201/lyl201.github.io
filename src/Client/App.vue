@@ -3,15 +3,17 @@
     <header>
       <div class="title" v-if="headShow">
         <div v-if="!isLogin">
-          <span @click="register">注册 - &nbsp;</span><span @click="login"> 登录</span>
-          <span class="name">liyonglong的技术博客</span>
+          <span click @click="register">注册 - &nbsp;</span><span click @click="login"> 登录</span>
+          <span class="name" style="font-size:16px">liyonglong的技术博客</span>
         </div>
         <div user v-else>
-          <label for="pic">
-                <span v-if="!avatorUrl">设置头像 </span>
+          <label for="pic" style="font-size: 14px">
+                <span v-if="!avatorUrl" click>设置头像 </span>
                 <img v-if="avatorUrl" :src="avatorUrl" alt="" title="点击可更换头像"> 
           </label>
           <input type="file" id="pic" name="avator" @change="getPicture"> {{username}}
+          <span click style="font-size: 12px; margin-left: 10px" @click="logout">退出</span>
+          <span class="name" style="font-size:16px">liyonglong的技术博客</span>
         </div>
       </div>
       <Tab v-if="headShow" />
@@ -150,6 +152,14 @@
         this.$store.commit("openDialog");
         this.$store.commit("componentName", "Login");
       },
+      async logout(){
+        const res = await this.$request({
+          path: "logout",
+          data: {username: this.username},
+          method: "POST"
+        });
+        this.$store.commit("logout");
+      },
       async getPicture(e) {
         try {
           const res = await this.$request({
@@ -220,12 +230,17 @@
         if (!this.keyWord) {
           return;
         }
+        if(this.$route.path.includes("detail")) {
+          this.$router.go(-1);
+        }
+        this.$store.commit("switchLoading");
         await this.getArticle({
           vm: this,
           page: this.$store.state.curPage,
           tag: this.$store.state.tag,
           keyWord: this.keyWord,
         });
+        this.$store.commit("switchLoading");
   
       },
       goToMange () {
@@ -295,9 +310,11 @@
       &>div>span {
         font-size: 16px;
         color: #969696;
-        cursor: pointer;
         vertical-align: middle;
         display: inline-block;
+      }
+      &>div>span[click] {
+        cursor: pointer;
       }
       div[user] {
         box-sizing: border-box;

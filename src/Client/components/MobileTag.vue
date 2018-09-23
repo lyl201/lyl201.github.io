@@ -105,4 +105,5 @@
   .listFade-leave-to {
     opacity: 0;
   }
+
 </style>

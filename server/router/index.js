@@ -10,6 +10,8 @@ router.post("/register", require('./register'));
 
 router.post("/login", require('./login'));
 
+router.post("/logout", require('./logout'));
+
 router.post("/catagory", require('./catagory_add'));
 
 router.get("/catagory", require('./catagory_find'));
