@@ -138,11 +138,11 @@
         tag: this.$store.state.tag
       });
       this.$store.commit("switchLoading");
-  
+      const app = document.querySelector("#app");
       this.beforeScrollTop = app.scrollTop;
       app.addEventListener(
         "scroll",
-        this.debounce(this.scrollHandler, 300, 1000)
+        this.debounce(this.scrollHandler.bind(this, app), 300, 1000)
       );
     },
     methods: {
@@ -194,12 +194,11 @@
           }
         };
       },
-      async scrollHandler() {
+      async scrollHandler(app) {
         if (this.$route.path.includes("detail")) {
           return;
         }
         if (this.$store.state.isLoading && this.$store.state.noArticle) {
-          console.log(77);
           return;
         }
   
