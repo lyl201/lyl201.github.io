@@ -22,6 +22,9 @@
       <div class="main">
         <div class="mobile-tag">
           <MobileTag/>
+          <div search>
+              <input v-model="keyWord" type="text" placeholder="输入关键词搜索"  @keyup.enter="goSearch"><span @click="goSearch"></span>
+          </div>
         </div>
         <router-view/>
       </div>
@@ -459,8 +462,60 @@
       display: block !important;
       width: 100%;
       margin-bottom: 10px;
-      height: 110px;
+      // height: 110px;
       box-shadow: 0 1px 1px #f0f0f0;
+      & > div[search] {
+        display: flex;
+        justify-content: left;
+        margin-top: 10px;
+        padding-left: 20px;
+        padding-bottom: 10px;
+        input {
+          outline: none;
+          border-radius: 3px;
+          border:1px solid #ea6f5a;
+          height:25px;
+          width: 60%;
+          margin-right: 10px;
+          padding-left: 5px;
+        }
+        span {
+          position: relative;
+          display: inline-block;
+          height: 29px;
+          line-height: 25px;
+          font-weight: 900;
+          cursor: pointer;
+          width: 50px;
+          padding: 0px 5px;
+          box-sizing: border-box;
+        }
+        span:before{
+          display: block;
+          height: 18px;
+          width: 18px;
+          position: absolute;
+          content: "";
+          border: 2px solid #666;
+          border-radius: 50%;
+          top: 2px;
+        }
+        span:after {
+          display: block;
+          height: 20px;
+          width: 10px;
+          content: "";
+          border-bottom: 2px solid #666;
+          transform: rotate(45deg);
+          top: 5px;
+          left: 28px;
+          position: absolute;
+        
+        }
+        span:hover:before, span:hover:after{
+          border-color: #000;
+        }
+      }
     }
     .main {
       width: 100%;
