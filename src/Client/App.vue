@@ -467,7 +467,7 @@
       & > div[search] {
         display: flex;
         justify-content: left;
-        margin-top: 10px;
+        margin-top: 0px;
         padding-left: 20px;
         padding-bottom: 10px;
         input {
@@ -475,7 +475,7 @@
           border-radius: 3px;
           border:1px solid #ea6f5a;
           height:25px;
-          width: 60%;
+          width: 70%;
           margin-right: 10px;
           padding-left: 5px;
         }
@@ -512,7 +512,7 @@
           position: absolute;
         
         }
-        span:hover:before, span:hover:after{
+        span:active:before, span:active:after{
           border-color: #000;
         }
       }
