@@ -54,9 +54,9 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
-    padding-right: 200px;
+    // padding-right: 200px;
     box-sizing: border-box;
-    width: calc(100% - 310px);
+    // width: calc(100% - 310px);
     margin-left: 0px;
     position: relative;
     .more {
@@ -107,7 +107,7 @@
       width: auto;
       box-sizing: border-box;
       padding: 0 10px;
-      font-size: 32px;
+      font-size: 27px;
       font-weight: 500;
       height: 70px;
       color: #969696;
@@ -121,7 +121,7 @@
     }
     .high-light {
       height: 70px;
-      font-size: 32px;
+      font-size: 27px;
       border-bottom: 3px solid #ea6f5a;
     }
   }

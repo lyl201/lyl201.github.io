@@ -343,19 +343,19 @@
   .container {
     display: flex;
     margin-bottom: 20px;
-    width: 60%;
+    width: 75%;
     margin: 90px auto 20px;
     .mobile-tag {
       display: none;
     }
     .main {
-      width: 70%;
+      width: 65%;
       min-height: 50px;
       background: #fff;
       text-align: left;
     }
     .side {
-      width: calc(30% - 10px);
+      width: calc(35% - 10px);
       margin-left: 10px;
       .intro {
         // box-shadow: 4px 4px 3px #aaa;
@@ -433,7 +433,7 @@
   
   footer {}
   
-  @media screen and (max-width: 1000px) {
+  @media screen and (max-width: 1009px) {
     header {
       height: 47px;
       box-shadow: 0 1px 1px #f0f0f0;
