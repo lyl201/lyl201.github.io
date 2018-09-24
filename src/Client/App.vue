@@ -141,7 +141,7 @@
       this.beforeScrollTop = app.scrollTop;
       app.addEventListener(
         "scroll",
-        this.debounce(this.scrollHandler, 300, 1000)
+        this.debounce(this.scrollHandler, 200, 1000)
       );
     },
     methods: {
@@ -193,7 +193,7 @@
           }
         };
       },
-      async scrollHandler(app) {
+      async scrollHandler() {
         if (this.$route.path.includes("detail")) {
           return;
         }
