@@ -16,7 +16,7 @@ export const request = (params) => {
       method: method,
     };
 
-    fetch(`${host}/${path}`, option).then(res => {
+    fetch(`${host}/api/${path}`, option).then(res => {
         return res.json();
       })
       .then(res => {

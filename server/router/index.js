@@ -4,26 +4,26 @@ const router = new Router();
 
 router.all(/\w+/, require('./all'));
 
-router.get("/home", require('./home'))
+router.get("/api/home", require('./home'))
 
-router.post("/register", require('./register'));
+router.post("/api/register", require('./register'));
 
-router.post("/login", require('./login'));
+router.post("/api/login", require('./login'));
 
-router.post("/logout", require('./logout'));
+router.post("/api/logout", require('./logout'));
 
-router.post("/catagory", require('./catagory_add'));
+router.post("/api/catagory", require('./catagory_add'));
 
-router.get("/catagory", require('./catagory_find'));
+router.get("/api/catagory", require('./catagory_find'));
 
-router.delete(/\/catagory\/.+/, require('./catagory_del'));
+router.delete(/\/api\/catagory\/.+/, require('./catagory_del'));
 
-router.post("/article", require('./article'));
+router.post("/api/article", require('./article'));
 
-router.get(/\/article(\/.)*/, require('./article_list'));
+router.get(/\/api\/article(\/.)*/, require('./article_list'));
 
-router.post("/upload/avator", require('./upload_avator'));
+router.post("/api/upload/avator", require('./upload_avator'));
 
-router.post("/upload/article", require('./upload_article'));
+router.post("/api/upload/article", require('./upload_article'));
 
 module.exports = router;
