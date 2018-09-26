@@ -23,12 +23,12 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   // these devServer options should be customized in /config/index.js
   devServer: {
     clientLogLevel: 'warning',
-    historyApiFallback: {
-      rewrites: [
-        { from: /client/, to: path.posix.join(config.dev.assetsPublicPath, 'client.html') },
-        { from: /admin\/*/, to: path.posix.join(config.dev.assetsPublicPath, 'manager.html') },
-      ],
-    },
+    // historyApiFallback: {
+    //   rewrites: [
+    //     { from: /client/, to: path.posix.join(config.dev.assetsPublicPath, 'index.html') },
+    //     { from: /admin\/*/, to: path.posix.join(config.dev.assetsPublicPath, 'admin.html') },
+    //   ],
+    // },
     hot: true,
     contentBase: false, // since we use CopyWebpackPlugin.
     compress: true,
@@ -43,7 +43,17 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     quiet: true, // necessary for FriendlyErrorsPlugin
     watchOptions: {
       poll: config.dev.poll,
+    },
+    setup: (app) => {
+      var history = require('connect-history-api-fallback');
+      app.use(history({
+        rewrites: [
+          { from: 'index', to: '/index.html'}, // 默认入口
+          { from: /\/admin/, to: '/admin.html'}, // 其他入口
+        ]
+      }))
     }
+
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -54,13 +64,13 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     new webpack.NoEmitOnErrorsPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
-      filename: 'client.html',
+      filename: 'index.html',
       template: './tpl/index.html',
       inject: true,
       chunks: ['client'],
     }),
     new HtmlWebpackPlugin({
-      filename: 'manager.html',
+      filename: 'admin.html',
       template: './tpl/index.html',
       inject: true,
       chunks: ['manager'],

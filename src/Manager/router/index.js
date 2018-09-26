@@ -6,15 +6,10 @@ const Comment = () => import('../pages/Comment')
 const Detail = () => import('../pages/Detail')
 const Article = () => import('../pages/Article')
 
-import Promise from 'promise-polyfill'
-if (!window.Promise) {
-  window.Promise = Promise;
-}
-
 Vue.use(Router)
 
 export default new Router({
-  mode: 'hash',
+  mode: 'history',
   routes: [{
       path: '/catagory',
       name: 'Catagory',
