@@ -43,7 +43,6 @@
         TabPane,
         Card
     } from "iview";
-import { CLIENT_RENEG_LIMIT } from 'tls';
     
     export default {
         components: {
@@ -180,7 +179,7 @@ import { CLIENT_RENEG_LIMIT } from 'tls';
                 this.name = 'addOrEdit';
             },
             async getList() {
-                // this.articleList.length = 0;
+                this.articleList.length = 0;
                 try {
                     const res = await this.$request({
                         path: "article",
