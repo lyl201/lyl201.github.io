@@ -4,7 +4,7 @@
             <TabPane label="编辑" name="addOrEdit">
                 <Button type="primary" style="margin-bottom: 20px" @click="add">新增</Button>
                 <Input style="margin-bottom: 30px" v-model="data.title" type="textarea" :autosize="true" placeholder="请输入文章标题" />
-                <div style="width: calc(100% - 20px);height: 500px;margin-bottom: 50px">
+                <div style="width: calc(100% - 20px);height: 500px;margin-bottom: 10px">
                     <mavon-editor style="height:100%; margin-left: 10px" :ishljs="true" @imgAdd="imgAdd" @imgDel="imgDel" v-model="data.content"></mavon-editor>
                 </div>
                 <div class="select">
@@ -43,6 +43,7 @@
         TabPane,
         Card
     } from "iview";
+import { CLIENT_RENEG_LIMIT } from 'tls';
     
     export default {
         components: {
@@ -134,7 +135,14 @@
                 this.data.summary = this.data.summary || "";
                 this.data.image = this.data.image || "";
                 this.data.date = Date.parse(new Date());
-    
+                // 单词强调
+                this.data.content = this.data.content.replace(/\*\*([a-zA-Z]+)\*\*|([a-zA-Z]+)/g, (all, val1, val2) => {
+                    if (val1) {
+                        return all;
+                    } else {
+                        return `**${val2}**`;
+                    }
+                })
                 try {
                     const res = await this.$request({
                         path: "article",
@@ -226,12 +234,12 @@
 <style lang="scss" scoped>
     .select {
         height: 500px;
-        overflow-y: scroll;
+        // overflow-y: scroll;
         margin-top: 30px;
     }
     
     .detail-container {
-        // overflow-y: scroll;
+        overflow-y: scroll;
         padding-bottom: 150px;
         height: 1000px;
     }
