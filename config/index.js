@@ -49,7 +49,7 @@ module.exports = {
     admin: path.resolve(__dirname, '../server/public/admin.html'),
 
     // Paths
-    assetsRoot: path.resolve(__dirname, '../server/public'),
+    assetsRoot: path.resolve(__dirname, '../nginx/blog'),
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
 
