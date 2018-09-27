@@ -45,8 +45,8 @@ module.exports = {
 
   build: {
     // Template for index.html
-    index: path.resolve(__dirname, '../server/public/index.html'),
-    admin: path.resolve(__dirname, '../server/public/admin.html'),
+    index: path.resolve(__dirname, '../nginx/blog/index.html'),
+    admin: path.resolve(__dirname, '../nginx/blog/admin.html'),
 
     // Paths
     assetsRoot: path.resolve(__dirname, '../nginx/blog'),
