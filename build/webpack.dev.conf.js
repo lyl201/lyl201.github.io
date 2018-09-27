@@ -23,12 +23,12 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   // these devServer options should be customized in /config/index.js
   devServer: {
     clientLogLevel: 'warning',
-    // historyApiFallback: {
-    //   rewrites: [
-    //     { from: /client/, to: path.posix.join(config.dev.assetsPublicPath, 'index.html') },
-    //     { from: /admin\/*/, to: path.posix.join(config.dev.assetsPublicPath, 'admin.html') },
-    //   ],
-    // },
+    historyApiFallback: {
+      rewrites: [
+        { from: 'index', to: path.posix.join(config.dev.assetsPublicPath, 'index.html') },
+        { from: /\/admin/, to: path.posix.join(config.dev.assetsPublicPath, 'admin.html') },
+      ],
+    },
     hot: true,
     contentBase: false, // since we use CopyWebpackPlugin.
     compress: true,
@@ -44,15 +44,15 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     watchOptions: {
       poll: config.dev.poll,
     },
-    setup: (app) => {
-      var history = require('connect-history-api-fallback');
-      app.use(history({
-        rewrites: [
-          { from: 'index', to: '/index.html'}, // 默认入口
-          { from: /\/admin/, to: '/admin.html'}, // 其他入口
-        ]
-      }))
-    }
+    // setup: (app) => {
+    //   var history = require('connect-history-api-fallback');
+    //   app.use(history({
+    //     rewrites: [
+    //       { from: 'index', to: '/index.html'}, // 默认入口
+    //       { from: /\/admin/, to: '/admin.html'}, // 其他入口
+    //     ]
+    //   }))
+    // }
 
   },
   plugins: [

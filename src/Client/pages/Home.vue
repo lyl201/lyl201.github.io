@@ -10,7 +10,8 @@
   // import PartPage from "@/components/PartPage";
   export default {
     data() {
-      return {};
+      return {
+      };
     },
     components: {
       Article,
