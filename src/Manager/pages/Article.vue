@@ -34,8 +34,8 @@
 </template>
 
 <script>
-import {mavonEditor} from 'mavon-editor';
-import 'mavon-editor/dist/css/index.css'
+// import {mavonEditor} from 'mavon-editor';
+// import 'mavon-editor/dist/css/index.css'
     import {
         Select,
         Option,
@@ -45,8 +45,6 @@ import 'mavon-editor/dist/css/index.css'
         TabPane,
         Card
     } from "iview";
-import { CLIENT_RENEG_LIMIT } from 'tls';
-    
     export default {
         components: {
             Select,
@@ -56,7 +54,7 @@ import { CLIENT_RENEG_LIMIT } from 'tls';
             Tabs,
             TabPane,
             Card,
-            mavonEditor
+            // mavonEditor
         },
         data() {
             return {

@@ -15,12 +15,13 @@ Vue.prototype.$Message = Message
 
 import '../../static/reset.css'
 
-// import mavonEditor from 'mavon-editor'
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
 
 
 Vue.config.productionTip = false;
 Vue.config.devtools = true;
-// Vue.use(mavonEditor)
+Vue.use(mavonEditor)
 
 Vue.use({
   install(Vue, options) {
