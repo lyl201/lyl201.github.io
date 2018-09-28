@@ -7,7 +7,7 @@ if (!window.Promise) {
 }
 import App from './App'
 import router from './router/index'
-import Marked from "marked"; 
+// import Marked from "marked"; 
 // import VueMoment from 'vue-moment'
 import {request} from "../utils.js"
 
@@ -15,7 +15,7 @@ Vue.config.productionTip = false
 
 Vue.use({
   install(Vue, options) {
-    Vue.prototype.$marked = Marked;
+    // Vue.prototype.$marked = Marked;
     Vue.prototype.$request = request;
   }
 })

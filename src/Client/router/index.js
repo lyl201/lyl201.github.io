@@ -1,9 +1,9 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '@/pages/Home';
-import Detail from '@/pages/Detail';
+// import Vue from 'vue'
+// import VueRouter from 'vue-router'
+const Home = () => import('@/pages/Home');
+const Detail = () => import('@/pages/Detail');
 
-Vue.use(VueRouter)
+// Vue.use(VueRouter)
 
 export default new VueRouter({
   mode:"history",

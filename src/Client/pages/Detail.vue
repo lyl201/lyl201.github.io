@@ -24,6 +24,7 @@
 
 <script>
   import Loading from "@/components/Loading";
+  import Marked from "marked"; 
   export default {
     components: {
       Loading,
@@ -38,7 +39,7 @@
     },
     computed: {
       mark() {
-        return this.$marked(this.article);
+        return Marked(this.article);
       },
       isLoading() {
         return this.$store.state.isLoading;
