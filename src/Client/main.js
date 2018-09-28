@@ -1,6 +1,6 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vue from 'vue'
+// import Vue from 'vue'
 import Promise from 'promise-polyfill'
 if (!window.Promise) {
   window.Promise = Promise;
@@ -8,7 +8,7 @@ if (!window.Promise) {
 import App from './App'
 import router from './router/index'
 import Marked from "marked"; 
-import VueMoment from 'vue-moment'
+// import VueMoment from 'vue-moment'
 import {request} from "../utils.js"
 
 Vue.config.productionTip = false
