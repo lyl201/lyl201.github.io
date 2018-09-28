@@ -27,7 +27,7 @@ Vue.use({
     Vue.prototype.$request = request;
   }
 })
-Vue.use(VueMoment)
+// Vue.use(VueMoment)
 
 
 // import store from './store.js';
