@@ -95,7 +95,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       },
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
       chunksSortMode: 'dependency',
-      chunks: ['manifest', 'vender', 'manager']
+      chunks: ['manifest', 'vendor', 'manager']
     }),
     // keep module.id stable when vendor modules does not change
     new webpack.HashedModuleIdsPlugin(),
@@ -137,7 +137,8 @@ const webpackConfig = merge(baseWebpackConfig, {
           /\.js$/.test(module.resource) &&
           module.resource.indexOf(
             path.join(__dirname, '../node_modules')
-          ) === 0
+          ) === 0 && module.resource.indexOf('mavon-editor') < 0
+           && module.resource.indexOf('marked') < 0
         )
       }
     }),
