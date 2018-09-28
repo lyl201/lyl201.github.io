@@ -41,11 +41,11 @@ module.exports = {
     }
   },
   externals: {
-    // 'vue': 'Vue',
-    // 'vue-router': 'VueRouter',
-    // 'vuex': 'Vuex',
-    // 'vue-moment': 'VueMoment',
-    // 'highlight.js': 'hljs',
+    'vue': 'Vue',
+    'vue-router': 'VueRouter',
+    'vuex': 'Vuex',
+    'vue-moment': 'VueMoment',
+    'highlight.js': 'hljs',
 
   },
   module: {

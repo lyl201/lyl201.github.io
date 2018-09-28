@@ -84,7 +84,7 @@ const webpackConfig = merge(baseWebpackConfig, {
 
     new HtmlWebpackPlugin({
       filename: config.build.admin,
-      template: './tpl/index.html',
+      template: './tpl/admin.html',
       inject: true,
       minify: {
         removeComments: true,
@@ -95,7 +95,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       },
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
       chunksSortMode: 'dependency',
-      chunks: ['manifest', 'vendor', 'manager']
+      chunks: ['manifest', 'vender', 'manager']
     }),
     // keep module.id stable when vendor modules does not change
     new webpack.HashedModuleIdsPlugin(),
@@ -116,11 +116,23 @@ const webpackConfig = merge(baseWebpackConfig, {
     //   }
     // }),
 
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   name: 'vendor-client',
+    //   minChunks (module) {
+    //     if (module.resource && /\.js$/.test(module.resource)) {
+    //       if (module.resource.indexOf())
+    //     }
+    //   }
+
+    // }),
+    
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks (module) {
         // any required modules inside node_modules are extracted to vendor
+        
         return (
+          
           module.resource &&
           /\.js$/.test(module.resource) &&
           module.resource.indexOf(
@@ -131,9 +143,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     }),
 
     // new webpack.optimize.CommonsChunkPlugin({
-    //   name: 'vendor',
-    //   chunks: ['vendor'],
-    //   filename: '[name].js',
+    //   name: 'vendor-manage',
     //   minChunks (module) {
     //     // any required modules inside node_modules are extracted to vendor
     //     return (
@@ -141,7 +151,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     //       /\.js$/.test(module.resource) &&
     //       module.resource.indexOf(
     //         path.join(__dirname, '../node_modules')
-    //       ) === 0
+    //       ) === 0 && module.resource.indexOf('highlight') < 0
     //     )
     //   }
     // }),
@@ -194,5 +204,6 @@ if (config.build.bundleAnalyzerReport) {
   const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
   webpackConfig.plugins.push(new BundleAnalyzerPlugin())
 }
+
 
 module.exports = webpackConfig
