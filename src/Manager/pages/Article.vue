@@ -106,7 +106,7 @@ import { CLIENT_RENEG_LIMIT } from 'tls';
             async imgAdd() {
                 try {
                     const res = await this.$request({
-                        path: "upload/article",
+                        path: "api/upload/article",
                         data: {
                             article: arguments[1]
                         },
