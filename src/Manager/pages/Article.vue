@@ -106,7 +106,7 @@ import { CLIENT_RENEG_LIMIT } from 'tls';
             async imgAdd() {
                 try {
                     const res = await this.$request({
-                        path: "api/upload/article",
+                        path: "upload/article",
                         data: {
                             article: arguments[1]
                         },
@@ -116,6 +116,9 @@ import { CLIENT_RENEG_LIMIT } from 'tls';
                         .data
                         .content
                         .replace(/![[\s\S]+]\(\d*\)/, `<img src='${res.article}'/>`);
+
+
+                    
                 } catch (msg) {
                     this
                         .$Message

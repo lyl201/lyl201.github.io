@@ -165,7 +165,7 @@
       async getPicture(e) {
         try {
           const res = await this.$request({
-            path: "api/upload/avator",
+            path: "upload/avator",
             data: {
               avator: e.target.files[0],
               username: this.$store.state.username
