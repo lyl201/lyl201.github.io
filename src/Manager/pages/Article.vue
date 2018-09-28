@@ -34,8 +34,8 @@
 </template>
 
 <script>
-// import {mavonEditor} from 'mavon-editor';
-// import 'mavon-editor/dist/css/index.css'
+import {mavonEditor} from 'mavon-editor';
+import 'mavon-editor/dist/css/index.css'
     import {
         Select,
         Option,
@@ -54,7 +54,7 @@
             Tabs,
             TabPane,
             Card,
-            // mavonEditor
+            mavonEditor
         },
         data() {
             return {
