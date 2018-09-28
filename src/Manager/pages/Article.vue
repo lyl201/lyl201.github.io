@@ -135,14 +135,7 @@ import { CLIENT_RENEG_LIMIT } from 'tls';
                 this.data.summary = this.data.summary || "";
                 this.data.image = this.data.image || "";
                 this.data.date = Date.parse(new Date());
-                // 单词强调
-                this.data.content = this.data.content.replace(/\*\*([a-zA-Z]+)\*\*|([a-zA-Z]+)/g, (all, val1, val2) => {
-                    if (val1) {
-                        return all;
-                    } else {
-                        return `**${val2}**`;
-                    }
-                })
+              
                 try {
                     const res = await this.$request({
                         path: "article",
