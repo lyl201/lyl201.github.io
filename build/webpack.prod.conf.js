@@ -102,6 +102,20 @@ const webpackConfig = merge(baseWebpackConfig, {
     // enable scope hoisting
     new webpack.optimize.ModuleConcatenationPlugin(),
     // split vendor js into its own file
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   name: 'vendor',
+    //   minChunks (module) {
+    //     // any required modules inside node_modules are extracted to vendor
+    //     return (
+    //       module.resource &&
+    //       /\.js$/.test(module.resource) &&
+    //       module.resource.indexOf(
+    //         path.join(__dirname, '../node_modules')
+    //       ) === 0 && module.resource.indexOf('mavon-editor') < 0
+    //     )
+    //   }
+    // }),
+
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks (module) {
@@ -111,26 +125,10 @@ const webpackConfig = merge(baseWebpackConfig, {
           /\.js$/.test(module.resource) &&
           module.resource.indexOf(
             path.join(__dirname, '../node_modules')
-          ) === 0 && module.resource.indexOf('mavon-editor') < 0
+          ) === 0
         )
       }
     }),
-
-    // new webpack.optimize.CommonsChunkPlugin({
-    //   name: 'vendor-admin',
-    //   chunks: ['vendor'],
-    //   filename: '[name].js',
-    //   minChunks (module) {
-    //     // any required modules inside node_modules are extracted to vendor
-    //     return (
-    //       module.resource &&
-    //       /\.js$/.test(module.resource) &&
-    //       module.resource.indexOf(
-    //         path.join(__dirname, '../node_modules')
-    //       ) === 0 && module.resource.indexOf('mavon-editor') > -1
-    //     )
-    //   }
-    // }),
 
     // new webpack.optimize.CommonsChunkPlugin({
     //   name: 'vendor',

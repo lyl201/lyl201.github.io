@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-const Home = () => import('@/pages/Home');
-const Detail = () => import('@/pages/Detail');
+import Home from '@/pages/Home';
+import Detail from '@/pages/Detail';
 
 Vue.use(VueRouter)
 
