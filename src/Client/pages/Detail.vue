@@ -7,7 +7,7 @@
       <div class="date">时间：{{date}}</div>
     </div>
     <div v-if="!isLoading" v-html="mark" v-highlight article></div>
-    <hr v-if="!isLoading">
+    <hr v-if="!isLoading && url"/>
     <div v-if="!isLoading" class="bottom-text">
       <!-- <span>写评论</span> -->
       <span>如果喜欢这篇文章就点个赞吧</span>
@@ -115,6 +115,7 @@ h1 {
 }
 hr {
   margin: 50px 0px 20px;
+  border-color:rgba(0, 0, 0, 0.1); 
 }
 .bottom-text {
   color: #888;
