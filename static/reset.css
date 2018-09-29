@@ -14,6 +14,10 @@ body {
 div[article] p{
   line-height: 28px;
 }
+div[article] a{
+  color: #AB0011;
+  text-decoration: none;
+}
 @media screen and (max-width: 1060px) {
     div[article] h1 {
       font-size: 20px;
