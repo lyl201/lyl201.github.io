@@ -7,10 +7,12 @@
       <div class="date">时间：{{date}}</div>
     </div>
     <div v-if="!isLoading" v-html="mark" v-highlight article></div>
-    <hr>
+    <hr v-if="!isLoading">
     <div v-if="!isLoading" class="bottom-text">
-      <span>写评论</span>
-      <span>喜欢</span>
+      <!-- <span>写评论</span> -->
+      <span>如果喜欢这篇文章就点个赞吧</span>
+      <img :src="url" alt="" @click="likeArticle">
+      <span class="like-count">{{likeCount}}</span>
     </div>
     <div class="comment">
       <!-- <div class="title">12条评论:</div>
@@ -30,6 +32,8 @@
 <script>
 import Loading from "@/components/Loading";
 import Marked from "marked";
+const icon = require("../../static/likeIcon.svg");
+const icon2 = require("../../static/like.svg");
 export default {
   components: {
     Loading
@@ -39,7 +43,10 @@ export default {
       article: "",
       title: "",
       date: "",
-      tag: ""
+      tag: "",
+      url: "",
+      likeCount: "",
+      clicked: false,
     };
   },
   computed: {
@@ -62,10 +69,12 @@ export default {
       this.title = res.title;
       this.date = moment(Number(res.date)).format("YYYY-MM-DD");
       this.tag = res.tag;
+      this.likeCount = res.likeCount;
       this.$store.commit("switchLoading");
     } catch (err) {}
   },
   async mounted() {
+    this.url = icon;
     try {
       const res = await this.$request({
         path: `read`,
@@ -76,7 +85,25 @@ export default {
       });
     } catch (err) {}
   },
-  methods: {}
+  methods: {
+    async likeArticle() {
+      if (this.clicked) {
+        return ;
+      }
+      try {
+      const res = await this.$request({
+        path: `like`,
+        data: {
+          id : this.$route.params.id
+        },
+        method: "POST"
+      });
+      this.url = icon2;
+      this.likeCount ++;
+      this.clicked = true;
+    } catch (err) {}
+    }
+  }
 };
 </script>
 
@@ -92,6 +119,16 @@ hr {
 .bottom-text {
   color: #888;
   font-size: 14px;
+  img {
+    height: 17px;
+    vertical-align: top;
+    margin-top: 2px;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  .like-count {
+
+  }
 }
 .loading {
   display: flex;

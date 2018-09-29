@@ -28,4 +28,6 @@ router.post("/api/upload/article", require('./upload_article'));
 
 router.post("/api/read", require('./read'));
 
+router.post("/api/like", require('./like'));
+
 module.exports = router;
