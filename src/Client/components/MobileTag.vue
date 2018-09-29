@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="mobile-tag-container">
     <span class="tag">标签：</span>
-    <transition name="listFade">
-      <ul v-if="catagoryShow">
-        <li :class="{'high-light': curIndex == index}" @click="switchTab(index, item)" v-for="(item, index) in catagoryList" :key="index">{{item.name}}</li>
-      </ul>
-    </transition> 
+    
+       <transition-group name="listFade" tag="ul">
+        <li v-if="catagoryShow" :class="{'high-light': curIndex == index}" @click="switchTab(index, item)" v-for="(item, index) in catagoryList" :key="index">{{item.name}}</li>
+      </transition-group> 
+    
   </div>
 </template>
 
@@ -58,6 +58,11 @@
 </script>
 
 <style lang="scss" scoped>
+.mobile-tag-container{
+  min-height: 112px;
+
+
+}
   .tag {
     display: inline-block;
     margin-left: 20px;
@@ -92,20 +97,28 @@
   
   .listFade-enter-active,
   .listFade-leave-active {
-    transition: opacity 1s;
+    transition: all 0.5s;
+    
   }
   
   .listFade-enter-to {
-    opacity: 1
+    opacity: 1;
+    transform: scale(1);
+    transform: rotateX(360deg);
+    
   }
   
   .listFade-leave {
     opacity: 1;
+    transform: scale(1);
+    transform: rotateX(360deg);
+   
   }
-  
   .listFade-enter,
   .listFade-leave-to {
     opacity: 0;
+    transform: scale(0.3);
+    // transform: rotateX(0deg);
   }
 
 </style>
