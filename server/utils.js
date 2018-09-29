@@ -69,7 +69,7 @@ const promisifyModel = (MODEL_LIST) => {
           if (!err) {
             resolve(res && res.ok > 0 && "更新成功")
           } else {
-            reject('更新失败')
+            reject(err)
           }
         })
       })

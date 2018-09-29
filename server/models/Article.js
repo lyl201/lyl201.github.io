@@ -25,22 +25,22 @@ module.exports = function (mongoose) {
         },
 
         date: {
-            type: String, 
+            type: Number, 
             required: true,
             unique: false
         },
         likeCount: {
-            type: String,
+            type: Number,
             required: true,
             unique: false
         },
         readCount: {
-            type: String,
+            type: Number,
             required: true,
             unique: false
         },
         commentCount: {
-            type: String,
+            type: Number,
             required: true,
             unique: false
         },

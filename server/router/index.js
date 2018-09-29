@@ -26,4 +26,6 @@ router.post("/api/upload/avator", require('./upload_avator'));
 
 router.post("/api/upload/article", require('./upload_article'));
 
+router.post("/api/read", require('./read'));
+
 module.exports = router;
