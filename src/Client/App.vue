@@ -132,13 +132,16 @@
       this.getCatagory({
         vm: this
       });
-      await this.getArticle({
-        vm: this,
-        page: this.$store.state.curPage,
-        tag: this.$store.state.tag
-      });
+      if(!location.href.includes('detail')) {
+        await this.getArticle({
+          vm: this,
+          page: this.$store.state.curPage,
+          tag: this.$store.state.tag
+        });
+      }
       this.$store.commit("switchLoading");
       this.beforeScrollTop = app.scrollTop;
+
       app.addEventListener(
         "scroll",
         this.debounce(this.scrollHandler, 200, 1000)
