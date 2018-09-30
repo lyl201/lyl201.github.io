@@ -74,34 +74,34 @@ export default {
   },
   async mounted() {
     this.url = icon;
-    try {
-      const res = await this.$request({
-        path: `read`,
-        data: {
-          id : this.$route.params.id
-        },
-        method: "POST"
-      });
-    } catch (err) {}
-  },
-  methods: {
-    // async likeArticle() {
-    //   if (this.clicked) {
-    //     return ;
-    //   }
-    //   try {
+    // try {
     //   const res = await this.$request({
-    //     path: `like`,
+    //     path: `read`,
     //     data: {
     //       id : this.$route.params.id
     //     },
     //     method: "POST"
     //   });
-    //   this.url = icon2;
-    //   this.likeCount ++;
-    //   this.clicked = true;
     // } catch (err) {}
-    // }
+  },
+  methods: {
+    async likeArticle() {
+      if (this.clicked) {
+        return ;
+      }
+      try {
+      const res = await this.$request({
+        path: `like`,
+        data: {
+          id : this.$route.params.id
+        },
+        method: "POST"
+      });
+      this.url = icon2;
+      this.likeCount ++;
+      this.clicked = true;
+    } catch (err) {}
+    }
   }
 };
 </script>
