@@ -85,23 +85,23 @@ export default {
     } catch (err) {}
   },
   methods: {
-    async likeArticle() {
-      if (this.clicked) {
-        return ;
-      }
-      try {
-      const res = await this.$request({
-        path: `like`,
-        data: {
-          id : this.$route.params.id
-        },
-        method: "POST"
-      });
-      this.url = icon2;
-      this.likeCount ++;
-      this.clicked = true;
-    } catch (err) {}
-    }
+    // async likeArticle() {
+    //   if (this.clicked) {
+    //     return ;
+    //   }
+    //   try {
+    //   const res = await this.$request({
+    //     path: `like`,
+    //     data: {
+    //       id : this.$route.params.id
+    //     },
+    //     method: "POST"
+    //   });
+    //   this.url = icon2;
+    //   this.likeCount ++;
+    //   this.clicked = true;
+    // } catch (err) {}
+    // }
   }
 };
 </script>
