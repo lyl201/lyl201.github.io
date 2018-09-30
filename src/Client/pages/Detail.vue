@@ -7,7 +7,6 @@
       <div class="date">时间：{{date}}</div>
     </div>
     <div v-if="!isLoading" v-html="mark" v-highlight article></div>
-    <hr v-if="!isLoading">
     <div v-if="!isLoading" class="bottom-text">
       <!-- <span>写评论</span> -->
       <span>如果喜欢这篇文章就点个赞吧</span>
@@ -113,9 +112,6 @@ h1 {
   // padding-bottom: 10px;
   word-break: break-all;
 }
-hr {
-  margin: 50px 0px 20px;
-}
 .bottom-text {
   color: #888;
   font-size: 14px;
@@ -142,6 +138,8 @@ hr {
   min-height: 800px;
   div[article] {
     word-break: break-all;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 20px;
   }
 }
 

@@ -8,9 +8,9 @@
         </div>
         <div class="bottom">
           <div class="tag">{{item.tag}}</div>
-          <div class="comment" >{{item.commentCount}}</div>
+          <!-- <div class="comment" >{{item.commentCount}}</div> -->
           <div class="like"@click="like">{{item.likeCount}}</div>
-          <div class="read">{{item.readCount}}</div>
+          <!-- <div class="read">{{item.readCount}}</div> -->
         </div>
       </div>
     </div>
@@ -147,6 +147,7 @@
         background-size: contain;
       }
       .tag {
+        width:30px;
         background-image: url(../../static/tag.svg);
         background-repeat: no-repeat;
         background-position: 0 0px;
