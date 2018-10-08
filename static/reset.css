@@ -18,7 +18,7 @@ body {
 }
 
 div[article] p {
-  line-height: 28px;
+  line-height: 1.8;
 }
 
 div[article] a {
@@ -67,6 +67,22 @@ div[article] td {
   line-height: 20px;
   vertical-align: middle;
 }
+div[article] p code {
+     color: #476582;
+    padding: .25rem .5rem;
+    margin: 0 5px;
+    word-wrap: none;
+    font-weight: 300;
+    background-color: rgba(27,31,35,.05);
+    border-radius: 3px;
+    font-family: source-code-pro,Menlo,Monaco,Consolas,Courier New,monospace;
+}
+div[article] pre {
+  font-family: source-code-pro,Menlo,Monaco,Consolas,Courier New,monospace;
+}
+div[article] .hljs {
+  border-radius: 6px;
+}
 
 @media screen and (max-width: 1060px) {
   div[article] h1 {
@@ -78,7 +94,7 @@ div[article] td {
   }
 
   div[article] p {
-    line-height: 24px;
+    line-height: 1.7;
   }
 
   div[article] h3 {
@@ -91,6 +107,7 @@ div[article] td {
 
   div[article] code {
     font-size: 12px;
-    font-family: 'MONACO';
+    font-family: source-code-pro,Menlo,Monaco,Consolas,Courier New,monospace;
+
   }
 }

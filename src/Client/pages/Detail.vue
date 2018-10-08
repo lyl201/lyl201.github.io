@@ -136,6 +136,7 @@ h1 {
   // height: 1500px;
   padding: 0px 20px;
   min-height: 800px;
+  color:#2c3e50;
   div[article] {
     word-break: break-all;
     border-bottom: 1px solid #e0e0e0;
