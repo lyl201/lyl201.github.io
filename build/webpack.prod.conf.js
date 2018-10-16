@@ -191,7 +191,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     new PrerenderSPAPlugin(
       
       path.join(__dirname, '../nginx/blog'),
-      [ '/'],
+      ['/'],
       {
         //在一定时间后再捕获页面信息，使得页面数据信息加载完成
           captureAfterTime: 50000,
