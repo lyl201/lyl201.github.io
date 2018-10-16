@@ -1,10 +1,10 @@
 <template>
   <div class="msg">
     <div class="side-title">
-      标签
+      Tag
     </div>
     <ul>
-      <li v-for="(item, index) in catagoryList" :key="index">
+      <li v-for="(item, index) in catagoryList" :key="index" @click="switchTab(index, item)">
         {{item.name}} - {{ '[' + item.count + ']'}}
       </li>
     </ul>
@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex';
   export default {
     data() {
       return {
@@ -27,6 +28,26 @@
   
     },
     methods: {
+      async switchTab(index, item) {
+        this.$store.commit("changeTag", item.name);
+        if (app && app.scrollTo) {
+          app.scrollTo(0, 0);
+        }
+        this.$nextTick(async() => {
+          this.$router.replace({
+            path: '/'
+          })
+          this.$store.commit("switchLoading");
+          await this.getArticle({
+            vm: this,
+            page: this.$store.state.curPage
+          })
+          this.$store.commit("switchLoading");
+        })
+      },
+      ...mapActions([
+        'getArticle'
+      ]),
   
     },
   };

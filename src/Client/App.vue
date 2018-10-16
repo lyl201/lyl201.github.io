@@ -37,9 +37,9 @@
             <img :src="icon" alt="">
           </div>
           <ul class="right">
-            <li>职 业：前端攻城狮、坐标帝都</li>
-            <li>邮 箱：<a href="mailto:18201180289@163.com">18201180289@163.com</a></li>
-            <li>github: <a href="https://github.com/silentport">https://github.com/silentport</a></li>
+            
+            <li>Email：<a href="mailto:liyonglong_bupt@163.com">liyonglong_bupt@163.com</a></li>
+            <li>Github: <a href="https://github.com/silentport">https://github.com/silentport</a></li>
           </ul>
         </div>
         <div class="search">
@@ -53,6 +53,7 @@
     </div>
     <component :is="componentId" v-if="dialogShow"></component>
     <footer>
+      <button @click="resetTop">回到顶部</button>
     </footer>
   </div>
 </template>
@@ -68,6 +69,7 @@
   import Login from "@/components/Login";
   import MobileTag from "@/components/MobileTag";
   import Register from "@/components/Register";
+import { setInterval, clearInterval } from 'timers';
   require("es6-promise").polyfill();
   require("isomorphic-fetch");
   export default {
@@ -252,6 +254,19 @@
            location.href = `${host}/admin`;
         }
       },
+      resetTop () {
+        if (app && app.scrollTo) {
+          let timer = null;
+          let scrollTop = app.scrollTop;
+          timer = setInterval(() => {
+            scrollTop > 0 ?
+            app.scrollTo(0, (scrollTop-=100) > 0 ? scrollTop: 0)
+            :
+            clearInterval(timer);
+          }, 0)
+          
+        }
+      },
       ...mapActions(["getArticle", "getCatagory"])
     },
   };
@@ -266,7 +281,7 @@
     position: relative;
     background: #fff;
     height: 100vh;
-    overflow: scroll;
+    overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
   }
   
@@ -358,7 +373,7 @@
       text-align: left;
     }
     .side {
-      width: calc(35% - 10px);
+      width: 270px;
       margin-left: 10px;
       .intro {
         // box-shadow: 4px 4px 3px #aaa;
@@ -381,15 +396,19 @@
           color: #666;
           & > li {
             line-height: 30px;
-            width: 70%;
+            width: 250px;
+            box-sizing: border-box;
+            padding-left: 16px;
             word-break: break-all;
+            color: rgba(0,0,0,0.6);
+            font-size: 14px;
             margin: 0 auto;
           }
           & > li > a {
-            font-size: 14px;
+            
             text-decoration: none;
             word-break: break-all;
-            color: #666;
+            color: rgba(0,0,0,0.6);
           }
         }
       }
@@ -434,7 +453,30 @@
     }
   }
   
-  footer {}
+  footer {
+    position: fixed;
+    bottom: 0px;
+    z-index: 999;
+    width:100%;
+    display: flex;
+    justify-content: flex-end;
+
+    & > button {
+      height: 80px;
+      width: 50px;
+      margin-right: 18px;
+      cursor: pointer;
+      background: #fff;
+      border:none;
+      color: #ea6f20;
+      outline: none;
+    }
+    & > button:active{
+      color: red;
+    }
+    
+   
+  }
   
   @media screen and (max-width: 1009px) {
     header {
