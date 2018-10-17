@@ -456,8 +456,9 @@ import { setInterval, clearInterval } from 'timers';
   footer {
     position: fixed;
     bottom: 0px;
+    right:0px;
     z-index: 999;
-    width:100%;
+    width:70px;
     display: flex;
     justify-content: flex-end;
 
