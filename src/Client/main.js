@@ -10,7 +10,6 @@ import router from './router/index'
 // import Marked from "marked"; 
 // import VueMoment from 'vue-moment'
 import {request} from "../utils.js"
-
 Vue.config.productionTip = false
 
 Vue.use({

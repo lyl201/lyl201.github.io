@@ -69,9 +69,10 @@
   import Login from "@/components/Login";
   import MobileTag from "@/components/MobileTag";
   import Register from "@/components/Register";
-import { setInterval, clearInterval } from 'timers';
+  import { setInterval, clearInterval } from 'timers';
   require("es6-promise").polyfill();
   require("isomorphic-fetch");
+
   export default {
     name: "App",
     components: {
