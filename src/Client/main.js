@@ -18,6 +18,7 @@ Vue.use({
     Vue.prototype.$request = request;
   }
 })
+
 import '../../static/reset.css'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/agate.css' //样式文件
