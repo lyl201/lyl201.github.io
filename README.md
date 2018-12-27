@@ -1,3 +1,3 @@
 # silentport.github.io
 
-> test for some demand about static pages
+> test for some demands about static pages
