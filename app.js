@@ -63,7 +63,7 @@ const saveImg = async (req, res, targetDir) => {
         // })
 
         await exec('git add .');
-        await exec(`git commit -m "add ${targetPath}"`);
+        await exec(`git commit -m "add ${targetPath.split('/').pop()}"`);
         await exec('git push')
 
 
