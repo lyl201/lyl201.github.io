@@ -51,6 +51,11 @@ const saveImg = async (req, res, {
         if (err) throw err;
         const imgName = targetPath.split(/\/|\\/).pop();
         const resUrl = url + '/upload/' + project + '/' + imgName
+
+
+        await exec('git add .');
+        await exec(`git commit -m "add ${imgName}"`);
+        await exec('git push')
         res.writeHead(200, {
           "Content-Type": "application/json;charset=UTF8"
         });
@@ -58,11 +63,6 @@ const saveImg = async (req, res, {
         res.end(JSON.stringify({
           url: resUrl
         }));
-
-        await exec('git add .');
-        await exec(`git commit -m "add ${imgName}"`);
-        await exec('git push')
-
 
       })
     })
@@ -74,7 +74,7 @@ const exec = (command) => {
   return new Promise((resolve, reject) => {
     cp.exec(command, (err, out, stderr) => {
       if (err) {
-        console.log('stderr:', stderr);
+        console.log('stderr:', err, stderr);
         reject(stderr);
         return;
       }
