@@ -78,7 +78,7 @@ const exec = (command) => {
         reject(stderr);
         return;
       }
-      console.log('stdout', out);
+      console.log('stdout', stderr, out);
       resolve(cp)
     })
   })
