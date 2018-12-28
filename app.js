@@ -6,7 +6,7 @@ http.createServer((req, res) => {
   saveImg(req, res, {
     targetDir: path.join(`D:/project/silentport.github.io`, './upload'),
     repo: 'https://github.com/silentport/silentport.github.io.git',
-    url: 'https://silentport.github.io/',
+    url: 'https://silentport.github.io',
     project: 'blog'
   })
 
