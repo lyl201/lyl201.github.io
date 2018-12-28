@@ -3,7 +3,12 @@ const path = require('path')
 const cp = require('child_process')
 http.createServer((req, res) => {
   // console.log(req.headers);
-  saveImg(req, res, path.join(`D:/project/silentport.github.io`, './upload'))
+  saveImg(req, res, {
+    targetDir: path.join(`D:/project/silentport.github.io`, './upload'),
+    repo: 'https://github.com/silentport/silentport.github.io.git',
+    url: 'https://silentport.github.io/',
+    project: 'blog'
+  })
 
 }).listen(8002, () => {
   console.log('server is started')
@@ -11,15 +16,24 @@ http.createServer((req, res) => {
 
 
 
-const saveImg = async (req, res, targetDir) => {
+const saveImg = async (req, res, {
+  targetDir,
+  repo,
+  url,
+  project
+}) => {
+
+
 
   const fs = require('fs')
   const formidable = require('formidable')
   const form = new formidable.IncomingForm();
+  const itemDir = targetDir + '/' + project;
 
   if (!fs.existsSync(targetDir)) fs.mkdirSync(targetDir)
+  if (!fs.existsSync(itemDir)) fs.mkdirSync(itemDir)
 
-  form.uploadDir = targetDir;
+  form.uploadDir = itemDir;
 
   function uniquePath(path) {
     return path.replace(/\.(png|jpe?g|gif|svg)(\?.*)?$/, m => `_${(new Date()).getTime()}${m}`);
@@ -35,35 +49,18 @@ const saveImg = async (req, res, targetDir) => {
       fs.rename(originPath, targetPath, async err => {
 
         if (err) throw err;
+        const imgName = targetPath.split(/\/|\\/).pop();
+        const resUrl = url + '/upload/' + project + '/' + imgName
         res.writeHead(200, {
-          "Content-Type": "text/html;charset=UTF8"
+          "Content-Type": "application/json;charset=UTF8"
         });
-        res.end('图片上传并改名成功！');
 
-
-        // const cp = require('child_process')
-
-        // const ls = cp.exec('git add .', (err, stdout, stderr) => {
-        //   if (!err) {
-        //     console.log(stdout)
-
-        //   } else {
-        //     console.log(err);
-        //   }
-        // })
-
-        // ls.stdout.pipe(process.stdout)
-
-        // ls.stderr.on('data', (data) => {
-        //   console.log('stderr: ', data)
-        // })
-
-        // ls.on('close', (code) => {
-        //   console.log(`子进程退出码：${code}`);
-        // })
+        res.end(JSON.stringify({
+          url: resUrl
+        }));
 
         await exec('git add .');
-        await exec(`git commit -m "add ${targetPath.split('/').pop()}"`);
+        await exec(`git commit -m "add ${imgName}"`);
         await exec('git push')
 
 
