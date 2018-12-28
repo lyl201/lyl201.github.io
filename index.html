@@ -11,6 +11,28 @@
 <body>
   <h1>waiting</h1>
 
+  <input type="file">
+
+  <script>
+    const input = document.querySelector('input');
+
+    input.addEventListener('change', e => {
+      const data = {
+        avator: e.target.files[0],
+      }
+      const formData = new FormData();
+      Object.keys(data).forEach(key => {
+        formData.append(key, data[key])
+      })
+      fetch('http://localhost:8002', {
+        body: formData,
+        method: 'POST'
+      }).then(res => res.text()).then(res => {
+        console.log(res)
+      })
+    }, false)
+  </script>
+
 </body>
 
 </html>
