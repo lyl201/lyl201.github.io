@@ -46,10 +46,10 @@ const saveImg = async (req, res, {targetDir, repo, url, project}) => {
         const imgName = targetPath.split (/\/|\\/).pop ();
         const resUrl = url + '/upload/' + project + '/' + imgName;
 
-        // await execAndConsole ('git pull');
-        // await execAndConsole ('git add .');
-        // await execAndConsole (`git commit -m "add ${imgName}"`);
-        // await execAndConsole ('git push');
+        await execAndConsole ('git pull');
+        await execAndConsole ('git add .');
+        await execAndConsole (`git commit -m "add ${imgName}"`);
+        await execAndConsole ('git push');
         res.writeHead (200, {
           'Content-Type': 'application/json;charset=UTF8',
         });
@@ -64,8 +64,11 @@ const saveImg = async (req, res, {targetDir, repo, url, project}) => {
   });
 };
 
+const options = {
+  maxBuffer: 800 * 1024,
+};
 const execAndConsole = async command => {
-  const {stdout, stderr} = await exec (command);
+  const {stdout, stderr} = await exec (command, options);
   console.log ('stdout:', stdout);
   console.log ('stderr:', stderr);
 };
