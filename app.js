@@ -67,6 +67,7 @@ const exec = command => {
     cp.exec (command, (err, stdout, stderr) => {
       if (!err) {
         console.log ('out-:', stdout);
+        console.log ('stderr-:', stderr);
         resolve (cp);
         return;
       }
