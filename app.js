@@ -1,6 +1,7 @@
 const http = require ('http');
 const path = require ('path');
-const cp = require ('child_process');
+const util = require ('util');
+const exec = util.promisify (require ('child_process').exec);
 
 http
   .createServer ((req, res) => {
@@ -45,9 +46,9 @@ const saveImg = async (req, res, {targetDir, repo, url, project}) => {
         const imgName = targetPath.split (/\/|\\/).pop ();
         const resUrl = url + '/upload/' + project + '/' + imgName;
 
-        await exec ('git add .');
-        await exec (`git commit -m "add ${imgName}"`);
-        await exec ('git push');
+        await execAndConsole ('git add .');
+        await execAndConsole (`git commit -m "add ${imgName}"`);
+        await execAndConsole ('git push');
         res.writeHead (200, {
           'Content-Type': 'application/json;charset=UTF8',
         });
@@ -62,17 +63,23 @@ const saveImg = async (req, res, {targetDir, repo, url, project}) => {
   });
 };
 
-const exec = command => {
-  return new Promise ((resolve, reject) => {
-    cp.exec (command, (err, stdout, stderr) => {
-      if (!err) {
-        console.log ('out-:', stdout);
-        console.log ('stderr-:', stderr);
-        resolve (cp);
-        return;
-      }
-      console.log ('stderr-:', stderr);
-      reject (stderr);
-    });
-  });
+const execAndConsole = async command => {
+  const {stdout, stderr} = await exec (command);
+  console.log ('stdout:', stdout);
+  console.log ('stderr:', stderr);
 };
+
+// const exec = command => {
+//   return new Promise ((resolve, reject) => {
+//     cp.exec (command, (err, stdout, stderr) => {
+//       if (!err) {
+//         console.log ('out-:', stdout);
+//         console.log ('stderr-:', stderr);
+//         resolve (cp);
+//         return;
+//       }
+//       console.log ('stderr-:', stderr);
+//       reject (stderr);
+//     });
+//   });
+// };
