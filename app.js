@@ -1,8 +1,10 @@
 const http = require('http');
 const path = require('path')
 const cp = require('child_process')
+
+
 http.createServer((req, res) => {
-  // console.log(req.headers);
+  
   saveImg(req, res, {
     targetDir: path.join(`D:/project/silentport.github.io`, './upload'),
     repo: 'https://github.com/silentport/silentport.github.io.git',
