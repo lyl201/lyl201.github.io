@@ -46,6 +46,7 @@ const saveImg = async (req, res, {targetDir, repo, url, project}) => {
         const imgName = targetPath.split (/\/|\\/).pop ();
         const resUrl = url + '/upload/' + project + '/' + imgName;
 
+        await execAndConsole ('git pull');
         await execAndConsole ('git add .');
         await execAndConsole (`git commit -m "add ${imgName}"`);
         await execAndConsole ('git push');
