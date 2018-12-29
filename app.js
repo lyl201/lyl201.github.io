@@ -65,7 +65,7 @@ const saveImg = async (req, res, {targetDir, repo, url, project}) => {
 };
 
 const options = {
-  maxBuffer: 800 * 1024,
+  maxBuffer: 1024 * 1024,
 };
 const execAndConsole = async command => {
   const {stdout, stderr} = await exec (command, options);
