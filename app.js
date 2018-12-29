@@ -49,20 +49,7 @@ const saveImg = async (req, res, {targetDir, repo, url, project}) => {
         await execAndConsole ('git pull');
         await execAndConsole ('git add .');
         await execAndConsole (`git commit -m "add ${imgName}"`);
-        // await execAndConsole ('git push');
-        const {spawn} = require ('child_process');
-        const ls = spawn ('git', ['push']);
-
-        ls.stdout.on ('data', data => {
-          console.log (`输出：${data}`);
-        });
-
-        ls.stderr.on ('data', data => {
-          console.log (`错误：${data}`);
-        });
-        res.writeHead (200, {
-          'Content-Type': 'application/json;charset=UTF8',
-        });
+        await execAndConsole ('git push');
 
         res.end (
           JSON.stringify ({
@@ -72,28 +59,13 @@ const saveImg = async (req, res, {targetDir, repo, url, project}) => {
       });
     });
   });
-};
 
-const options = {
-  maxBuffer: 1024 * 1024,
+  const options = {
+    cwd: null,
+  };
+  const execAndConsole = async command => {
+    const {stdout, stderr} = await exec (command, options);
+    console.log (command, stdout.length);
+    console.log (stderr);
+  };
 };
-const execAndConsole = async command => {
-  const {stdout, stderr} = await exec (command, options);
-  console.log (command, stdout.length);
-  console.log (stderr);
-};
-
-// const exec = command => {
-//   return new Promise ((resolve, reject) => {
-//     cp.exec (command, (err, stdout, stderr) => {
-//       if (!err) {
-//         console.log ('out-:', stdout);
-//         console.log ('stderr-:', stderr);
-//         resolve (cp);
-//         return;
-//       }
-//       console.log ('stderr-:', stderr);
-//       reject (stderr);
-//     });
-//   });
-// };
