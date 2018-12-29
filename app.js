@@ -69,7 +69,7 @@ const options = {
 };
 const execAndConsole = async command => {
   const {stdout, stderr} = await exec (command, options);
-  console.log (typeof stdout);
+  console.log (command, typeof stdout);
   console.log (stderr);
 };
 
