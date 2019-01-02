@@ -24,7 +24,7 @@
       Object.keys(data).forEach(key => {
         formData.append(key, data[key])
       })
-      fetch('http://localhost:8002', {
+      fetch('http://localhost:8002/upload', {
         body: formData,
         method: 'POST'
       }).then(res => res.text()).then(res => {
