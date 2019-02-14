@@ -4,7 +4,7 @@ const githubAsImageServer = require('github-as-image-server');
 app.use(async (ctx, next) => {
 
   ctx.set('Access-Control-Allow-Origin', '*');
-  next();
+  await next();
 
 })
 app.use(
