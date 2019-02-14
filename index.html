@@ -1,38 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>silentport.github.io</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>silentport.github.io</title>
-</head>
+  <body>
+    <h1>waiting</h1>
 
-<body>
-  <h1>waiting</h1>
+    <input type="file" />
 
-  <input type="file">
+    <script>
+      const input = document.querySelector('input');
 
-  <script>
-    const input = document.querySelector('input');
-
-    input.addEventListener('change', e => {
-      const data = {
-        avator: e.target.files[0],
-      }
-      const formData = new FormData();
-      Object.keys(data).forEach(key => {
-        formData.append(key, data[key])
-      })
-      fetch('http://localhost:8000/upload', {
-        body: formData,
-        method: 'POST'
-      }).then(res => res.text()).then(res => {
-        console.log(res)
-      })
-    }, false)
-  </script>
-
-</body>
-
+      input.addEventListener(
+        'change',
+        e => {
+          const data = {
+            avator: e.target.files[0],
+          };
+          const formData = new FormData();
+          Object.keys(data).forEach(key => {
+            formData.append(key, data[key]);
+          });
+          fetch('http://localhost:8000/upload', {
+            body: formData,
+            method: 'POST',
+          })
+            .then(res => res.json())
+            .then(res => {
+              console.log(res);
+            });
+        },
+        false
+      );
+    </script>
+  </body>
 </html>
