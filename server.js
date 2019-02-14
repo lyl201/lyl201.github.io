@@ -16,6 +16,10 @@ app.use(
   })
 );
 
+app.use(async (ctx, next) => {
+  next()
+})
+
 app.listen(8000, () => {
   console.log('server is started at 8000!');
 })
