@@ -1,0 +1,24 @@
+{
+  "name": "silentport.github.io",
+  "version": "1.0.0",
+  "description": "> test for some demands about static pages",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/silentport/silentport.github.io.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/silentport/silentport.github.io/issues"
+  },
+  "homepage": "https://github.com/silentport/silentport.github.io#readme",
+  "devDependencies": {
+    "github-as-image-server": "^1.0.1",
+    "koa": "^2.7.0"
+  }
+}
