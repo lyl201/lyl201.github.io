@@ -2,8 +2,9 @@ const Koa = require('koa');
 const app = new Koa();
 const githubAsImageServer = require('github-as-image-server');
 app.use(async (ctx, next) => {
+  await next();
   ctx.set('Access-Control-Allow-Origin', '*');
-  next();
+
 })
 app.use(
   githubAsImageServer({
