@@ -2,8 +2,9 @@ const Koa = require('koa');
 const app = new Koa();
 const githubAsImageServer = require('github-as-image-server');
 app.use(async (ctx, next) => {
-  await next();
+
   ctx.set('Access-Control-Allow-Origin', '*');
+  await next();
 
 })
 app.use(
@@ -16,10 +17,6 @@ app.use(
     router: '/upload', // 请求路由，请求非该指定路由时中间件将跳过
   })
 );
-
-app.use(async (ctx, next) => {
-  next()
-})
 
 app.listen(8002, () => {
   console.log('server is started at 8002!');
